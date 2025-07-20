@@ -1,0 +1,15 @@
+html,
+body,
+#root {
+  --main-color: #567ab8;
+  --second-color: #f3c87a;
+  --third-clolor: #ff5555;
+  --forths-color: #b85691;
+  --fifths-color: #56b883;
+  --final-color: #368543;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

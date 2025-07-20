@@ -1,0 +1,24 @@
+{
+  "chooseLanguageplz":"Please choose your language!",
+  "chooseLanguage":"Choose your language",
+  "submit":"send number",
+  "questionOtp":"Didn’t get the code?",
+  "ResendCode":"Resend code",
+  "sentOtp":"We have sent an OTP to Mobile number",
+  "enterOtp":"Please enter the code received below",
+  "welcome": "Welcome back, Glad to see you, Again",
+  "errorNumbre":"Check your number phone",
+  "errorOTP":"OTP code entered is wrong. Try Again!",
+  "succsessNumber":"check number has been succsessful",
+  "Mobile Number":"Mobile Number",
+  "login": "Login",
+  "createUser":"User created successfully",
+  "errorCreateUser":"An error occurred while creating user",
+       "welcomeRegister":"Welcome! Lets get You Registered",
+       "and":"and",
+       "Term & Conditions":"Terms & Conditions",
+       "By continuing you agree to Sahab":"By continuing you agree to Sahab"
+        ,"Privacy Policy.":"Privacy Policy.",
+      "Register":"Register",            "Verify":"Verify"
+
+}
