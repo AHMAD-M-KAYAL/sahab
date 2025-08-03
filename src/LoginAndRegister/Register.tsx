@@ -37,7 +37,7 @@ const Register = () => {
       setSuccsess(true);
       setTimeout(() => {
         setSuccsess(false);
-        navigate("/SentOTP");
+        navigate("/home");
       }, 2000); // أظهر الرسالة 2 ثانية ثم انتقل
     },
     onError: () => {
