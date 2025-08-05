@@ -10,5 +10,5 @@ export interface Category {
  export const useGetCategoriesByType = (type:string) =>
    { const { i18n } = useTranslation();
 
-return  useGetData<Category>("api/categories/type", { type:type,language:i18n.language });
+return  useGetData<Category[]>("api/categories/type", { type:type,language:i18n.language });
 }

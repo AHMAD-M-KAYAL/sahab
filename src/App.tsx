@@ -10,6 +10,9 @@ import Home from "./pages/Home";
 import { AllFeaturedPlaces } from "./pages/FeaturedPlaces/AllFeaturedPlaces";
 import { AllCategoriesServices } from "./pages/services proivded/AllCategoriesServices";
 import { AllCategoriesPlaces } from "./pages/CategoriesPlaces/AllCategoriesPlaces";
+// import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory";
+import { SelectCategoryPlaces } from "./pages/CategoriesPlaces/Places for one Category/SelectCategoryPlaces";
+import { SelectCategoryServices } from "./pages/services proivded/service for one Category/SelectCategoryServices";
 
 function App() {
   return (
@@ -24,12 +27,17 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/home/featured" element={<AllFeaturedPlaces />} />
         <Route
-          path="/home/CategoriesServices."
+          path="/home/CategoryServices."
           element={<AllCategoriesServices />}
         />
+        <Route path="/home/CategoryPlaces." element={<AllCategoriesPlaces />} />
         <Route
-          path="/home/CategoriesPlaces."
-          element={<AllCategoriesPlaces />}
+          path="/home/CategoryPlaces/places/:id"
+          element={<SelectCategoryPlaces />}
+        />
+        <Route
+          path="/home/CategorySevices/services/:id"
+          element={<SelectCategoryServices />}
         />
       </Routes>
     </BrowserRouter>

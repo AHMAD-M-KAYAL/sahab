@@ -5,12 +5,11 @@ import Typography from "@mui/joy/Typography";
 import { Box } from "@mui/material";
 import LocationIcon from "../../assets/logo/Location.svg";
 import StarIcon from "../../assets/logo/Star.svg";
-import { type FeaturedPlaces } from "../../hook/useGetFeaturedPlaces";
-import type { Places } from "../../hook/useGetPlacesForOneCategorie";
+import type { Service } from "../../hook/useGetServiceForOneCategory";
 interface Props {
-  Places: FeaturedPlaces | Places;
+  Service: Service;
 }
-export const PlacesCard2 = ({ Places }: Props) => {
+export const ServicesCard = ({ Service }: Props) => {
   return (
     <Card
       component="button"
@@ -44,11 +43,11 @@ export const PlacesCard2 = ({ Places }: Props) => {
           }}
         >
           <Typography sx={{ marginBottom: "5px" }} level="title-lg">
-            {Places.area}
+            {Service.title}
           </Typography>
           <Box sx={{ display: "flex", marginBottom: "5px" }}>
             <Box component="img" src={LocationIcon} />
-            <Typography level="body-xs"> {Places.address}</Typography>
+            <Typography level="body-xs"> {Service.price}</Typography>
           </Box>
           <Typography
             sx={{
@@ -58,25 +57,10 @@ export const PlacesCard2 = ({ Places }: Props) => {
             }}
             level="body-sm"
           >
-            Starting From {Places.weekday_price} KD
+            Starting From {Service.duration} KD
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
-          <Box
-            sx={{
-              marginRight: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "fit-content",
-              padding: "10px",
-              borderRadius: "10px",
-              fontWeight: 600,
-              backgroundColor: "#567ab88c",
-            }}
-          >
-            {Places.tag}
-          </Box>
           <Box
             sx={{
               marginRight: "10px",
@@ -91,7 +75,7 @@ export const PlacesCard2 = ({ Places }: Props) => {
             }}
           >
             <Box component="img" src={StarIcon} />
-            {Places.rating.substring(0, 3)}
+            {Service.rating.substring(0, 3)}
           </Box>
         </Box>
       </CardContent>

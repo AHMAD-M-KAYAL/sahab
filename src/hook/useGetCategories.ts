@@ -9,5 +9,5 @@ type:string
 }
 export const useGetCategories = () =>
     {  const { i18n } = useTranslation();
-   return useGetData<Category>("api/categories",{language:i18n.language})
+   return useGetData<Category[]>("api/categories",{language:i18n.language})
 }

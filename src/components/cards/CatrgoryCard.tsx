@@ -1,11 +1,20 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import type { Category } from "../../hook/useGetCategories";
+import { useNavigate } from "react-router-dom";
+
 interface Props {
   category: Category;
 }
 export const CatrgoryCard = ({ category }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <Box
+      onClick={() => {
+        console.log(category.id);
+        localStorage.setItem("CategoryType", category.title);
+        navigate(`/home/CategoryPlaces/places/${category.id}`);
+      }}
       component={Button}
       sx={{
         width: "30%",

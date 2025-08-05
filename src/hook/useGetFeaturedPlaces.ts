@@ -20,7 +20,7 @@ export interface FeaturedPlaces {
 export const useGetFeaturedPlaces = () => {
   const { i18n } = useTranslation();
 
-  return useGetData<FeaturedPlaces>("/api/places/featured/get", {
+  return useGetData<FeaturedPlaces[]>("/api/places/featured/get", {
      language: i18n.language,
   });
 };

@@ -29,9 +29,12 @@
                                 "Booking":"الحجز",
           "Home":"الصفخة الرئيسية",
           "Account":"إدارة الحساب",
-                    "Featured Locations":"المواقع المميزة"
-
-
+                    "Featured Locations":"المواقع المميزة",
+            "No Places To Show":"لا يوجد اماكن للعرض",
+  "All":"الكل",
+  "Family Only":"عائلات فقط",
+  "Girls Only":"نساء فقط",
+  "None":"بلا فلترة"
 
 
 }

@@ -52,7 +52,7 @@ export const AllCategoriesServices = () => {
           }}
         >
           {data?.map((ele) => (
-            <CatrgoryServicesCard category={ele} />
+            <CatrgoryServicesCard category={ele} key={ele.id} />
           ))}
         </Box>
       </Box>

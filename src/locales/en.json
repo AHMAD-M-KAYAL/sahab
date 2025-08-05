@@ -29,6 +29,10 @@
           "Booking":"Booking",
           "Home":"Home",
           "Account":"Account",
-          "Featured Locations":"Featured Locations"
+          "Featured Locations":"Featured Locations",
+"No Places To Show":"No Places To Show",
+  "All":"All",
+  "Family Only":"Family Only",
+  "Girls Only":"Girls Only",  "None":"None"
 
 }

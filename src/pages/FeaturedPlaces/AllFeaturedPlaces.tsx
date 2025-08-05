@@ -52,7 +52,7 @@ export const AllFeaturedPlaces = () => {
         >
           {data?.map((ele) => (
             //PlacesCard2 same FeaturedPlacesCard but with one dif to show data
-            <PlacesCard2 key={ele.id} featuredPlaces={ele} />
+            <PlacesCard2 key={ele.id} Places={ele} />
           ))}
         </Box>
       </Box>
