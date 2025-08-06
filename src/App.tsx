@@ -13,6 +13,7 @@ import { AllCategoriesPlaces } from "./pages/CategoriesPlaces/AllCategoriesPlace
 // import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory";
 import { SelectCategoryPlaces } from "./pages/CategoriesPlaces/Places for one Category/SelectCategoryPlaces";
 import { SelectCategoryServices } from "./pages/services proivded/service for one Category/SelectCategoryServices";
+import { PlacePage } from "./pages/PlacePage";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
         <Route
           path="/home/CategorySevices/services/:id"
           element={<SelectCategoryServices />}
+        />
+        <Route
+          path="/home/CategoryPlaces/places/placeDetailsPage/:id"
+          element={<PlacePage />}
         />
       </Routes>
     </BrowserRouter>

@@ -6,13 +6,15 @@ import Stack from "@mui/material/Stack";
 import { FeaturedPlacesHome } from "./FeaturedPlaces/FeaturedPlacesHome";
 import { CategoriesPlaces } from "./CategoriesPlaces/CategoriesPlaces";
 import { CategoriesServices } from "./services proivded/CategoriesServices";
+import { useGetHomePhotos } from "../hook/useGetHomePhotos";
 
 const Home = () => {
+  const { data } = useGetHomePhotos();
   return (
     <Box sx={{ backgroundColor: "#f9fafb" }}>
       <NavBar />
       <Box sx={{ marginTop: "20px", marginBottom: "20px" }}>
-        <CarouselPhotos />
+        <CarouselPhotos data={data ?? []} />
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>

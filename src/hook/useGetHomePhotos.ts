@@ -1,8 +1,8 @@
 import { useGetData } from "./useGetData";
-interface CarouselImg{
+export interface CarouselImg{
     id:number,
     image:string
 }
-export const useGetHomePhotos = () => useGetData<CarouselImg>("api/home-images",{})
+export const useGetHomePhotos = () => useGetData<CarouselImg[]>("api/home-images",{})
  
  

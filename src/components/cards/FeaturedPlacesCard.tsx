@@ -6,14 +6,19 @@ import { Box } from "@mui/material";
 import LocationIcon from "../../assets/logo/Location.svg";
 import StarIcon from "../../assets/logo/Star.svg";
 import { type FeaturedPlaces } from "../../hook/useGetFeaturedPlaces";
+import { useNavigate } from "react-router-dom";
 interface Props {
   featuredPlaces: FeaturedPlaces;
 }
 export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <Card
       onClick={() => {
-        console.log("clicked");
+        navigate(
+          `/home/CategoryPlaces/places/placeDetailsPage/${featuredPlaces.id}`
+        );
       }}
       component="button"
       color="neutral"

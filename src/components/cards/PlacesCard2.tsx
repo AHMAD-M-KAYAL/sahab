@@ -7,12 +7,18 @@ import LocationIcon from "../../assets/logo/Location.svg";
 import StarIcon from "../../assets/logo/Star.svg";
 import { type FeaturedPlaces } from "../../hook/useGetFeaturedPlaces";
 import type { Places } from "../../hook/useGetPlacesForOneCategorie";
+import { useNavigate } from "react-router-dom";
 interface Props {
   Places: FeaturedPlaces | Places;
 }
+
 export const PlacesCard2 = ({ Places }: Props) => {
+  const navigate = useNavigate();
   return (
     <Card
+      onClick={() => {
+        navigate(`/home/CategoryPlaces/places/placeDetailsPage/${Places.id}`);
+      }}
       component="button"
       color="neutral"
       size="md"

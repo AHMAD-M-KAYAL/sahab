@@ -1,7 +1,10 @@
-import { useGetHomePhotos } from "../hook/useGetHomePhotos";
+import type { CarouselImg } from "../hook/useGetHomePhotos";
+import type { PlaceImage } from "../hook/useGetOnePlaceDetails";
+interface Props {
+  data: CarouselImg[] | PlaceImage[]; //its same type but i put all to know for what we use it
+}
 
-const CarouselPhotos = () => {
-  const { data } = useGetHomePhotos();
+const CarouselPhotos = ({ data }: Props) => {
   return (
     <div
       id="carouselExampleInterval"
