@@ -1,11 +1,10 @@
-import CarouselPhotos from "../CarouselPhotos";
-import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 import { useParams } from "react-router-dom";
 import { Box, Divider } from "@mui/material";
-import StarIcon from "../../assets/logo/Star.svg";
-import testIcon from "../../assets/logo/IconTest.svg";
-import LocationIcon from "../../assets/logo/Location.svg";
-
+import StarIcon from "../../../assets/logo/Star.svg";
+import testIcon from "../../../assets/logo/IconTest.svg";
+import LocationIcon from "../../../assets/logo/Location.svg";
+import CarouselPhotos from "../../../components/CarouselPhotos";
+import { useGetOnePlaceDetails } from "../../../hook/useGetOnePlaceDetails";
 export const DetailsPlaceComponent = () => {
   const { id } = useParams();
   const { data } = useGetOnePlaceDetails(Number(id));
@@ -16,7 +15,7 @@ export const DetailsPlaceComponent = () => {
         <CarouselPhotos data={imagesFromApiForPlace} />
       )}
       <Box sx={{ paddingLeft: "50px", paddingTop: "30px" }}>
-        <Box sx={{ fontWeight: "800", fontSize: "40px" }}>{data?.area}</Box>
+        <Box sx={{ fontWeight: "800", fontSize: "40px" }}>{data?.title}</Box>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ fontWeight: "600", fontSize: "30px" }}>
             Starting From {data?.weekday_price}KD
@@ -55,7 +54,10 @@ export const DetailsPlaceComponent = () => {
         >
           {data?.amenities.map((ele) => {
             return (
-              <Box sx={{ width: "30%", display: "flex", paddingTop: "10px" }}>
+              <Box
+                key={ele.id}
+                sx={{ width: "30%", display: "flex", paddingTop: "10px" }}
+              >
                 <Box
                   sx={{
                     width: "40px",

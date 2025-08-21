@@ -1,5 +1,6 @@
 import type { CarouselImg } from "../hook/useGetHomePhotos";
 import type { PlaceImage } from "../hook/useGetOnePlaceDetails";
+import { baseURL } from "../services/api-client";
 interface Props {
   data: CarouselImg[] | PlaceImage[]; //its same type but i put all to know for what we use it
 }
@@ -36,12 +37,11 @@ const CarouselPhotos = ({ data }: Props) => {
             <img
               style={{
                 objectFit: "cover",
-                height: "300px",
+                height: "400px",
                 borderRadius: "10px",
+                aspectRatio: "16/9",
               }}
-              src={
-                "https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2"
-              }
+              src={baseURL + ele.image}
               className="d-block w-100"
               alt=""
             />

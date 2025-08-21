@@ -11,7 +11,7 @@ const NavBar = () => {
   const [selectedHome, setSelectedHome] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(false);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -29,6 +29,10 @@ const NavBar = () => {
           {t("Sahab")}
         </Box>
         <Input
+          onClick={() => {
+            console.log("clicked");
+            navigate("SearchPage");
+          }}
           color="neutral"
           placeholder="Search"
           size="lg"
@@ -47,7 +51,7 @@ const NavBar = () => {
             component="button"
             sx={{ color: selectedHome ? "var(--main-color)" : "#00000099" }}
             onClick={() => {
-              navigator("/Home");
+              navigate("/Home");
               setSelectedHome(true);
               setSelectedAccount(false);
               setSelectedBooking(false);
@@ -61,7 +65,7 @@ const NavBar = () => {
             component="button"
             sx={{ color: selectedBooking ? "var(--main-color)" : "#00000099" }}
             onClick={() => {
-              navigator("/Booking");
+              navigate("/Booking");
 
               setSelectedHome(false);
               setSelectedBooking(true);
@@ -76,7 +80,7 @@ const NavBar = () => {
             component="button"
             sx={{ color: selectedAccount ? "var(--main-color)" : "#00000099" }}
             onClick={() => {
-              navigator("/Account");
+              navigate("/Account");
 
               setSelectedHome(false);
               setSelectedBooking(false);

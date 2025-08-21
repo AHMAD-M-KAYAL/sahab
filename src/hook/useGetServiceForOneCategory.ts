@@ -1,12 +1,10 @@
- import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useGetData } from "./useGetData";
-// استخدمي ServiceImage بدلاً من Service_images
-export interface ServiceImage {
+ export interface ServiceImage {
   id: number;
   image: string;
   service_id: number;
 }
-
 export interface Service {
   id: number;
   price: number;
@@ -17,12 +15,10 @@ export interface Service {
   rating: string;
   service_images: ServiceImage[];
  }
-
 export interface FetchPlacesResult {
   current_page: number;
   data: Service[];
 }
-
 export interface ServicesApiResponse {
   data: {
     services: FetchPlacesResult;
@@ -30,13 +26,12 @@ export interface ServicesApiResponse {
     max_price: number;
   };
 }
-
- export const useGetServiceForOneCategory = (idForCategory:number,price:number ) => {
+ export const useGetServiceForOneCategory = (idForCategory:number,price:number ) =>
+   {
       const { i18n } = useTranslation();
- 
-      return useGetData<ServicesApiResponse> (`/api/categories/${idForCategory}/services/?page=1&min_price=${price}` ,{
-            id:idForCategory,
-         language: i18n.language,
-  });
-}
+      return useGetData<ServicesApiResponse>(`/api/categories/${idForCategory}/services/?page=1&min_price=${price}` 
+        ,{
+          id:idForCategory,
+         language: i18n.language,});
+    }
 

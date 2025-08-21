@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
 import BookingCard from "../components/cards/BookingCard";
-import { DetailsPlaceComponent } from "./CategoriesPlaces/Places for one Category/DetailsPlaceComponent";
-export const PlacePage = () => {
+import { DetailsServiceComponent } from "./services proivded/service for one Category/DetailsServiceComponent";
+export const ServicePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
-
   return (
     <>
       <nav
@@ -50,7 +49,7 @@ export const PlacePage = () => {
         sx={{ paddingTop: "30px", backgroundColor: "#f9fafb" }}
       >
         <Grid size={{ xs: 12, lg: 8 }}>
-          <DetailsPlaceComponent />
+          <DetailsServiceComponent />
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>
           <BookingCard />

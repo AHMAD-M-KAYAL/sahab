@@ -1,5 +1,10 @@
  import { useTranslation } from "react-i18next";
 import { useGetData } from "./useGetData";
+export interface PlaceImages {
+          id: number,
+        image: string,//url
+        place_id: number
+}
     export interface Places {
           id: number,
         weekday_price: number,
@@ -10,6 +15,8 @@ import { useGetData } from "./useGetData";
         tag: string,
         created_at: string,
         rating: string,
+                        place_images:PlaceImages[]
+        
       }
       export interface FetchPlacesResult {
           current_page: number,

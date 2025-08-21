@@ -11,9 +11,11 @@ import { AllFeaturedPlaces } from "./pages/FeaturedPlaces/AllFeaturedPlaces";
 import { AllCategoriesServices } from "./pages/services proivded/AllCategoriesServices";
 import { AllCategoriesPlaces } from "./pages/CategoriesPlaces/AllCategoriesPlaces";
 // import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory";
-import { SelectCategoryPlaces } from "./pages/CategoriesPlaces/Places for one Category/SelectCategoryPlaces";
-import { SelectCategoryServices } from "./pages/services proivded/service for one Category/SelectCategoryServices";
 import { PlacePage } from "./pages/PlacePage";
+import { PlacesForOneCategory } from "./pages/CategoriesPlaces/Places for one Category/PlacesForOneCategory";
+import { ServicesForOneCategory } from "./pages/services proivded/service for one Category/ServicesForOneCategory";
+import { ServicePage } from "./pages/ServicePage";
+import { SearchHome } from "./pages/SearchHome";
 
 function App() {
   return (
@@ -34,16 +36,21 @@ function App() {
         <Route path="/home/CategoryPlaces." element={<AllCategoriesPlaces />} />
         <Route
           path="/home/CategoryPlaces/places/:id"
-          element={<SelectCategoryPlaces />}
+          element={<PlacesForOneCategory />}
         />
         <Route
           path="/home/CategorySevices/services/:id"
-          element={<SelectCategoryServices />}
+          element={<ServicesForOneCategory />}
         />
         <Route
-          path="/home/CategoryPlaces/places/placeDetailsPage/:id"
+          path="/home/CategoryPlaces/places/DetailsPage/:id"
           element={<PlacePage />}
         />
+        <Route
+          path="/home/CategoriesServices/Service/DetailsPage/:id"
+          element={<ServicePage />}
+        />
+        <Route path="/home/SearchPage" element={<SearchHome />} />
       </Routes>
     </BrowserRouter>
   );

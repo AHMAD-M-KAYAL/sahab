@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Card from "@mui/joy/Card";
 import AspectRatio from "@mui/joy/AspectRatio";
 import CardContent from "@mui/joy/CardContent";
@@ -8,16 +9,18 @@ import StarIcon from "../../assets/logo/Star.svg";
 import { type FeaturedPlaces } from "../../hook/useGetFeaturedPlaces";
 import type { Places } from "../../hook/useGetPlacesForOneCategorie";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../../services/api-client";
 interface Props {
   Places: FeaturedPlaces | Places;
 }
 
 export const PlacesCard2 = ({ Places }: Props) => {
+  const firstImage = Places.place_images?.[0]?.image ?? "/fallback.png";
   const navigate = useNavigate();
   return (
     <Card
       onClick={() => {
-        navigate(`/home/CategoryPlaces/places/placeDetailsPage/${Places.id}`);
+        navigate(`/home/CategoryPlaces/places/DetailsPage/${Places.id}`);
       }}
       component="button"
       color="neutral"
@@ -34,11 +37,10 @@ export const PlacesCard2 = ({ Places }: Props) => {
       }}
     >
       <AspectRatio minHeight="120px" maxHeight="200px">
-        <img
-          src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-          srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
-          loading="lazy"
-          alt=""
+        <Box
+          component="img"
+          src={baseURL + firstImage}
+          sx={{ marginBottom: "10px" }}
         />
       </AspectRatio>
       <CardContent orientation="vertical">
@@ -50,7 +52,7 @@ export const PlacesCard2 = ({ Places }: Props) => {
           }}
         >
           <Typography sx={{ marginBottom: "5px" }} level="title-lg">
-            {Places.area}
+            {Places.title}
           </Typography>
           <Box sx={{ display: "flex", marginBottom: "5px" }}>
             <Box component="img" src={LocationIcon} />

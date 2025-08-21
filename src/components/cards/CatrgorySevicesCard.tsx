@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import type { Category } from "../../hook/useGetCategories";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../../services/api-client";
 interface Props {
   category: Category;
 }
@@ -31,7 +32,7 @@ export const CatrgoryServicesCard = ({ category }: Props) => {
         <CardContent>
           <Box
             component="img"
-            src={category.icon}
+            src={baseURL + category.icon}
             sx={{ marginBottom: "10px" }}
           />
           <Typography> {category.title}</Typography>

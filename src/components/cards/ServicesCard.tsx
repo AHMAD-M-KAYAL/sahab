@@ -3,15 +3,22 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import { Box } from "@mui/material";
-import LocationIcon from "../../assets/logo/Location.svg";
 import StarIcon from "../../assets/logo/Star.svg";
 import type { Service } from "../../hook/useGetServiceForOneCategory";
+import { baseURL } from "../../services/api-client";
+import { t } from "i18next";
+import { useNavigate } from "react-router-dom";
 interface Props {
   Service: Service;
 }
 export const ServicesCard = ({ Service }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <Card
+      onClick={() => {
+        navigate(`/home/CategoriesServices/Service/DetailsPage/${Service.id}`);
+      }}
       component="button"
       color="neutral"
       size="md"
@@ -28,8 +35,8 @@ export const ServicesCard = ({ Service }: Props) => {
     >
       <AspectRatio minHeight="120px" maxHeight="200px">
         <img
-          src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-          srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
+          src={baseURL + Service.service_images}
+          srcSet={baseURL + Service.service_images[0].image}
           loading="lazy"
           alt=""
         />
@@ -45,21 +52,24 @@ export const ServicesCard = ({ Service }: Props) => {
           <Typography sx={{ marginBottom: "5px" }} level="title-lg">
             {Service.title}
           </Typography>
-          <Box sx={{ display: "flex", marginBottom: "5px" }}>
-            <Box component="img" src={LocationIcon} />
-            <Typography level="body-xs"> {Service.price}</Typography>
-          </Box>
-          <Typography
+
+          <Box
             sx={{
-              paddingLeft: "5px",
-              marginBottom: "5px",
-              paddingRight: "5px",
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              marginBottom: "10px",
             }}
-            level="body-sm"
           >
-            Starting From {Service.duration} KD
-          </Typography>
+            <Typography level="body-sm">
+              Starting From {Service.price} KD
+            </Typography>
+            <Typography level="body-sm">
+              {t("duration")}:{Service.duration} {t("hour")}
+            </Typography>
+          </Box>
         </Box>
+
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
           <Box
             sx={{

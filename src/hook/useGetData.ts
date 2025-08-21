@@ -1,7 +1,5 @@
-// useGetData.ts
 import { useQuery } from '@tanstack/react-query'
 import apiClient from '../services/api-client'
-
 export const useGetData = <T>(endPoint: string, params: object) => {
   const { data, error, isLoading } = useQuery({
     queryKey: [endPoint, params],
@@ -11,3 +9,5 @@ export const useGetData = <T>(endPoint: string, params: object) => {
   });
   return { data, error, isLoading };
 }
+
+

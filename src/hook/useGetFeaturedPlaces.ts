@@ -15,8 +15,9 @@ export interface FeaturedPlaces {
     tag: string,
     created_at: string,
     rating: string,
-    place_images:PlaceImages[]
- }
+                place_images:PlaceImages[]
+    
+  }
 export const useGetFeaturedPlaces = () => {
   const { i18n } = useTranslation();
 

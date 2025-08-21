@@ -2,21 +2,23 @@ import { Box, Button } from "@mui/material";
 import { t } from "i18next";
 import IconBack from "../../../assets/logo/back.svg";
 import { useNavigate, useParams } from "react-router-dom";
-
-import { ServicesCard } from "../../../components/cards/ServicesCard";
 import {
-  useGetServiceForOneCategory,
-  type Service,
-} from "../../../hook/useGetServiceForOneCategory";
+  useGetPlacesForOneCategorie,
+  type Places,
+} from "../../../hook/useGetPlacesForOneCategorie";
+import { PlacesCard2 } from "../../../components/cards/PlacesCard2";
+import TagForm from "../../../components/cards/TagForm";
 import { useState } from "react";
 import SelectPrice from "../../../components/cards/SelectPrice";
-export const SelectCategoryServices = () => {
+export const PlacesForOneCategory = () => {
   const { id } = useParams(); // id is a string
   const navigate = useNavigate();
+  const [type, setType] = useState("none");
   const [price, setPrice] = useState(0);
-  const { data } = useGetServiceForOneCategory(Number(id), price);
-  const service = Array.isArray(data?.data?.services?.data)
-    ? data.data.services.data
+
+  const { data } = useGetPlacesForOneCategorie(Number(id), type, price);
+  const places = Array.isArray(data?.data?.places?.data)
+    ? data.data.places.data
     : [];
 
   const CategoryType = localStorage.getItem("CategoryType");
@@ -32,7 +34,7 @@ export const SelectCategoryServices = () => {
         <Box
           component={Button}
           onClick={() => {
-            navigate("/home/CategoryServices.");
+            navigate("/home/CategoryPlaces.");
           }}
           sx={{
             width: "10%",
@@ -52,19 +54,19 @@ export const SelectCategoryServices = () => {
             width: "80%",
           }}
         >
-          {t("Services we Provide")}/{CategoryType}
+          {t("Popular Categories")}/{CategoryType}
         </Box>
       </nav>
-      <Box sx={{ marginTop: "10px" }}>
-        <SelectPrice price={price} setPrice={setPrice} />
-      </Box>
       <Box
         sx={{
           display: "flex",
           margin: "10px",
           justifyContent: "space-between",
         }}
-      ></Box>
+      >
+        <TagForm type={type} setType={setType} />
+        <SelectPrice price={price} setPrice={setPrice} />
+      </Box>
       <Box sx={{ paddingTop: "20px" }}>
         <Box
           sx={{
@@ -73,11 +75,11 @@ export const SelectCategoryServices = () => {
             justifyContent: "space-evenly",
           }}
         >
-          {service.length > 0 &&
-            service.map((ele: Service) => (
-              <ServicesCard Service={ele} key={ele.id} />
+          {places.length > 0 &&
+            places.map((ele: Places) => (
+              <PlacesCard2 Places={ele} key={ele.id} />
             ))}
-          {service.length === 0 && (
+          {places.length === 0 && (
             <Box
               sx={{
                 color: "var(--main-color)",

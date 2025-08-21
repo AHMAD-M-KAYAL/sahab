@@ -14,17 +14,17 @@
   "login": "Login",
   "createUser":"User created successfully",
   "errorCreateUser":"An error occurred while creating user",
-       "welcomeRegister":"Welcome! Lets get You Registered",
-       "and":"and",
-       "Term & Conditions":"Terms & Conditions",
-       "By continuing you agree to Sahab":"By continuing you agree to Sahab"
-        ,"Privacy Policy.":"Privacy Policy.",
-      "Register":"Register",        
-          "Verify":"Verify",
-          "Popular Categories":"Popular Categories",
-          "View All":"View All",
-          "Services we Provide":"Services we Provide",
-          "Featured Places":"Featured Places",
+  "welcomeRegister":"Welcome! Lets get You Registered",
+  "and":"and",
+  "Term & Conditions":"Terms & Conditions",
+  "By continuing you agree to Sahab":"By continuing you agree to Sahab",
+  "Privacy Policy.":"Privacy Policy.",
+  "Register":"Register",        
+  "Verify":"Verify",
+  "Popular Categories":"Popular Categories",
+  "View All":"View All",
+  "Services we Provide":"Services we Provide",
+  "Featured Places":"Featured Places",
           "Sahab":"Sahab",
           "Booking":"Booking",
           "Home":"Home",
@@ -33,6 +33,8 @@
 "No Places To Show":"No Places To Show",
   "All":"All",
   "Family Only":"Family Only",
-  "Girls Only":"Girls Only",  "None":"None"
+  "Girls Only":"Girls Only",  "None":"None",
+  "Duration":"Duration",
+  "Hour":"Hour"
 
 }
