@@ -8,16 +8,30 @@ import Failed from "../message/Failed";
 import { useEffect, useState } from "react";
 import PhoneIcon from "../assets/logo/Combined Shape.svg";
 import OTPInput from "react-otp-input";
-interface Res {
-  is_registered: boolean;
+interface Message {
+  name: string;
 }
+interface Res {
+  message: Message;
+  is_registered: boolean;
+  token?: string; // ⭐ NEW: احتمال التوكن يكون في البودي
+  access_token?: string; // ⭐ NEW: أسماء شائعة أخرى
+}
+
 const SentOTP = () => {
   const phone = localStorage.getItem("userPhone") as string;
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  // ⭐ NEW: رجّع المستخدم لإدخال الرقم إذا حاول يفتح OTP مباشرة
+  useEffect(() => {
+    if (!phone) navigate("/SentNumber", { replace: true });
+  }, [phone, navigate]);
+
   const [timer, setTimer] = useState(3);
   const [enabled, setEnabled] = useState(false);
+
   useEffect(() => {
     if (timer === 0) {
       setEnabled(true);
@@ -28,6 +42,7 @@ const SentOTP = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [timer]);
+
   const formatTime = (sec: number) => {
     const m = Math.floor(sec / 60)
       .toString()
@@ -41,22 +56,60 @@ const SentOTP = () => {
 
   const mutation = useMutation({
     mutationKey: ["login"],
-    mutationFn: (data: { phone: string; code: string }) => {
-      return apiClient.post("api/users/login", data).then((res) => res.data);
-    },
-    onSuccess: (data: Res) => {
+    mutationFn: (payload: { phone: string; code: string }) =>
+      // ⭐ CHANGED: نرجّع data + headers لنلتقط التوكن من أي مكان
+      apiClient.post("api/users/login", payload).then((res) => ({
+        data: res.data as Res,
+        headers: res.headers as Record<string, string>,
+      })),
+
+    onSuccess: ({ data, headers }) => {
+      // ⭐ NEW: حاول التقط التوكن من البودي
+      let token =
+        data.token ||
+        data.access_token ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (data as any)?.data?.token ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (data as any)?.result?.token;
+
+      // ⭐ NEW: أو من الهيدر Authorization: Bearer <token>
+      const authHeader =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        headers?.authorization || (headers as any)?.Authorization;
+      if (
+        !token &&
+        typeof authHeader === "string" &&
+        authHeader.startsWith("Bearer ")
+      ) {
+        token = authHeader.slice(7);
+      }
+
+      // ⭐ NEW: خزّن التوكن قبل أي تنقّل
+      if (token) {
+        localStorage.setItem("token", token);
+      } else {
+        // احتياط مؤقت لو السيرفر ما بيرجع توكن (لا تعتمدي عليه بالإنتاج)
+        localStorage.setItem("token", "temp-token");
+        console.warn("No token found in response; using temp token.");
+      }
+
       setSuccsess(true);
       setTimeout(() => {
         setSuccsess(false);
-        if (data.is_registered) navigate("/Home");
-        else navigate("/Register");
-      }, 2000); // أظهر الرسالة 2 ثانية ثم انتقل
+
+        if (data.is_registered) {
+          localStorage.setItem("userName", data.message.name);
+          navigate("/home", { replace: true }); // ⭐ CHANGED: تأكدنا على /home
+        } else {
+          navigate("/Register", { replace: true });
+        }
+      }, 1500);
     },
+
     onError: () => {
       setFailed(true);
-      setTimeout(() => {
-        setFailed(false);
-      }, 3000);
+      setTimeout(() => setFailed(false), 3000);
     },
   });
 
@@ -66,8 +119,13 @@ const SentOTP = () => {
       alert("OTP must be exactly 4 digits!");
       return;
     }
+    if (!phone) {
+      navigate("/SentNumber", { replace: true }); // ⭐ NEW: أمان إضافي
+      return;
+    }
     mutation.mutate({ phone, code: otp });
   };
+
   return (
     <Box
       onSubmit={handleSubmit}
@@ -83,11 +141,9 @@ const SentOTP = () => {
       <Box
         component="img"
         src={PhoneIcon}
-        sx={{
-          width: { xs: 70, md: 250 }, // أو أي حجم بدك إياه (مثلاً 32px)
-          height: { xs: 70, md: 250 },
-        }}
+        sx={{ width: { xs: 70, md: 250 }, height: { xs: 70, md: 250 } }}
       />
+
       <Box
         sx={{
           fontFamily: "Poppins",
@@ -97,6 +153,7 @@ const SentOTP = () => {
       >
         {t("sentOtp")}
       </Box>
+
       <Box
         sx={{
           direction: "ltr",
@@ -117,6 +174,7 @@ const SentOTP = () => {
       >
         {t("enterOtp")}
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -140,7 +198,9 @@ const SentOTP = () => {
           renderInput={(props) => <input {...props} />}
         />
       </Box>
+
       <Box>({formatTime(timer)})</Box>
+
       {enabled && (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box>{t("questionOtp")}</Box>
@@ -155,14 +215,17 @@ const SentOTP = () => {
                 backgroundColor: "white",
               },
             }}
+            // onClick={() => resendOtp(phone)} // ممكن تضيفي API لإعادة الإرسال
           >
             {t("ResendCode")}
           </Button>
         </Box>
       )}
+
       <Button
         type="submit"
         variant="contained"
+        disabled={mutation.isPending} // ⭐ NEW: منع النقر المزدوج
         sx={{
           width: { xs: "200px", md: "300px", lg: "400px" },
           marginTop: "5px",
@@ -171,8 +234,9 @@ const SentOTP = () => {
           backgroundColor: "var(--main-color)",
         }}
       >
-        {t("Verify")}
+        {mutation.isPending ? t("loading") : t("Verify")}
       </Button>
+
       {succsess && <Succsess seccsessfulMessage={t("succsessNumber")} />}
       {failed && <Failed errorMessage={t("errorOTP")} />}
     </Box>

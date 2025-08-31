@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import { FeaturedPlacesHome } from "./FeaturedPlaces/FeaturedPlacesHome";
 import { CategoriesPlaces } from "./CategoriesPlaces/CategoriesPlaces";
-import { CategoriesServices } from "./services proivded/CategoriesServices";
+import { CategoriesServices } from "./ServiceProivded/CategoriesServices";
 import { useGetHomePhotos } from "../hook/useGetHomePhotos";
 
 const Home = () => {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
 import BookingCard from "../components/cards/BookingCard";
-import { DetailsServiceComponent } from "./services proivded/service for one Category/DetailsServiceComponent";
+import { DetailsServiceComponent } from "./ServiceProivded/ServiceForOneCategory/DetailsServiceComponent";
 export const ServicePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
