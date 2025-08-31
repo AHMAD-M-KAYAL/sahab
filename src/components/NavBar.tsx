@@ -3,11 +3,12 @@ import SearchIcon from "../assets/logo/Search.svg";
 import Box from "@mui/material/Box";
 import Link from "@mui/joy/Link";
 import { useNavigate, useLocation } from "react-router-dom";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   const isActive = (path: string) => pathname.toLowerCase().startsWith(path);
 

@@ -17,10 +17,12 @@ import { ServicePage } from "./pages/ServicePage";
 import { SearchHome } from "./pages/SearchHome";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
+import DirectionController from "./DirectionController";
 
 function App() {
   return (
     <BrowserRouter>
+      <DirectionController />
       <Routes>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/Language" element={<Language />} />

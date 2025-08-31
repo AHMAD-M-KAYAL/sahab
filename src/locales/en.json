@@ -35,6 +35,8 @@
   "Family Only":"Family Only",
   "Girls Only":"Girls Only",  "None":"None",
   "Duration":"Duration",
-  "Hour":"Hour"
+  "Hour":"Hour","Notification":"Notification"
+
+
 
 }
