@@ -179,7 +179,13 @@ export const Support = () => {
 
       {/* Logout (أحمر) */}
       <Box
-        component="button"
+        // خليه عنصر عادي + أعطيه دور "زر"
+        role="button"
+        tabIndex={0}
+        onClick={handleLogout}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") handleLogout();
+        }}
         sx={{
           ...buttonSx,
           backgroundColor: "#fee2e2",
@@ -188,6 +194,7 @@ export const Support = () => {
             backgroundColor: "#fca5a5",
             borderColor: "#ef4444",
             "& .arrowIcon": { color: "#fff" },
+            cursor: "pointer",
           },
         }}
       >
@@ -195,10 +202,8 @@ export const Support = () => {
           <IconBox bg="#fecaca">
             <LogoutIcon sx={{ color: "#dc2626", fontSize: 28 }} />
           </IconBox>
-          <Box
-            onClick={handleLogout}
-            sx={{ fontSize: "18px", fontWeight: 600, color: "#b91c1c" }}
-          >
+          {/* شيل onClick من هون */}
+          <Box sx={{ fontSize: "18px", fontWeight: 600, color: "#b91c1c" }}>
             Logout
           </Box>
         </Box>
