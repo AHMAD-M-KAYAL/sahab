@@ -18,6 +18,7 @@ import { SearchHome } from "./pages/SearchHome";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DirectionController from "./DirectionController";
+import EditAccount from "./pages/AccountPage/EditAccount";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           />
           <Route path="/home/SearchPage" element={<SearchHome />} />
           <Route path="/Account" element={<AccountPage />} />
+          <Route path="/EditAccount" element={<EditAccount />} />
         </Route>
       </Routes>
     </BrowserRouter>

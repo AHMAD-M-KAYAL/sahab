@@ -5,6 +5,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 // أيقونات
 import ArticleIcon from "@mui/icons-material/Article"; // Edit + My Posts
 import EventSeatIcon from "@mui/icons-material/EventSeat"; // Reservations
+import { useNavigate } from "react-router-dom";
 
 export const Account = () => {
   // ستايل الأزرار
@@ -26,6 +27,7 @@ export const Account = () => {
       "& .arrowIcon": { color: "#000000" },
     },
   };
+  const navigate = useNavigate();
 
   // مربع الأيقونة
   const IconBox = ({ children }: { children: React.ReactNode }) => (
@@ -63,7 +65,13 @@ export const Account = () => {
       </Box>
 
       {/* Edit Account */}
-      <Box component="button" sx={buttonSx}>
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("/EditAccount");
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <ArticleIcon sx={{ color: "#1976d2", fontSize: 28 }} />

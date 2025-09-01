@@ -10,6 +10,7 @@ import PhoneIcon from "../assets/logo/Combined Shape.svg";
 import OTPInput from "react-otp-input";
 interface Message {
   name: string;
+  id: number;
 }
 interface Res {
   message: Message;
@@ -99,6 +100,7 @@ const SentOTP = () => {
         setSuccsess(false);
 
         if (data.is_registered) {
+          localStorage.setItem("id", data.message.id.toString());
           localStorage.setItem("userName", data.message.name);
           navigate("/home", { replace: true }); // ⭐ CHANGED: تأكدنا على /home
         } else {
