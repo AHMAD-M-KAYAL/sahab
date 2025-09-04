@@ -33,12 +33,20 @@ const Register = () => {
     mutationFn: (data: registerSchemaFormData) => {
       return apiClient.post("api/users", data).then((res) => res.data);
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      const nameToSave = variables?.name || ""; // احتياط لو صار شيء
+
+      localStorage.setItem("userName", nameToSave);
+
+      // (اختياري) لو السيرفر رجّع توكن خزّنيه
+      const token = _data?.token || _data?.access_token || _data?.data?.token;
+      if (token) localStorage.setItem("token", token);
+
       setSuccsess(true);
       setTimeout(() => {
         setSuccsess(false);
         navigate("/home");
-      }, 2000); // أظهر الرسالة 2 ثانية ثم انتقل
+      }, 2000);
     },
     onError: () => {
       setFailed(true);

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
 import BookingCard from "../components/cards/BookingCard";
-import { DetailsPlaceComponent } from "./CategoriesPlaces/Places for one Category/DetailsPlaceComponent";
+import { DetailsPlaceComponent } from "./CategoriesPlaces/PlacesForOneCategory/DetailsPlaceComponent";
 export const PlacePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");

@@ -2,16 +2,15 @@ import Input from "@mui/joy/Input";
 import SearchIcon from "../assets/logo/Search.svg";
 import Box from "@mui/material/Box";
 import Link from "@mui/joy/Link";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { t } from "i18next";
 const NavBar = () => {
-  // valid to toggle color
-  const [selectedHome, setSelectedHome] = useState(true);
-  const [selectedAccount, setSelectedAccount] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { t } = useTranslation();
+
+  const isActive = (path: string) => pathname.toLowerCase().startsWith(path);
 
   return (
     <nav
@@ -28,63 +27,53 @@ const NavBar = () => {
         >
           {t("Sahab")}
         </Box>
+
         <Input
-          onClick={() => {
-            console.log("clicked");
-            navigate("SearchPage");
+          onKeyDown={(e) => {
+            if (e.key === "Enter")
+              navigate(
+                `/SearchPage?query=${(e.target as HTMLInputElement).value}`
+              );
           }}
-          color="neutral"
           placeholder="Search"
           size="lg"
           variant="outlined"
           endDecorator={<Box component="img" src={SearchIcon} />}
           sx={{ borderRadius: "50px", width: "50%" }}
         />
+
         <Box
-          sx={{
-            display: "flex",
-            width: "30%",
-            justifyContent: "space-evenly",
-          }}
+          sx={{ display: "flex", width: "30%", justifyContent: "space-evenly" }}
         >
           <Link
             component="button"
-            sx={{ color: selectedHome ? "var(--main-color)" : "#00000099" }}
-            onClick={() => {
-              navigate("/Home");
-              setSelectedHome(true);
-              setSelectedAccount(false);
-              setSelectedBooking(false);
+            onClick={() => navigate("/Home")}
+            sx={{
+              color: isActive("/home") ? "var(--main-color)" : "#00000099",
             }}
             underline="none"
             color="neutral"
           >
             {t("Home")}
           </Link>
+
           <Link
             component="button"
-            sx={{ color: selectedBooking ? "var(--main-color)" : "#00000099" }}
-            onClick={() => {
-              navigate("/Booking");
-
-              setSelectedHome(false);
-              setSelectedBooking(true);
-              setSelectedAccount(false);
+            onClick={() => navigate("/Booking")}
+            sx={{
+              color: isActive("/booking") ? "var(--main-color)" : "#00000099",
             }}
             underline="none"
             color="neutral"
           >
             {t("Booking")}
           </Link>
+
           <Link
             component="button"
-            sx={{ color: selectedAccount ? "var(--main-color)" : "#00000099" }}
-            onClick={() => {
-              navigate("/Account");
-
-              setSelectedHome(false);
-              setSelectedBooking(false);
-              setSelectedAccount(true);
+            onClick={() => navigate("/Account")}
+            sx={{
+              color: isActive("/account") ? "var(--main-color)" : "#00000099",
             }}
             underline="none"
             color="neutral"
