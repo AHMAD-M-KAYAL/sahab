@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
 import BookingCard from "../components/cards/BookingCard";
@@ -7,7 +7,8 @@ import { DetailsPlaceComponent } from "./CategoriesPlaces/Places for one Categor
 export const PlacePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
-
+  const { id } = useParams();
+  
   return (
     <>
       <nav
@@ -53,7 +54,7 @@ export const PlacePage = () => {
           <DetailsPlaceComponent />
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>
-          <BookingCard />
+          <BookingCard route={`/places/book/${id}`}/>
         </Grid>
       </Grid>
     </>

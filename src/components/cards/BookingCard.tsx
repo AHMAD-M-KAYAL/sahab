@@ -2,12 +2,17 @@ import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import { Button, Divider } from "@mui/material";
 import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function BookingCard() {
+interface Props {
+  route: string;
+}
+
+export default function BookingCard({route}:Props) {
   const { id } = useParams();
   const { data } = useGetOnePlaceDetails(Number(id));
-
+  const navigate = useNavigate();
+  
   return (
     <Card
       variant="solid"
@@ -55,6 +60,7 @@ export default function BookingCard() {
       <Divider sx={{ my: 1, borderBottomWidth: 1, bgcolor: "primary.main" }} />
       <Button
         disabled={data?.bookable === 0}
+        onClick={()=> {navigate(route)}}
         sx={{
           color: "white",
           backgroundColor: data?.bookable === 0 ? "#b0b0b0" : "#18181b",

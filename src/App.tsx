@@ -16,6 +16,10 @@ import { PlacesForOneCategory } from "./pages/CategoriesPlaces/Places for one Ca
 import { ServicesForOneCategory } from "./pages/services proivded/service for one Category/ServicesForOneCategory";
 import { ServicePage } from "./pages/ServicePage";
 import { SearchHome } from "./pages/SearchHome";
+import PlaceBooking from "./pages/PlaceBooking/PlaceBooking";
+import PlaceBookingCheckout from "./pages/PlaceBooking/Checkout";
+import ServicesBooking from "./pages/ServiceBooking/ServiceBooking";
+import ServiceBookingCheckout from "./pages/ServiceBooking/Checkout";
 
 function App() {
   return (
@@ -49,6 +53,22 @@ function App() {
         <Route
           path="/home/CategoriesServices/Service/DetailsPage/:id"
           element={<ServicePage />}
+        />
+         <Route
+          path="/places/book/:id"
+          element={<PlaceBooking />}
+        />
+        <Route
+          path="/places/book/:id/checkout"
+          element={<PlaceBookingCheckout />}
+        />
+        <Route
+          path="/services/book/:id/"
+          element={<ServicesBooking />}
+        />
+         <Route
+          path="/services/book/:id/checkout"
+          element={<ServiceBookingCheckout />}
         />
         <Route path="/home/SearchPage" element={<SearchHome />} />
       </Routes>
