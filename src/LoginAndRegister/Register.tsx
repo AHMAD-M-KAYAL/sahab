@@ -34,23 +34,22 @@ const Register = () => {
       return apiClient.post("api/users", data).then((res) => res.data);
     },
     onSuccess: (_data, variables) => {
-      const api = _data?.data ?? _data;
-      const user = api?.user ?? api?.message ?? api;
+      const user = _data?.user;
 
-      const id = String(user?.id ?? api?.id ?? "");
+      const id = String(user?.id);
       if (id) localStorage.setItem("id", id);
+      console.log("API response:", _data);
 
       const name = variables?.name ?? user?.name ?? "";
       const email = variables?.email ?? user?.email ?? "";
       const phone = variables?.phone ?? localStorage.getItem("userPhone") ?? "";
-      const image = user?.image ?? "";
 
       localStorage.setItem("userName", name);
       localStorage.setItem("email", email);
       localStorage.setItem("userPhone", phone);
-      if (image) localStorage.setItem("image", image);
+      if (user?.image) localStorage.setItem("image", user?.image);
 
-      const token = api?.token || api?.access_token || api?.data?.token;
+      const token = _data.token;
       if (token) localStorage.setItem("token", token);
 
       setSuccsess(true);
