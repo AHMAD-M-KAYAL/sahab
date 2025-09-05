@@ -113,7 +113,13 @@ export const Support = () => {
       </Box>
 
       {/* About Sahab */}
-      <Box component="button" sx={buttonSx}>
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("About");
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <InfoIcon sx={{ color: "#374151", fontSize: 28 }} />
@@ -130,7 +136,13 @@ export const Support = () => {
       </Box>
 
       {/* Privacy Policy */}
-      <Box component="button" sx={buttonSx}>
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("Privacy");
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <PrivacyTipIcon sx={{ color: "#374151", fontSize: 28 }} />
@@ -147,7 +159,13 @@ export const Support = () => {
       </Box>
 
       {/* Terms & Conditions */}
-      <Box component="button" sx={buttonSx}>
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("Terms");
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <GavelIcon sx={{ color: "#374151", fontSize: 28 }} />
@@ -164,7 +182,13 @@ export const Support = () => {
       </Box>
 
       {/* Contacts us */}
-      <Box component="button" sx={buttonSx}>
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("ContactsUs");
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <ContactMailIcon sx={{ color: "#374151", fontSize: 28 }} />

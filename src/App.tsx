@@ -19,6 +19,8 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DirectionController from "./DirectionController";
 import EditAccount from "./pages/AccountPage/EditAccount";
+import StaticContents from "./pages/AccountPage/StaticContents";
+import ContactUs from "./pages/AccountPage/ContactUs";
 
 function App() {
   return (
@@ -60,6 +62,19 @@ function App() {
           <Route path="/home/SearchPage" element={<SearchHome />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/EditAccount" element={<EditAccount />} />
+          <Route
+            path="/Account/About"
+            element={<StaticContents title="about" text=" About Sahab" />}
+          />
+          <Route
+            path="/Account/Privacy"
+            element={<StaticContents title="privacy" text=" Privacy Policy" />}
+          />
+          <Route
+            path="/Account/Terms"
+            element={<StaticContents title="Terms" text="Terms & Conditions" />}
+          />
+          <Route path="/Account/ContactsUs" element={<ContactUs />} />
         </Route>
       </Routes>
     </BrowserRouter>
