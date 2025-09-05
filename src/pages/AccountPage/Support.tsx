@@ -76,6 +76,9 @@ export const Support = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("userPhone");
       localStorage.removeItem("userName");
+      localStorage.removeItem("id");
+      localStorage.removeItem("image");
+      localStorage.removeItem("email");
 
       // رجّع المستخدم لصفحة تسجيل الدخول
       navigate("/SentNumber");

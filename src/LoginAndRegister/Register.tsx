@@ -34,12 +34,23 @@ const Register = () => {
       return apiClient.post("api/users", data).then((res) => res.data);
     },
     onSuccess: (_data, variables) => {
-      const nameToSave = variables?.name || ""; // احتياط لو صار شيء
+      const api = _data?.data ?? _data;
+      const user = api?.user ?? api?.message ?? api;
 
-      localStorage.setItem("userName", nameToSave);
+      const id = String(user?.id ?? api?.id ?? "");
+      if (id) localStorage.setItem("id", id);
 
-      // (اختياري) لو السيرفر رجّع توكن خزّنيه
-      const token = _data?.token || _data?.access_token || _data?.data?.token;
+      const name = variables?.name ?? user?.name ?? "";
+      const email = variables?.email ?? user?.email ?? "";
+      const phone = variables?.phone ?? localStorage.getItem("userPhone") ?? "";
+      const image = user?.image ?? "";
+
+      localStorage.setItem("userName", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("userPhone", phone);
+      if (image) localStorage.setItem("image", image);
+
+      const token = api?.token || api?.access_token || api?.data?.token;
       if (token) localStorage.setItem("token", token);
 
       setSuccsess(true);

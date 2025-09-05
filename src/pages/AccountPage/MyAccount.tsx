@@ -1,9 +1,11 @@
 import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import { baseURL } from "../../services/api-client";
 
 export const MyAccount = () => {
   const userName = localStorage.getItem("userName");
   const userPhone = localStorage.getItem("userPhone");
+  const userImage = localStorage.getItem("image");
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", padding: "20px" }}>
@@ -20,7 +22,7 @@ export const MyAccount = () => {
       <Box sx={{ display: "flex", marginTop: "20px" }}>
         <Avatar
           alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
+          src={baseURL + userImage}
           sx={{ width: 80, height: 80 }}
         />
         <Box sx={{ margin: "3px 40px" }}>

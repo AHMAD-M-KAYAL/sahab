@@ -11,12 +11,13 @@ import OTPInput from "react-otp-input";
 interface Message {
   name: string;
   id: number;
+  image: string;
+  email: string;
 }
 interface Res {
   message: Message;
   is_registered: boolean;
   token?: string; // ⭐ NEW: احتمال التوكن يكون في البودي
-  access_token?: string; // ⭐ NEW: أسماء شائعة أخرى
 }
 
 const SentOTP = () => {
@@ -68,7 +69,6 @@ const SentOTP = () => {
       // ⭐ NEW: حاول التقط التوكن من البودي
       let token =
         data.token ||
-        data.access_token ||
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (data as any)?.data?.token ||
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,10 +89,6 @@ const SentOTP = () => {
       // ⭐ NEW: خزّن التوكن قبل أي تنقّل
       if (token) {
         localStorage.setItem("token", token);
-      } else {
-        // احتياط مؤقت لو السيرفر ما بيرجع توكن (لا تعتمدي عليه بالإنتاج)
-        localStorage.setItem("token", "temp-token");
-        console.warn("No token found in response; using temp token.");
       }
 
       setSuccsess(true);
@@ -100,6 +96,8 @@ const SentOTP = () => {
         setSuccsess(false);
 
         if (data.is_registered) {
+          localStorage.setItem("email", data.message.email);
+          localStorage.setItem("image", data.message.image);
           localStorage.setItem("id", data.message.id.toString());
           localStorage.setItem("userName", data.message.name);
           navigate("/home", { replace: true }); // ⭐ CHANGED: تأكدنا على /home
