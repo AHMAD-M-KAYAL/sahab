@@ -27,21 +27,18 @@ const NavBar = () => {
         >
           {t("Sahab")}
         </Box>
-
         <Input
-          onKeyDown={(e) => {
-            if (e.key === "Enter")
-              navigate(
-                `/SearchPage?query=${(e.target as HTMLInputElement).value}`
-              );
+          onClick={() => {
+            console.log("clicked");
+            navigate("SearchPage");
           }}
+          color="neutral"
           placeholder="Search"
           size="lg"
           variant="outlined"
           endDecorator={<Box component="img" src={SearchIcon} />}
           sx={{ borderRadius: "50px", width: "50%" }}
         />
-
         <Box
           sx={{ display: "flex", width: "30%", justifyContent: "space-evenly" }}
         >

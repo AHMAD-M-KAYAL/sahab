@@ -8,7 +8,7 @@ import { MyAccount } from "./MyAccount";
 import MySetting from "./MySetting";
 import { Account } from "./Account";
 import { Support } from "./Support";
-import StatsCards from "./StatsCards";
+// import StatsCards from "./StatsCards";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -30,7 +30,7 @@ export default function AccountPage() {
             <Item>
               <MyAccount />
             </Item>
-            <StatsCards />
+            {/* <StatsCards /> */}
             <Item>
               <MySetting />
             </Item>

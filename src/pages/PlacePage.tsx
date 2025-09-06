@@ -1,13 +1,12 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
-import BookingCard from "../components/cards/BookingCard";
 import { DetailsPlaceComponent } from "./CategoriesPlaces/PlacesForOneCategory/DetailsPlaceComponent";
+import BookingCardCategory from "../components/cards/BookingCardCategory";
 export const PlacePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
-  const { id } = useParams();
   
   return (
     <>
@@ -54,7 +53,7 @@ export const PlacePage = () => {
           <DetailsPlaceComponent />
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>
-          <BookingCard route={`/places/book/${id}`}/>
+          <BookingCardCategory />
         </Grid>
       </Grid>
     </>

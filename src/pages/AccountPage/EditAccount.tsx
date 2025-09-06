@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../services/api-client";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField, Avatar, ButtonBase } from "@mui/material";
@@ -73,8 +73,11 @@ function UploadAvatar({
 const EditAccount = () => {
   const userName = localStorage.getItem("userName") ?? "";
   const userPhone = localStorage.getItem("userPhone") ?? "";
-  const userEmail = localStorage.getItem("userEmail") ?? "";
+  const userEmail = localStorage.getItem("email") ?? "";
+  // const userImage = localStorage.getItem("image") ?? "";
   const id = localStorage.getItem("id");
+  const queryClient = useQueryClient();
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -89,7 +92,6 @@ const EditAccount = () => {
       name: userName,
       phone: userPhone,
       email: userEmail,
-      // لا تضيف image هنا لأنه FileList
     },
   });
 
@@ -101,23 +103,34 @@ const EditAccount = () => {
   const mutation = useMutation({
     mutationKey: ["EditAccount"],
     mutationFn: (formData: FormData) =>
-      apiClient
-        // إذا API التعديل عندك PUT/PATCH، بدّلي هذه إلى put/patch
-        .post(`/api/users/${id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => res.data),
+      apiClient.post(`/api/users/${id}`, formData).then((res) => res.data),
 
     onSuccess: (_data, variables) => {
       // variables هو FormData
       const submittedName = (variables.get("name") as string) || "";
       localStorage.setItem("userName", submittedName);
 
-      const token = _data?.token || _data?.access_token || _data?.data?.token;
+      const token = _data?.token;
       if (token) localStorage.setItem("token", token);
+      const api = _data?.data ?? _data; // دعم شكلين شائعين
+
+      const message = api?.message ?? api; // أحيانًا تحت message
+
+      const imageUrl =
+        message?.user?.image ??
+        message?.image ??
+        api?.user?.image ??
+        api?.image ??
+        null;
+
+      if (imageUrl) {
+        localStorage.setItem("image", String(imageUrl));
+      }
+      queryClient.invalidateQueries({ queryKey: ["me"] });
 
       setSuccsess(true);
       setTimeout(() => setSuccsess(false), 2000);
+      navigate("/Account");
     },
 
     onError: () => {
@@ -160,12 +173,10 @@ const EditAccount = () => {
       formData.append("image", avatarFile);
     }
     mutation.mutate(formData);
-    navigate("/Account");
   };
 
   return (
     <>
-      {" "}
       <nav
         className="navbar"
         style={{
@@ -244,6 +255,8 @@ const EditAccount = () => {
           {...register("phone")}
           id="phone"
           label="phone"
+          value={userPhone}
+          disabled
           type="text"
           sx={{ width: { xs: "200px", md: "300px", lg: "400px" } }}
         />

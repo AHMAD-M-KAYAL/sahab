@@ -26,9 +26,9 @@ export const SearchHome = () => {
   // جلب البيانات
   const { data: PlacesData } = useGetSearchPlaces(searchTitle);
   const { data: ServiceData } = useGetSearchServices(searchTitle);
-
+  console.log(PlacesData);
   const PlacesResult = PlacesData ?? []; // لو API يرجع مصفوفة مباشرة
-  const ServiceResult = ServiceData?.data?.services?.data ?? []; // لو API يرجع كائن متداخل
+  const ServiceResult = ServiceData ?? [];
 
   // للتأكد من التغييرات
   useEffect(() => {
@@ -151,7 +151,8 @@ export const SearchHome = () => {
               ))
             ) : (
               <Box sx={{ fontSize: "20px", color: "gray" }}>
-                No services found
+                {" "}
+                No services found{" "}
               </Box>
             )}
           </Box>
