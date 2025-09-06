@@ -15,6 +15,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate, useParams } from "react-router";
 import { useGetBookingDates } from "../../hook/useGetBookingDates";
+import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 
 interface DateRange {
   start: Date | null;
@@ -27,6 +28,11 @@ const startOfDay = (d: Date) => {
   return x;
 };
 
+const isWeekend = (d: Date) => {
+  const day = d.getDay();
+  return day === 5 || day === 6; // Friday/Saturday
+};
+
 const parseYmdLocal = (s: string) => {
   const [y, m, d] = s.split("-").map(Number);
   return new Date(y, (m ?? 1) - 1, d ?? 1);
@@ -35,6 +41,8 @@ const parseYmdLocal = (s: string) => {
 export default function PlaceBooking() {
   const { id } = useParams();
   const { data: disabledDaysFromApi = [] } = useGetBookingDates(Number(id));
+
+  const { data: placeDetails } = useGetOnePlaceDetails(Number(id));
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedRange, setSelectedRange] = useState<DateRange>({
@@ -162,7 +170,39 @@ export default function PlaceBooking() {
     return Math.ceil((Math.max(a, b) - Math.min(a, b)) / (1000 * 60 * 60 * 24));
   }, [selectedRange]);
 
+  const totalPrice = useMemo(() => {
+    if (!selectedRange.start || !selectedRange.end) return 0;
+
+    const start = startOfDay(
+      selectedRange.start < selectedRange.end
+        ? selectedRange.start
+        : selectedRange.end
+    );
+    const end = startOfDay(
+      selectedRange.start < selectedRange.end
+        ? selectedRange.end
+        : selectedRange.start
+    );
+
+    let sum = 0;
+    // iterate nights: start (inclusive) -> end (exclusive)
+    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+      sum += isWeekend(d)
+        ? placeDetails?.weekend_price ?? 0
+        : placeDetails?.weekday_price ?? 0;
+    }
+    return sum;
+  }, [selectedRange, placeDetails?.weekday_price, placeDetails?.weekend_price]);
+
   const navigate = useNavigate();
+
+  const goToCheckout = ()=>{
+    localStorage.setItem("nights", JSON.stringify(nights))
+    localStorage.setItem("startDate", String(selectedRange.start))
+    localStorage.setItem("endDate", String(selectedRange.end))
+    localStorage.setItem("totalPrice", String(totalPrice))
+    navigate(`/places/book/${id}/checkout`)
+  }
 
   return (
     <Box
@@ -272,15 +312,11 @@ export default function PlaceBooking() {
                               fontWeight: 600,
 
                               // 👇 color logic
-                              color: isDisabled(date)
-                                ? "error.main"
-                                : isDateSelected(date)
+                              color: isDateSelected(date)
                                 ? "primary.contrastText"
                                 : "text.primary",
 
-                              bgcolor: isDisabled(date)
-                                ? "error.light" // gray background for booked days
-                                : isDateSelected(date)
+                              bgcolor: isDateSelected(date)
                                 ? "primary.main"
                                 : isDateInRange(date)
                                 ? "action.hover"
@@ -358,7 +394,7 @@ export default function PlaceBooking() {
                       مبلغ الحجز
                     </Typography>
                     <Typography variant="h5" fontWeight={800} color="primary">
-                      KD 0.000
+                      KD {totalPrice.toFixed(3)}
                     </Typography>
                   </Box>
                   <Button
@@ -367,7 +403,7 @@ export default function PlaceBooking() {
                     fullWidth
                     disabled={!selectedRange.start || !selectedRange.end}
                     sx={{ py: 1.5, fontSize: 16, fontWeight: 700 }}
-                    onClick={()=> {navigate(`/places/book/${id}/checkout`)}}
+                    onClick={goToCheckout}
                   >
                     المتابعة للدفع
                   </Button>

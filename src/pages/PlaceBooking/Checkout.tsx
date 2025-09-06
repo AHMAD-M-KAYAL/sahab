@@ -17,30 +17,42 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAddPlaceBooking, type CreateBookingRequest } from "../../hook/useAddPlaceBooking";
+import { localDateOnly } from "../../utils/format";
 
 type PaymentMethod = "knet" | "visa" | "googlepay" | "applepay";
 
 export default function PlaceBookingCheckout() {
-  const [promoCode, setPromoCode] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("knet");
-  const [contactDetails, setContactDetails] = useState({ name: "", phone: "" });
+  const [contactDetails, setContactDetails] = useState({ name: localStorage.getItem('userName'), phone: localStorage.getItem('userPhone') });
+  const token = localStorage.getItem('token')
+  const { mutate, isPending } = useAddPlaceBooking(String(token));
 
-  const bookingDetails = {
-    startDate: "2025/08/31",
-    endDate: "2025/08/31",
-    nights: 1,
-    guests: 1,
-    baseAmount: 0.0,
-    discount: 0.0,
-    total: 0.0,
-  };
 
   const handlePaymentChange = (_e: React.ChangeEvent<HTMLInputElement>, value: string) => {
     setPaymentMethod(value as PaymentMethod);
   };
 
   const navigate = useNavigate();
+  const {id} = useParams()
+
+  const startDate = localStorage.getItem('startDate')
+  const endDate = localStorage.getItem('endDate')
+  const nights = localStorage.getItem('nights')
+  const totalPrice = localStorage.getItem('totalPrice')
+
+  const handleBooking = async()=>{
+    const body: CreateBookingRequest = {
+      code: null,
+      starting_date: localDateOnly(new Date(startDate!)),
+      ending_date: localDateOnly(new Date(endDate!)),
+      payment_method: paymentMethod,
+      place_id: Number(id),
+      total_price: totalPrice!
+    }
+    mutate(body)
+  }
   
   return (
     <Box dir="rtl" sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
@@ -130,7 +142,7 @@ export default function PlaceBookingCheckout() {
                         <Typography variant="body2" color="text.secondary">
                           تاريخ البدء
                         </Typography>
-                        <Typography fontWeight={700}>{bookingDetails.startDate}</Typography>
+                        <Typography fontWeight={700}>{ new Date(startDate!).toLocaleDateString() }</Typography>
                       </Box>
                     </Box>
                   </Grid>
@@ -151,7 +163,7 @@ export default function PlaceBookingCheckout() {
                         <Typography variant="body2" color="text.secondary">
                           تاريخ الانتهاء
                         </Typography>
-                        <Typography fontWeight={700}>{bookingDetails.endDate}</Typography>
+                        <Typography fontWeight={700}>{new Date(endDate!).toLocaleDateString()}</Typography>
                       </Box>
                     </Box>
                   </Grid>
@@ -161,37 +173,17 @@ export default function PlaceBookingCheckout() {
                   <Grid xs={5.5}>
                     <Box sx={{ display: "flex", justifyContent: "start", gap:2 }}>
                       <Typography variant="body2" color="text.secondary">عدد الليالي:</Typography>
-                      <Typography variant="body2" fontWeight={600}>{bookingDetails.nights}</Typography>
+                      <Typography variant="body2" fontWeight={600}>{ nights }</Typography>
                     </Box>
                   </Grid>
                   <Grid xs={1}></Grid>
                   <Grid xs={5.5}>
                     <Box sx={{ display: "flex", justifyContent: "start", gap:2 }}>
                       <Typography variant="body2" color="text.secondary">عدد الضيوف:</Typography>
-                      <Typography variant="body2" fontWeight={600}>{bookingDetails.guests}</Typography>
+                      <Typography variant="body2" fontWeight={600}>1</Typography>
                     </Box>
                   </Grid>
                 </Grid>
-              </CardContent>
-            </Card>
-
-            {/* Promotional Code */}
-            <Card variant="outlined">
-              <CardHeader
-                title={<Typography variant="h6" fontWeight={700}>الرمز الترويجي</Typography>}
-              />
-              <CardContent>
-                <Box sx={{ display: "flex", gap: 1.5 }}>
-                  <TextField
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    placeholder="أدخل الرمز الترويجي هنا"
-                    fullWidth
-                  />
-                  <Button variant="contained" disabled={!promoCode.trim()} sx={{ px: 4 }}>
-                    تطبيق
-                  </Button>
-                </Box>
               </CardContent>
             </Card>
 
@@ -210,8 +202,6 @@ export default function PlaceBookingCheckout() {
                   {([
                     { value: "knet", label: "KNET" },
                     { value: "visa", label: "VISA/MASTER" },
-                    { value: "googlepay", label: "GooglePay" },
-                    { value: "applepay", label: "Apple Pay" },
                   ] as const).map(({ value, label }) => {
                     const selected = paymentMethod === value;
                     return (
@@ -257,25 +247,27 @@ export default function PlaceBookingCheckout() {
                 <Box sx={{ display: "grid", gap: 1 }}>
                   <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <Typography>مبلغ الحجز</Typography>
-                    <Typography fontWeight={600}>KD {bookingDetails.baseAmount.toFixed(3)}</Typography>
+                    <Typography fontWeight={600}>KD {Number(totalPrice).toFixed(3)}</Typography>
                   </Box>
                   <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <Typography>الخصم</Typography>
-                    <Typography fontWeight={600}>KD {bookingDetails.discount.toFixed(3)}</Typography>
+                    <Typography fontWeight={600}>KD {Number(0).toFixed(3)}</Typography>
                   </Box>
                   <Divider sx={{ my: 1.5 }} />
                   <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <Typography variant="h6" fontWeight={800} color="primary">الإجمالي</Typography>
-                    <Typography variant="h5" fontWeight={800} color="primary">KD {bookingDetails.total.toFixed(3)}</Typography>
+                    <Typography variant="h5" fontWeight={800} color="primary">KD {Number(totalPrice).toFixed(3)}</Typography>
                   </Box>
                 </Box>
 
                 <Button
+                  onClick={handleBooking}
                   variant="contained"
                   size="large"
                   fullWidth
-                  disabled={!contactDetails.name.trim() || !contactDetails.phone.trim()}
+                  disabled={!contactDetails.name?.trim() || !contactDetails.phone?.trim()}
                   sx={{ mt: 1.5, py: 1.5, fontSize: 16, fontWeight: 700 }}
+                  loading={isPending}
                 >
                   المتابعة للدفع
                 </Button>

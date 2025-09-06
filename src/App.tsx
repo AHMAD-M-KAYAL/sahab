@@ -23,6 +23,7 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DirectionController from "./DirectionController";
 import EditAccount from "./pages/AccountPage/EditAccount";
+import SuccessPage from "./pages/SuccessPage";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/SentNumber" element={<SentNumber />} />
         <Route path="/SentOTP" element={<SentOTP />} />
         <Route path="/Register" element={<Register />} />
+
+        {/* Public home-related routes */}
         <Route path="/home" element={<Home />} />
         <Route path="/home/featured" element={<AllFeaturedPlaces />} />
         <Route
@@ -41,50 +44,22 @@ function App() {
           element={<AllCategoriesServices />}
         />
         <Route path="/home/CategoryPlaces." element={<AllCategoriesPlaces />} />
-        <Route
-          path="/home/CategoryPlaces/places/:id"
-          element={<PlacesForOneCategory />}
-        />
-        <Route
-          path="/home/CategorySevices/services/:id"
-          element={<ServicesForOneCategory />}
-        />
-        <Route
-          path="/home/CategoryPlaces/places/DetailsPage/:id"
-          element={<PlacePage />}
-        />
-        <Route
-          path="/home/CategoriesServices/Service/DetailsPage/:id"
-          element={<ServicePage />}
-        />
-         <Route
-          path="/places/book/:id"
-          element={<PlaceBooking />}
-        />
+        <Route path="/home/SearchPage" element={<SearchHome />} />
+
+        {/* Booking / details (public) */}
+        <Route path="/places/book/:id" element={<PlaceBooking />} />
         <Route
           path="/places/book/:id/checkout"
           element={<PlaceBookingCheckout />}
         />
+        <Route path="/services/book/:id/" element={<ServicesBooking />} />
         <Route
-          path="/services/book/:id/"
-          element={<ServicesBooking />}
-        />
-         <Route
           path="/services/book/:id/checkout"
           element={<ServiceBookingCheckout />}
         />
-        <Route path="/home/SearchPage" element={<SearchHome />} />
+
+        {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/home/featured" element={<AllFeaturedPlaces />} />
-          <Route
-            path="/home/CategoryServices."
-            element={<AllCategoriesServices />}
-          />
-          <Route
-            path="/home/CategoryPlaces."
-            element={<AllCategoriesPlaces />}
-          />
           <Route
             path="/home/CategoryPlaces/places/:id"
             element={<PlacesForOneCategory />}
@@ -101,7 +76,7 @@ function App() {
             path="/home/CategoriesServices/Service/DetailsPage/:id"
             element={<ServicePage />}
           />
-          <Route path="/home/SearchPage" element={<SearchHome />} />
+          <Route path="/success" element={<SuccessPage />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/EditAccount" element={<EditAccount />} />
         </Route>

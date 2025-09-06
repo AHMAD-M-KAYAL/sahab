@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Card,
@@ -18,46 +18,57 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaceIcon from "@mui/icons-material/Place";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate, useParams } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { format } from "date-fns";
+import { ar } from "date-fns/locale";
+import { useGetDataTimesForOneService } from "../../hook/useGetDataTimesForOneService";
+import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
+import { formatSlotLabel } from "../../utils/format";
+
+ 
 
 export default function ServiceBooking() {
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [address, setAddress] = useState("");
+  const { id } = useParams();
+  const { data } = useGetDataTimesForOneService(Number(id));
+  const { data:serviceDetail } = useGetOneServiceDetails(Number(id));
 
-  const { id } = useParams()
+  const navigate = useNavigate();
 
-  const timeSlots = [
-    "09:00 AM",
-    "09:30 AM",
-    "10:00 AM",
-    "10:30 AM",
-    "11:00 AM",
-    "11:30 AM",
-    "12:00 PM",
-    "12:30 PM",
-    "01:00 PM",
-    "01:30 PM",
-    "02:00 PM",
-    "02:30 PM",
-    "03:00 PM",
-    "03:30 PM",
-    "04:00 PM",
-    "04:30 PM",
-    "05:00 PM",
-    "05:30 PM",
-  ];
+  const enabledDays = useMemo(() => new Set(Object.keys(data ?? {})), [data]);
+
+  const timeOptions = useMemo(() => {
+    if (!selectedDate || !data) return [];
+    const ymd = format(selectedDate, "yyyy-MM-dd");
+    const ranges: [string, string][] = data[ymd] ?? [];
+    return ranges.map(([start, end]) => ({
+      value: `${start}|${end}`,
+      label: formatSlotLabel(start, end), // "03:00 PM - 04:00 PM"
+    }));
+  }, [selectedDate, data]);
 
   const isFormValid = Boolean(selectedDate && selectedTime && address.trim());
-  const navigate = useNavigate();
+
+  const goToCheckout = ()=>{
+    localStorage.setItem('selectedDate', String(selectedDate))
+    localStorage.setItem('selectedTime', String(selectedTime))
+    localStorage.setItem('address', String(address))
+    localStorage.setItem('totalServicePrice', String(serviceDetail?.price))
+    navigate(`/services/book/${id}/checkout`)
+  }
 
   return (
     <Box
+      dir="rtl"
       sx={{
         minHeight: "100vh",
         background: "linear-gradient(135deg, #f8fafc, #eef2f6)",
       }}
     >
-      {/* Sticky header */}
       <Box
         sx={{
           position: "sticky",
@@ -74,16 +85,11 @@ export default function ServiceBooking() {
           boxShadow: 1,
         }}
       >
-        <IconButton
-          onClick={() => {
-            navigate(-1);
-          }}
-          size="small"
-        >
+        <IconButton onClick={() => navigate(-1)} size="small">
           <ArrowBackIosNewIcon fontSize="small" />
         </IconButton>
         <Typography variant="h6" fontWeight={700} color="text.primary">
-          Book Your Service
+          احجز خدمتك
         </Typography>
       </Box>
 
@@ -94,7 +100,7 @@ export default function ServiceBooking() {
             <Card
               variant="outlined"
               sx={{
-                margin: "10px",
+                m: "10px",
                 width: "100%",
                 border: 0,
                 boxShadow: 6,
@@ -116,37 +122,54 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      Booking Date
+                      تاريخ الحجز
                     </Typography>
                   </Box>
                 }
                 subheader={
                   <Typography variant="body2" color="text.secondary">
-                    Choose your preferred date for the service appointment.
+                    اختر التاريخ المفضل لديك لموعد الخدمة.
                   </Typography>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  Select Date{" "}
+                  حدد التاريخ{" "}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
                 </Typography>
-                <TextField
-                  id="date"
-                  type="date"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  fullWidth
-                  InputProps={{
-                    endAdornment: selectedDate ? (
-                      <InputAdornment position="end">
-                        <CheckCircleIcon color="success" fontSize="small" />
-                      </InputAdornment>
-                    ) : undefined,
-                  }}
-                />
+
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ar}
+                >
+                  <DatePicker
+                    value={selectedDate}
+                    onChange={(newValue) => {
+                      setSelectedDate(newValue);
+                      setSelectedTime("");
+                    }}
+                    format="dd/MM/yyyy"
+                    slotProps={{
+                      field: {
+                        clearable: true,
+                        onClear: () => setSelectedDate(null),
+                      },
+                      textField: {
+                        fullWidth: true,
+                      },
+                      popper: { placement: "bottom-end" },
+                    }}
+                    shouldDisableDate={(day) => {
+                      const ymd = format(day as Date, "yyyy-MM-dd");
+                      return !enabledDays.has(ymd);
+                    }}
+                    disablePast
+                    closeOnSelect
+                    reduceAnimations
+                  />
+                </LocalizationProvider>
               </CardContent>
             </Card>
           </Grid>
@@ -156,7 +179,7 @@ export default function ServiceBooking() {
             <Card
               variant="outlined"
               sx={{
-                margin: "10px",
+                m: "10px",
                 width: "100%",
                 border: 0,
                 boxShadow: 6,
@@ -189,19 +212,19 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      Booking Time
+                      وقت الحجز
                     </Typography>
                   </Box>
                 }
                 subheader={
                   <Typography variant="body2" color="text.secondary">
-                    Select your preferred time slot for the appointment.
+                    اختر الوقت المناسب لك لتحديد الموعد.
                   </Typography>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  Select Time{" "}
+                  اختر الوقت{" "}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
@@ -222,10 +245,10 @@ export default function ServiceBooking() {
                       sx={{ fontSize: 36, color: "text.disabled", mb: 1 }}
                     />
                     <Typography fontWeight={600} color="text.secondary">
-                      Please select a date first
+                      يرجى اختيار تاريخ أولاً
                     </Typography>
                     <Typography variant="body2" color="text.disabled">
-                      Time slots will appear after date selection
+                      ستظهر فترات الوقت بعد اختيار التاريخ
                     </Typography>
                   </Box>
                 ) : (
@@ -234,7 +257,7 @@ export default function ServiceBooking() {
                     fullWidth
                     value={selectedTime}
                     onChange={(e) => setSelectedTime(e.target.value)}
-                    placeholder="Choose your time slot"
+                    placeholder="اختر الفترة الزمنية"
                     InputProps={{
                       endAdornment: selectedTime ? (
                         <InputAdornment position="end">
@@ -243,11 +266,15 @@ export default function ServiceBooking() {
                       ) : undefined,
                     }}
                   >
-                    {timeSlots.map((time) => (
-                      <MenuItem key={time} value={time} sx={{ py: 1.2 }}>
-                        {time}
-                      </MenuItem>
-                    ))}
+                    {timeOptions.length === 0 ? (
+                      <MenuItem disabled>لا يوجد أوقات متاحة</MenuItem>
+                    ) : (
+                      timeOptions.map((opt) => (
+                        <MenuItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </MenuItem>
+                      ))
+                    )}
                   </TextField>
                 )}
               </CardContent>
@@ -259,7 +286,7 @@ export default function ServiceBooking() {
             <Card
               variant="outlined"
               sx={{
-                margin: "10px",
+                m: "10px",
                 width: "100%",
                 border: 0,
                 boxShadow: 6,
@@ -288,14 +315,14 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      Service Address
+                      عنوان الخدمة
                     </Typography>
                   </Box>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  Enter Your Address{" "}
+                  أدخل عنوانك{" "}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
@@ -304,7 +331,7 @@ export default function ServiceBooking() {
                 <TextField
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Enter your complete address"
+                  placeholder="أدخل عنوانك الكامل"
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -343,8 +370,7 @@ export default function ServiceBooking() {
                         sx={{ color: "primary.main", fontSize: 18, mt: "2px" }}
                       />
                       <Typography variant="body2" color="primary.dark">
-                        Muntazah Al Khairan road 278 zone 3, An Nami, Al Khiran,
-                        Kuwait
+                        طريق منتزة الخيران 278 منطقة 3، النامي، الخيران، الكويت
                       </Typography>
                     </Box>
                   </Box>
@@ -378,10 +404,10 @@ export default function ServiceBooking() {
                     sx={{ color: "rgba(255,255,255,0.7)" }}
                     fontWeight={600}
                   >
-                    Total Amount
+                    المبلغ الإجمالي
                   </Typography>
                   <Typography variant="h5" fontWeight={800}>
-                    30.000 KD
+                    {selectedTime ? serviceDetail?.price.toFixed(3) : Number(0).toFixed(3)} KD
                   </Typography>
                 </Box>
                 <Box sx={{ textAlign: "right" }}>
@@ -389,7 +415,7 @@ export default function ServiceBooking() {
                     variant="body2"
                     sx={{ color: "rgba(255,255,255,0.7)" }}
                   >
-                    Service Fee Included
+                    رسوم الخدمة مشمولة
                   </Typography>
                 </Box>
               </Box>
@@ -400,7 +426,7 @@ export default function ServiceBooking() {
             fullWidth
             size="large"
             disabled={!isFormValid}
-            onClick={()=> navigate(`/services/book/${id}/checkout`)}
+            onClick={goToCheckout}
             sx={{
               height: 56,
               fontSize: 18,
@@ -417,9 +443,7 @@ export default function ServiceBooking() {
               transition: (t) =>
                 t.transitions.create(
                   ["transform", "box-shadow", "background-color"],
-                  {
-                    duration: t.transitions.duration.short,
-                  }
+                  { duration: t.transitions.duration.short }
                 ),
               "&:hover": {
                 transform: isFormValid ? "translateY(-2px)" : "none",
@@ -430,7 +454,7 @@ export default function ServiceBooking() {
               },
             }}
           >
-            {isFormValid ? "Proceed to Checkout" : "Complete All Fields"}
+            {isFormValid ? "انتقل إلى الدفع" : "أكمل جميع الحقول"}
           </Button>
         </Box>
       </Box>
