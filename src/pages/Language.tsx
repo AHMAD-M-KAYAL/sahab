@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Language = () => {
   const setLan = () =>
     setTimeout(() => {
-      navigate("/SentNumber");
+      navigate("/home");
     }, 1000);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();

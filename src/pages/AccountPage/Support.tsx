@@ -72,21 +72,12 @@ export const Support = () => {
         }
       );
 
-      // امسح البيانات المخزنة
-      localStorage.removeItem("token");
-      localStorage.removeItem("userPhone");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("id");
-      localStorage.removeItem("image");
-      localStorage.removeItem("email");
+      // امسح البيانات المخزن
+      localStorage.clear()
 
-      // رجّع المستخدم لصفحة تسجيل الدخول
-      navigate("/SentNumber");
+      navigate("/home");
     } catch (error) {
       console.error("Logout failed", error);
-      // حتى لو فشل السيرفر، نرجّع المستخدم ونمسح التوكن
-      localStorage.removeItem("token");
-      navigate("/SentNumber");
     }
   };
 
