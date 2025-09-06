@@ -2,8 +2,8 @@ import { Box, Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
-import BookingCard from "../components/cards/BookingCard";
 import { DetailsServiceComponent } from "./ServiceProivded/ServiceForOneCategory/DetailsServiceComponent";
+import BookingCardServices from "../components/cards/BookingCardServices";
 export const ServicePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
@@ -52,7 +52,7 @@ export const ServicePage = () => {
           <DetailsServiceComponent />
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>
-          <BookingCard />
+          <BookingCardServices />
         </Grid>
       </Grid>
     </>

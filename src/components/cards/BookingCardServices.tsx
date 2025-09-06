@@ -1,12 +1,12 @@
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import { Button, Divider } from "@mui/material";
-import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 import { useParams } from "react-router-dom";
+import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
 
-export default function BookingCard() {
+export default function BookingCardServices() {
   const { id } = useParams();
-  const { data } = useGetOnePlaceDetails(Number(id));
+  const { data } = useGetOneServiceDetails(Number(id));
 
   return (
     <Card
@@ -38,7 +38,7 @@ export default function BookingCard() {
           alignItems: "center",
         }}
       >
-        {data?.weekday_price}KD{" "}
+        {data?.price}KD{" "}
       </Box>
       <Box
         sx={{
