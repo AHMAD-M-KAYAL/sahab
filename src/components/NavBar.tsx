@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Link from "@mui/joy/Link";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Button } from "@mui/material";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const NavBar = () => {
   const { t } = useTranslation();
 
   const isActive = (path: string) => pathname.toLowerCase().startsWith(path);
+  const token = localStorage.getItem('token')
 
   return (
     <nav
@@ -66,7 +68,8 @@ const NavBar = () => {
             {t("Booking")}
           </Link>
 
-          <Link
+          {
+            token ? <Link
             component="button"
             onClick={() => navigate("/Account")}
             sx={{
@@ -76,7 +79,8 @@ const NavBar = () => {
             color="neutral"
           >
             {t("Account")}
-          </Link>
+          </Link> : <Button onClick={()=> navigate('/SentNumber')} sx={{textTransform: 'capitalize'}} variant="contained">Login</Button>
+          }
         </Box>
       </div>
     </nav>

@@ -47,36 +47,36 @@ function App() {
         />
         <Route path="/home/CategoryPlaces" element={<AllCategoriesPlaces />} />
         <Route path="/SearchPage" element={<SearchHome />} />
-
-        {/* Booking / details (public) */}
-        <Route path="/places/book/:id" element={<PlaceBooking />} />
         <Route
-          path="/places/book/:id/checkout"
-          element={<PlaceBookingCheckout />}
+          path="/home/CategoryPlaces/places/:id"
+          element={<PlacesForOneCategory />}
         />
-        <Route path="/services/book/:id/" element={<ServicesBooking />} />
+
         <Route
-          path="/services/book/:id/checkout"
-          element={<ServiceBookingCheckout />}
+          path="/home/CategorySevices/services/:id"
+          element={<ServicesForOneCategory />}
+        />
+
+        <Route
+          path="/home/CategoryPlaces/places/DetailsPage/:id"
+          element={<PlacePage />}
+        />
+        <Route
+          path="/home/CategoriesServices/Service/DetailsPage/:id"
+          element={<ServicePage />}
         />
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/places/book/:id" element={<PlaceBooking />} />
           <Route
-            path="/home/CategoryPlaces/places/:id"
-            element={<PlacesForOneCategory />}
+            path="/places/book/:id/checkout"
+            element={<PlaceBookingCheckout />}
           />
+          <Route path="/services/book/:id/" element={<ServicesBooking />} />
           <Route
-            path="/home/CategorySevices/services/:id"
-            element={<ServicesForOneCategory />}
-          />
-          <Route
-            path="/home/CategoryPlaces/places/DetailsPage/:id"
-            element={<PlacePage />}
-          />
-          <Route
-            path="/home/CategoriesServices/Service/DetailsPage/:id"
-            element={<ServicePage />}
+            path="/services/book/:id/checkout"
+            element={<ServiceBookingCheckout />}
           />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/Account" element={<AccountPage />} />
