@@ -18,6 +18,7 @@ export interface Service {
 export interface FetchPlacesResult {
   current_page: number;
   data: Service[];
+  last_page:number
 }
 export interface ServicesApiResponse {
   data: {
@@ -26,10 +27,10 @@ export interface ServicesApiResponse {
     max_price: number;
   };
 }
- export const useGetServiceForOneCategory = (idForCategory:number,price:number ) =>
+ export const useGetServiceForOneCategory = (idForCategory:number,price:number,page:number ) =>
    {
       const { i18n } = useTranslation();
-      return useGetData<ServicesApiResponse>(`/api/categories/${idForCategory}/services/?page=1&min_price=${price}` 
+      return useGetData<ServicesApiResponse>(`/api/categories/${idForCategory}/services/?page=${page}&min_price=${price}` 
         ,{
           id:idForCategory,
          language: i18n.language,});

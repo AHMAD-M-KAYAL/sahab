@@ -24,7 +24,7 @@ export const CategoriesPlaces = () => {
         <Box
           component={Button}
           onClick={() => {
-            navigate("CategoryPlaces.");
+            navigate("CategoryPlaces");
           }}
         >
           {" "}

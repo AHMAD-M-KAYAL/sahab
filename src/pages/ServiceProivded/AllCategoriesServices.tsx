@@ -14,6 +14,8 @@ export const AllCategoriesServices = () => {
         className="navbar"
         style={{
           backgroundColor: "white",
+          direction: "ltr",
+
           boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
         }}
       >

@@ -25,7 +25,7 @@ export const CategoriesServices = () => {
         <Box
           component={Button}
           onClick={() => {
-            navigate("CategoryServices.");
+            navigate("CategoryServices");
           }}
         >
           {" "}

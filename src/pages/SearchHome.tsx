@@ -37,7 +37,7 @@ export const SearchHome = () => {
   const hasQuery = searchTitle.trim().length > 0;
 
   return (
-    <>
+    <Box sx={{ direction: "ltr" }}>
       {/* 🟢 شريط البحث */}
       <Box
         sx={{
@@ -78,7 +78,7 @@ export const SearchHome = () => {
         />
 
         {/* أزرار الاختيار */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center", direction: "ltr" }}>
           <div
             className="btn-group"
             role="group"
@@ -157,6 +157,6 @@ export const SearchHome = () => {
           </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };

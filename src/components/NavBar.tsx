@@ -30,7 +30,7 @@ const NavBar = () => {
         <Input
           onClick={() => {
             console.log("clicked");
-            navigate("SearchPage");
+            navigate("/SearchPage");
           }}
           color="neutral"
           placeholder="Search"

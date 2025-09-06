@@ -7,13 +7,15 @@ import BookingCardCategory from "../components/cards/BookingCardCategory";
 export const PlacePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
-  
+
   return (
     <>
       <nav
         className="navbar"
         style={{
           backgroundColor: "white",
+          direction: "ltr",
+
           boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
         }}
       >

@@ -42,11 +42,11 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/home/featured" element={<AllFeaturedPlaces />} />
         <Route
-          path="/home/CategoryServices."
+          path="/home/CategoryServices"
           element={<AllCategoriesServices />}
         />
-        <Route path="/home/CategoryPlaces." element={<AllCategoriesPlaces />} />
-        <Route path="/home/SearchPage" element={<SearchHome />} />
+        <Route path="/home/CategoryPlaces" element={<AllCategoriesPlaces />} />
+        <Route path="/SearchPage" element={<SearchHome />} />
 
         {/* Booking / details (public) */}
         <Route path="/places/book/:id" element={<PlaceBooking />} />
