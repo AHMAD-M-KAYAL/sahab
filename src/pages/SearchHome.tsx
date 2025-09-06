@@ -16,7 +16,6 @@ export const SearchHome = () => {
   const [inputValue, setInputValue] = useState(""); // النص اللي يكتبه المستخدم
   const [resultType, setResultType] = useState<"Service" | "Places">("Service");
 
-  // البحث: ما ينفذ إلا عند الضغط Enter
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setSearchTitle(inputValue.trim());
