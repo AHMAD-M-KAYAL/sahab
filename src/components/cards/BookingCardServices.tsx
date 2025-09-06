@@ -1,13 +1,13 @@
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import { Button, Divider } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
 
 export default function BookingCardServices() {
   const { id } = useParams();
   const { data } = useGetOneServiceDetails(Number(id));
-
+  const navigate = useNavigate()
   return (
     <Card
       variant="solid"
@@ -55,6 +55,7 @@ export default function BookingCardServices() {
       <Divider sx={{ my: 1, borderBottomWidth: 1, bgcolor: "primary.main" }} />
       <Button
         disabled={data?.bookable === 0}
+        onClick={()=> navigate(`/services/book/${id}`)}
         sx={{
           color: "white",
           backgroundColor: data?.bookable === 0 ? "#b0b0b0" : "#18181b",

@@ -4,20 +4,17 @@ import { Button, Divider } from "@mui/material";
 import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface Props {
-  route: string;
-}
-
-export default function BookingCardCategory({route}:Props) {
+export default function BookingCardCategory() {
   const { id } = useParams();
   const { data } = useGetOnePlaceDetails(Number(id));
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   
   return (
     <Card
       variant="solid"
       color="primary"
       invertedColors
+      onClick={()=> navigate(`/places/book/${id}`)}
       sx={{
         boxSizing: "border-box",
         margin: "auto",
@@ -60,7 +57,6 @@ export default function BookingCardCategory({route}:Props) {
       <Divider sx={{ my: 1, borderBottomWidth: 1, bgcolor: "primary.main" }} />
       <Button
         disabled={data?.bookable === 0}
-        onClick={()=> {navigate(route)}}
         sx={{
           color: "white",
           backgroundColor: data?.bookable === 0 ? "#b0b0b0" : "#18181b",

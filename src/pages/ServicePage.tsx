@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import IconBack from "../assets/logo/back.svg";
 import { DetailsServiceComponent } from "./ServiceProivded/ServiceForOneCategory/DetailsServiceComponent";
@@ -7,7 +7,6 @@ import BookingCardServices from "../components/cards/BookingCardServices";
 export const ServicePage = () => {
   const navigate = useNavigate();
   const CategoryType = localStorage.getItem("CategoryType");
-  const { id } = useParams();
   
   return (
     <>

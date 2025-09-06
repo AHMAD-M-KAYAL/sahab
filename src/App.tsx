@@ -23,12 +23,9 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DirectionController from "./DirectionController";
 import EditAccount from "./pages/AccountPage/EditAccount";
-<<<<<<< HEAD
 import SuccessPage from "./pages/SuccessPage";
-=======
 import StaticContents from "./pages/AccountPage/StaticContents";
 import ContactUs from "./pages/AccountPage/ContactUs";
->>>>>>> 7d3f57dc4856c6b536f25b937795d1f0d3555d71
 
 function App() {
   return (
