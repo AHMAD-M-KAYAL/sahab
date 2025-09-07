@@ -26,6 +26,7 @@ import EditAccount from "./pages/AccountPage/EditAccount";
 import SuccessPage from "./pages/SuccessPage";
 import StaticContents from "./pages/AccountPage/StaticContents";
 import ContactUs from "./pages/AccountPage/ContactUs";
+import BookingsPage from "./pages/BookingsPage";
 
 function App() {
   return (
@@ -68,6 +69,8 @@ function App() {
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/Bookings" element={<BookingsPage />} />
+
           <Route path="/places/book/:id" element={<PlaceBooking />} />
           <Route
             path="/places/book/:id/checkout"

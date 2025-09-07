@@ -12,7 +12,7 @@ const NavBar = () => {
   const { t } = useTranslation();
 
   const isActive = (path: string) => pathname.toLowerCase().startsWith(path);
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
 
   return (
     <nav
@@ -58,7 +58,7 @@ const NavBar = () => {
 
           <Link
             component="button"
-            onClick={() => navigate("/Booking")}
+            onClick={() => navigate("/Bookings")}
             sx={{
               color: isActive("/booking") ? "var(--main-color)" : "#00000099",
             }}
@@ -68,19 +68,27 @@ const NavBar = () => {
             {t("Booking")}
           </Link>
 
-          {
-            token ? <Link
-            component="button"
-            onClick={() => navigate("/Account")}
-            sx={{
-              color: isActive("/account") ? "var(--main-color)" : "#00000099",
-            }}
-            underline="none"
-            color="neutral"
-          >
-            {t("Account")}
-          </Link> : <Button onClick={()=> navigate('/SentNumber')} sx={{textTransform: 'capitalize'}} variant="contained">Login</Button>
-          }
+          {token ? (
+            <Link
+              component="button"
+              onClick={() => navigate("/Account")}
+              sx={{
+                color: isActive("/account") ? "var(--main-color)" : "#00000099",
+              }}
+              underline="none"
+              color="neutral"
+            >
+              {t("Account")}
+            </Link>
+          ) : (
+            <Button
+              onClick={() => navigate("/SentNumber")}
+              sx={{ textTransform: "capitalize" }}
+              variant="contained"
+            >
+              Login
+            </Button>
+          )}
         </Box>
       </div>
     </nav>

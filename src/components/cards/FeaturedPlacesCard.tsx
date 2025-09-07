@@ -14,7 +14,6 @@ interface Props {
 export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
   const navigate = useNavigate();
   const firstImage = featuredPlaces.place_images?.[0]?.image ?? "/fallback.png";
-  console.log(featuredPlaces.place_images[0]);
   return (
     <Card
       onClick={() => {
