@@ -12,7 +12,7 @@ import {
   RadioGroup,
   Radio,
 } from "@mui/material";
-import Grid from "@mui/material/GridLegacy";
+import Grid from "@mui/material/Grid";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -138,7 +138,7 @@ export default function ServiceBookingCheckout() {
       <Box sx={{ maxWidth: 1200, mx: "auto", p: 3 }}>
         <Grid container sx={{ mb: 3 }}>
           {/* Contact Details */}
-          <Grid xs={12} lg={6} container>
+          <Grid size={{ xs: 12, lg: 6 }} container>
             <Card
               variant="outlined"
               sx={{
@@ -196,7 +196,7 @@ export default function ServiceBookingCheckout() {
           </Grid>
 
           {/* Booking Details */}
-          <Grid xs={12} lg={6} container>
+          <Grid size={{ xs: 12, lg: 6 }} container>
             <Card
               variant="outlined"
               sx={{
@@ -301,7 +301,7 @@ export default function ServiceBookingCheckout() {
 
         <Grid container sx={{ mb: 3 }}>
           {/* Payment Method (spans 2 columns on lg) */}
-          <Grid xs={12} lg={8} container>
+          <Grid size={{ xs: 12, lg: 8 }} container>
             <Card
               variant="outlined"
               sx={{
@@ -384,7 +384,7 @@ export default function ServiceBookingCheckout() {
           </Grid>
 
           {/* Payment Details */}
-          <Grid xs={12} lg={4} container>
+          <Grid size={{ xs: 12, lg: 4 }} container>
             <Card
               variant="outlined"
               sx={{

@@ -11,7 +11,6 @@ import {
   InputAdornment,
   MenuItem,
 } from "@mui/material";
-import Grid from "@mui/material/GridLegacy";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -27,6 +26,7 @@ import { useGetDataTimesForOneService } from "../../hook/useGetDataTimesForOneSe
 import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
 import { formatSlotLabel } from "../../utils/format";
 import { useTranslation } from "react-i18next";
+import Grid from "@mui/material/Grid";
 
 export default function ServiceBooking() {
   const { t } = useTranslation();
@@ -96,7 +96,7 @@ export default function ServiceBooking() {
       <Box sx={{ maxWidth: 1200, mx: "auto", p: 3 }}>
         <Grid container spacing={1}>
           {/* Booking Date */}
-          <Grid xs={12} lg={6} container>
+          <Grid size={{ xs: 12, lg: 6 }} container>
             <Card
               variant="outlined"
               sx={{
@@ -175,7 +175,7 @@ export default function ServiceBooking() {
           </Grid>
 
           {/* Booking Time */}
-          <Grid xs={12} lg={6} container>
+          <Grid size={{ xs: 12, lg: 6 }} container>
             <Card
               variant="outlined"
               sx={{
@@ -282,7 +282,7 @@ export default function ServiceBooking() {
           </Grid>
 
           {/* Service Address */}
-          <Grid xs={12} container>
+          <Grid size={{ xs: 12 }} container>
             <Card
               variant="outlined"
               sx={{

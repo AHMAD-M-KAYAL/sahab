@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/GridLegacy";
+import Grid from "@mui/material/Grid";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
@@ -93,7 +93,7 @@ export default function PlaceBookingCheckout() {
 
         <Grid container>
           {/* Main content */}
-          <Grid xs={12} lg={7.5} sx={{ display: "grid", gap: 2 }}>
+          <Grid size={{ xs: 12, md: 7.5 }} sx={{ display: "grid", gap: 2 }}>
             {/* Contact Details */}
             <Card variant="outlined">
               <CardHeader
@@ -167,7 +167,7 @@ export default function PlaceBookingCheckout() {
               />
               <CardContent sx={{ display: "grid", gap: 2 }}>
                 <Grid container>
-                  <Grid xs={12} md={5.5}>
+                  <Grid size={{ xs: 12, md: 5.5 }}>
                     <Box
                       sx={{
                         display: "flex",
@@ -189,8 +189,8 @@ export default function PlaceBookingCheckout() {
                       </Box>
                     </Box>
                   </Grid>
-                  <Grid xs={1}></Grid>
-                  <Grid xs={12} md={5.5}>
+                  <Grid size={{ xs: 1 }}></Grid>
+                  <Grid size={{ xs: 12, md: 5.5 }}>
                     <Box
                       sx={{
                         display: "flex",
@@ -215,7 +215,7 @@ export default function PlaceBookingCheckout() {
                 </Grid>
 
                 <Grid container>
-                  <Grid xs={5.5}>
+                  <Grid size={{ xs: 5.5 }}>
                     <Box
                       sx={{ display: "flex", justifyContent: "start", gap: 2 }}
                     >
@@ -227,8 +227,8 @@ export default function PlaceBookingCheckout() {
                       </Typography>
                     </Box>
                   </Grid>
-                  <Grid xs={1}></Grid>
-                  <Grid xs={5.5}>
+                  <Grid size={{ xs: 1 }}></Grid>
+                  <Grid size={{ xs: 5.5 }}>
                     <Box
                       sx={{ display: "flex", justifyContent: "start", gap: 2 }}
                     >
@@ -313,9 +313,9 @@ export default function PlaceBookingCheckout() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid xs={0.5}></Grid>
+          <Grid size={{ xs: 0.5 }}></Grid>
           {/* Sidebar - Payment Summary */}
-          <Grid xs={12} lg={4} sx={{ display: "grid", gap: 2 }}>
+          <Grid size={{ xs: 12, lg: 4 }} sx={{ display: "grid", gap: 2 }}>
             <Card variant="outlined">
               <CardHeader
                 title={

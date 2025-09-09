@@ -10,7 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 
-import Grid from "@mui/material/GridLegacy";
+import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate, useParams } from "react-router";
@@ -239,7 +239,7 @@ export default function PlaceBooking() {
         </Box>
 
         <Grid container>
-          <Grid xs={12} lg={7.5}>
+          <Grid size={{ xs: 12, lg: 7.5 }}>
             <Card variant="outlined">
               <CardHeader
                 sx={{ pb: 1 }}
@@ -276,7 +276,7 @@ export default function PlaceBooking() {
                 {/* Day headers */}
                 <Grid container columns={7} spacing={0.5} sx={{ mb: 2 }}>
                   {dayNames.map((day) => (
-                    <Grid key={day} xs={1}>
+                    <Grid key={day} size={{ xs: 1 }}>
                       <Box
                         sx={{
                           p: 1,
@@ -295,7 +295,7 @@ export default function PlaceBooking() {
                 {/* Days grid */}
                 <Grid container columns={7} spacing={0.5}>
                   {days.map((date, idx) => (
-                    <Grid key={idx} xs={1}>
+                    <Grid key={idx} size={{ xs: 1 }}>
                       <Box
                         sx={{ position: "relative", width: "100%", pt: "100%" }}
                       >
@@ -348,8 +348,8 @@ export default function PlaceBooking() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid lg={0.5}></Grid>
-          <Grid xs={12} lg={4}>
+          <Grid size={{ lg: 0.5 }}></Grid>
+          <Grid size={{ xs: 12, lg: 4 }}>
             <Box sx={{ display: "grid", gap: 2 }}>
               <Card variant="outlined">
                 <CardContent sx={{ p: 3 }}>
