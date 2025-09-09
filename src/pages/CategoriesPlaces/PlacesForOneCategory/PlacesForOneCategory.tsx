@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Chip } from "@mui/material";
+import { Box, Button, Stack, Chip, Skeleton } from "@mui/material";
 import { t } from "i18next";
 import IconBack from "../../../assets/logo/back.svg";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,7 +17,7 @@ export const PlacesForOneCategory = () => {
 
   const [type, setType] = useState("none");
   const [price, setPrice] = useState(0);
-  const [page, setPage] = useState(1); // ← NEW: الصفحة الحالية
+  const [page, setPage] = useState(1); // ← الصفحة الحالية
 
   // كل ما تغيّري الفلاتر ارجعي للصفحة الأولى
   useEffect(() => {
@@ -46,6 +46,27 @@ export const PlacesForOneCategory = () => {
     typeof lastPage === "number" ? currentPage < lastPage : places.length > 0;
 
   const CategoryType = localStorage.getItem("CategoryType");
+
+  // سكليتون كارد يشبه PlacesCard2
+  const CardSkeleton = () => (
+    <Box
+      sx={{
+        width: 320,
+        borderRadius: 2,
+        border: "1px solid #eee",
+        p: 1.5,
+      }}
+    >
+      <Skeleton
+        variant="rectangular"
+        height={160}
+        sx={{ borderRadius: 2, mb: 1 }}
+      />
+      <Skeleton variant="text" width="80%" />
+      <Skeleton variant="text" width="60%" />
+      <Skeleton variant="text" width="40%" />
+    </Box>
+  );
 
   return (
     <>
@@ -99,11 +120,15 @@ export const PlacesForOneCategory = () => {
         <SelectPrice price={price} setPrice={setPrice} />
 
         <Stack direction="row" spacing={1} alignItems="center">
-          <Chip
-            label={`Page ${currentPage}${lastPage ? ` / ${lastPage}` : ""}`}
-            variant="outlined"
-            sx={{ fontWeight: 600 }}
-          />
+          {isLoading ? (
+            <Skeleton variant="rounded" width={90} height={32} />
+          ) : (
+            <Chip
+              label={`Page ${currentPage}${lastPage ? ` / ${lastPage}` : ""}`}
+              variant="outlined"
+              sx={{ fontWeight: 600 }}
+            />
+          )}
         </Stack>
       </Box>
 
@@ -117,7 +142,17 @@ export const PlacesForOneCategory = () => {
             minHeight: 180,
           }}
         >
-          {isLoading && <Box sx={{ py: 6 }}>{t("loading")}...</Box>}
+          {/* سكليتون شبكة الكروت أثناء التحميل */}
+          {isLoading && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
 
           {!isLoading &&
             places.length > 0 &&
@@ -144,23 +179,32 @@ export const PlacesForOneCategory = () => {
           direction="row"
           justifyContent="center"
           spacing={2}
-          sx={{ mt: 3, mb: 6 }}
+          sx={{ mt: 3, mb: 6, direction: "ltr" }}
         >
-          <Button
-            variant="outlined"
-            disabled={!canGoPrev}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-          >
-            {t("Prev")}
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!canGoNext}
-            onClick={() => setPage((p) => p + 1)}
-            sx={{ backgroundColor: "var(--main-color)" }}
-          >
-            {t("Next")}
-          </Button>
+          {isLoading ? (
+            <>
+              <Skeleton variant="rounded" width={90} height={36} />
+              <Skeleton variant="rounded" width={90} height={36} />
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outlined"
+                disabled={!canGoPrev}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                {t("Prev")}
+              </Button>
+              <Button
+                variant="contained"
+                disabled={!canGoNext}
+                onClick={() => setPage((p) => p + 1)}
+                sx={{ backgroundColor: "var(--main-color)" }}
+              >
+                {t("Next")}
+              </Button>
+            </>
+          )}
         </Stack>
       </Box>
     </>

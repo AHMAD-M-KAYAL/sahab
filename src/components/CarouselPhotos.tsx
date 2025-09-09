@@ -11,7 +11,7 @@ const CarouselPhotos = ({ data }: Props) => {
       id="carouselExampleInterval"
       className="carousel slide  mx-auto "
       data-bs-ride="carousel"
-      style={{ width: "90%" }}
+      style={{ width: "90%", direction: "ltr" }}
     >
       <div className="carousel-indicators">
         {data?.map((e, idx) => (

@@ -4,10 +4,12 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 // أيقونات
 import ArticleIcon from "@mui/icons-material/Article"; // Edit + My Posts
-import EventSeatIcon from "@mui/icons-material/EventSeat"; // Reservations
+// import EventSeatIcon from "@mui/icons-material/EventSeat"; // Reservations
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Account = () => {
+  const { t } = useTranslation();
   // ستايل الأزرار
   const buttonSx = {
     backgroundColor: "white",
@@ -77,7 +79,7 @@ export const Account = () => {
             <ArticleIcon sx={{ color: "#1976d2", fontSize: 28 }} />
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
-            Edit Account
+            {t("Edit Account")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
@@ -88,7 +90,7 @@ export const Account = () => {
       </Box>
 
       {/* My Posts */}
-      <Box component="button" sx={buttonSx}>
+      {/* <Box component="button" sx={buttonSx}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <ArticleIcon sx={{ color: "#1976d2", fontSize: 28 }} />
@@ -102,10 +104,10 @@ export const Account = () => {
           className="arrowIcon"
           sx={{ color: "#c5c5c7ff", transition: "color 0.3s ease" }}
         />
-      </Box>
+      </Box> */}
 
       {/* Reservations */}
-      <Box component="button" sx={buttonSx}>
+      {/* <Box component="button" sx={buttonSx}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <IconBox>
             <EventSeatIcon sx={{ color: "#1976d2", fontSize: 28 }} />
@@ -119,7 +121,7 @@ export const Account = () => {
           className="arrowIcon"
           sx={{ color: "#c5c5c7ff", transition: "color 0.3s ease" }}
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

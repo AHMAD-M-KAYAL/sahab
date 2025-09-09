@@ -5,35 +5,29 @@ import Typography from "@mui/joy/Typography";
 import { Box } from "@mui/material";
 import LocationIcon from "../../assets/logo/Location.svg";
 import StarIcon from "../../assets/logo/Star.svg";
-import { type FeaturedPlaces } from "../../hook/useGetFeaturedPlaces";
-import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../services/api-client";
+export interface BookingPlaceDetails {
+  weekday_price: number;
+  title: string;
+  address: string;
+  tag: string;
+  rating: string;
+  place_images: string[];
+}
 interface Props {
-  featuredPlaces: FeaturedPlaces;
+  bookingPlaceDetails: BookingPlaceDetails;
 }
 //DetailsPlacesWithotBooking
-export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
-  const navigate = useNavigate();
-  const firstImage = featuredPlaces.place_images?.[0]?.image ?? "/fallback.png";
+export const PlacesCardForBooking = ({ bookingPlaceDetails }: Props) => {
+  const firstImage = bookingPlaceDetails.place_images[0] ?? "/fallback.png";
   return (
     <Card
-      onClick={() => {
-        navigate(
-          `/home/CategoryPlaces/places/DetailsPage/${featuredPlaces.id}`
-        );
-      }}
-      component="button"
       color="neutral"
       size="md"
       variant="outlined"
       sx={{
-        width: { sm: "30%", lg: "90%" },
+        width: { sm: "100%", lg: "100%" },
         marginBottom: "20px",
-        "&:hover": {
-          boxShadow: "0 8px 32px 0 rgba(0,0,0,0.16)",
-          backgroundColor: "rgba(var(--second-color),0.09)",
-          transform: "translateY(0px) scale(1.001)",
-        },
       }}
     >
       <AspectRatio minHeight="120px" maxHeight="200px">
@@ -52,11 +46,13 @@ export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
           }}
         >
           <Typography sx={{ marginBottom: "5px" }} level="title-lg">
-            {featuredPlaces.title}
+            {bookingPlaceDetails.title}
           </Typography>
           <Box sx={{ display: "flex", marginBottom: "5px" }}>
             <Box component="img" src={LocationIcon} />
-            <Typography level="body-xs"> {featuredPlaces.address}</Typography>
+            <Typography level="body-xs">
+              {bookingPlaceDetails.address}
+            </Typography>
           </Box>
           <Typography
             sx={{
@@ -66,25 +62,27 @@ export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
             }}
             level="body-sm"
           >
-            Starting From {featuredPlaces.weekday_price} KD
+            Starting From {bookingPlaceDetails.weekday_price} KD
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
-          <Box
-            sx={{
-              marginRight: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "fit-content",
-              padding: "10px",
-              borderRadius: "10px",
-              fontWeight: 600,
-              backgroundColor: "#567ab88c",
-            }}
-          >
-            {featuredPlaces.tag}
-          </Box>
+          {bookingPlaceDetails.tag && (
+            <Box
+              sx={{
+                marginRight: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "fit-content",
+                padding: "10px",
+                borderRadius: "10px",
+                fontWeight: 600,
+                backgroundColor: "#567ab88c",
+              }}
+            >
+              {bookingPlaceDetails.tag}
+            </Box>
+          )}
           <Box
             sx={{
               marginRight: "10px",
@@ -99,7 +97,7 @@ export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
             }}
           >
             <Box component="img" src={StarIcon} />
-            {featuredPlaces.rating.substring(0, 3)}
+            {bookingPlaceDetails.rating.substring(0, 3)}
           </Box>
         </Box>
       </CardContent>

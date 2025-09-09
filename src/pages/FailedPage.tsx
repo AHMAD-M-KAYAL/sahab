@@ -1,8 +1,8 @@
 import { Box, Typography, Button } from "@mui/material";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useNavigate } from "react-router";
 
-export default function SuccessPage() {
+export default function FailedPage() {
   const navigate = useNavigate();
   return (
     <Box
@@ -26,25 +26,28 @@ export default function SuccessPage() {
           sx={{
             height: "100px",
             width: "100px",
-            backgroundColor: "#c0eddfff",
+            backgroundColor: "#ffebee",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             borderRadius: "50%",
           }}
         >
-          <TaskAltIcon color="success" sx={{ fontSize: "50px" }} />
+          <ErrorOutlineIcon color="error" sx={{ fontSize: "50px" }} />
         </Box>
         <Typography sx={{ fontSize: "30px", fontWeight: 600 }}>
-          لقد تمت العملية بنجاح
+          فشلت العملية
         </Typography>
-        <Typography sx={{ fontSize: "18px" }}>تم جدولة خدمتك بنجاح</Typography>
+        <Typography sx={{ fontSize: "18px" }}>
+          لم يتم تنفيذ طلبك، يرجى المحاولة مرة أخرى
+        </Typography>
         <Button
           onClick={() => navigate("/bookings")}
           sx={{ width: "300px" }}
           variant="contained"
+          color="error"
         >
-          عرض حجوزاتي
+          العودة إلى حجوزاتي
         </Button>
       </Box>
     </Box>

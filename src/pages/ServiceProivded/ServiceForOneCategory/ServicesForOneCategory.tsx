@@ -1,5 +1,5 @@
 // ServicesForOneCategory.tsx
-import { Box, Button, Stack, Chip } from "@mui/material";
+import { Box, Button, Stack, Chip, Skeleton } from "@mui/material";
 import { t } from "i18next";
 import IconBack from "../../../assets/logo/back.svg";
 import { useNavigate, useParams } from "react-router-dom";
@@ -44,6 +44,27 @@ export const ServicesForOneCategory = () => {
 
   const CategoryType = localStorage.getItem("CategoryType");
 
+  // سكليتون يشبه ServicesCard
+  const CardSkeleton = () => (
+    <Box
+      sx={{
+        width: 320,
+        borderRadius: 2,
+        border: "1px solid #eee",
+        p: 1.5,
+      }}
+    >
+      <Skeleton
+        variant="rectangular"
+        height={160}
+        sx={{ borderRadius: 2, mb: 1 }}
+      />
+      <Skeleton variant="text" width="80%" />
+      <Skeleton variant="text" width="60%" />
+      <Skeleton variant="text" width="40%" />
+    </Box>
+  );
+
   return (
     <>
       <nav
@@ -51,7 +72,6 @@ export const ServicesForOneCategory = () => {
         style={{
           backgroundColor: "white",
           direction: "ltr",
-
           boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
         }}
       >
@@ -92,11 +112,15 @@ export const ServicesForOneCategory = () => {
         <SelectPrice price={price} setPrice={setPrice} />
 
         <Stack direction="row" spacing={1} alignItems="center">
-          <Chip
-            label={`Page ${currentPage}${lastPage ? ` / ${lastPage}` : ""}`}
-            variant="outlined"
-            sx={{ fontWeight: 600 }}
-          />
+          {isLoading ? (
+            <Skeleton variant="rounded" width={90} height={32} />
+          ) : (
+            <Chip
+              label={`Page ${currentPage}${lastPage ? ` / ${lastPage}` : ""}`}
+              variant="outlined"
+              sx={{ fontWeight: 600 }}
+            />
+          )}
         </Stack>
       </Box>
 
@@ -112,9 +136,14 @@ export const ServicesForOneCategory = () => {
           }}
         >
           {isLoading && (
-            <Box sx={{ color: "gray", fontSize: 18, py: 6 }}>
-              {t("Loading")}...
-            </Box>
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
           )}
 
           {!isLoading &&
@@ -132,7 +161,7 @@ export const ServicesForOneCategory = () => {
                 py: 6,
               }}
             >
-              {t("No Places To Show")}
+              {t("No Service To Show")}
             </Box>
           )}
         </Box>
@@ -142,23 +171,32 @@ export const ServicesForOneCategory = () => {
           direction="row"
           justifyContent="center"
           spacing={2}
-          sx={{ mt: 3, mb: 6 }}
+          sx={{ mt: 3, mb: 6, direction: "ltr" }}
         >
-          <Button
-            variant="outlined"
-            disabled={!canPrev}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-          >
-            {t("Prev")}
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!canNext}
-            onClick={() => setPage((p) => p + 1)}
-            sx={{ backgroundColor: "var(--main-color)" }}
-          >
-            {t("Next")}
-          </Button>
+          {isLoading ? (
+            <>
+              <Skeleton variant="rounded" width={90} height={36} />
+              <Skeleton variant="rounded" width={90} height={36} />
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outlined"
+                disabled={!canPrev}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                {t("Prev")}
+              </Button>
+              <Button
+                variant="contained"
+                disabled={!canNext}
+                onClick={() => setPage((p) => p + 1)}
+                sx={{ backgroundColor: "var(--main-color)", marginLeft: "2px" }}
+              >
+                {t("Next")}
+              </Button>
+            </>
+          )}
         </Stack>
       </Box>
     </>

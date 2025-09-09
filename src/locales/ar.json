@@ -36,8 +36,11 @@
    "Girls Only":"نساء فقط",
    "None":"بلا فلترة", "Duration":"المدة",
   "Hour":"ساعة",
-  "Notification":"الإشعارات"
-
+  "Notification":"الإشعارات",
+  "Edit Account":"تعديل حسابي",
+  "No Service To Show":"لا يوجد خدمات",
+  "Prev":"السابق",
+  "Next":"التالي  "
 
 }
 

@@ -15,7 +15,6 @@ export const CatrgoryServicesCard = ({ category }: Props) => {
         width: "30%",
       }}
       onClick={() => {
-        console.log(category.id);
         localStorage.setItem("CategoryType", category.title);
         navigate(`/home/CategorySevices/services/${category.id}`);
       }}

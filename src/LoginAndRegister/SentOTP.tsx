@@ -31,7 +31,7 @@ const SentOTP = () => {
     if (!phone) navigate("/SentNumber", { replace: true });
   }, [phone, navigate]);
 
-  const [timer, setTimer] = useState(3);
+  const [timer, setTimer] = useState(60);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {

@@ -9,7 +9,6 @@ import Home from "./pages/Home";
 import { AllFeaturedPlaces } from "./pages/FeaturedPlaces/AllFeaturedPlaces";
 import { AllCategoriesServices } from "./pages/ServiceProivded/AllCategoriesServices";
 import { AllCategoriesPlaces } from "./pages/CategoriesPlaces/AllCategoriesPlaces";
-// import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory";
 import { PlacePage } from "./pages/PlacePage";
 import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory/PlacesForOneCategory";
 import { ServicesForOneCategory } from "./pages/ServiceProivded/ServiceForOneCategory/ServicesForOneCategory";
@@ -26,20 +25,21 @@ import EditAccount from "./pages/AccountPage/EditAccount";
 import SuccessPage from "./pages/SuccessPage";
 import StaticContents from "./pages/AccountPage/StaticContents";
 import ContactUs from "./pages/AccountPage/ContactUs";
-import BookingsPage from "./pages/BookingsPage";
+import BookingDetailsPage from "./pages/Bookings/BookingDetailsPage";
+import AllBookings from "./pages/Bookings/AllBookings";
+import FailedPage from "./pages/FailedPage";
 
 function App() {
   return (
     <BrowserRouter>
       <DirectionController />
       <Routes>
+        {/* Public home-related routes */}
         <Route path="/" element={<SplashScreen />} />
         <Route path="/Language" element={<Language />} />
         <Route path="/SentNumber" element={<SentNumber />} />
         <Route path="/SentOTP" element={<SentOTP />} />
         <Route path="/Register" element={<Register />} />
-
-        {/* Public home-related routes */}
         <Route path="/home" element={<Home />} />
         <Route path="/home/featured" element={<AllFeaturedPlaces />} />
         <Route
@@ -66,11 +66,9 @@ function App() {
           path="/home/CategoriesServices/Service/DetailsPage/:id"
           element={<ServicePage />}
         />
-
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/Bookings" element={<BookingsPage />} />
-
+          <Route path="/Bookings" element={<AllBookings />} />
           <Route path="/places/book/:id" element={<PlaceBooking />} />
           <Route
             path="/places/book/:id/checkout"
@@ -81,6 +79,8 @@ function App() {
             path="/services/book/:id/checkout"
             element={<ServiceBookingCheckout />}
           />
+          <Route path="/failed" element={<FailedPage />} />
+
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/EditAccount" element={<EditAccount />} />
@@ -97,6 +97,10 @@ function App() {
             element={<StaticContents title="Terms" text="Terms & Conditions" />}
           />
           <Route path="/Account/ContactsUs" element={<ContactUs />} />
+          <Route
+            path="/Bookings/BookingDetailsPage/:id"
+            element={<BookingDetailsPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
