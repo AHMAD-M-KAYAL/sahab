@@ -25,7 +25,6 @@ export const SearchHome = () => {
   // جلب البيانات
   const { data: PlacesData } = useGetSearchPlaces(searchTitle);
   const { data: ServiceData } = useGetSearchServices(searchTitle);
-  console.log(PlacesData);
   const PlacesResult = PlacesData ?? []; // لو API يرجع مصفوفة مباشرة
   const ServiceResult = ServiceData ?? [];
 

@@ -21,8 +21,10 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
+  const { t } = useTranslation();
   const userName = localStorage.getItem("userName") ?? "";
   const userPhone = localStorage.getItem("userPhone") ?? "";
   const userEmail = localStorage.getItem("email") ?? "";
@@ -129,8 +131,8 @@ const ContactUs = () => {
                   <MailOutlineIcon />
                 </Avatar>
               }
-              title="Contact Us"
-              subheader="We’d love to hear from you"
+              title={t("Contact Us")}
+              subheader={t("We’d love to hear from you")}
               sx={{
                 "& .MuiCardHeader-title": {
                   fontWeight: 700,
@@ -206,7 +208,7 @@ const ContactUs = () => {
                       disabled={!message}
                       sx={{ textTransform: "none" }}
                     >
-                      Clear
+                      {t("Clear")}
                     </Button>
                     <Button
                       type="submit"
@@ -222,7 +224,7 @@ const ContactUs = () => {
                         boxShadow: "0 6px 16px rgba(37,99,235,0.25)",
                       }}
                     >
-                      {sending ? "Sending..." : "Send message"}
+                      {sending ? t("Sending...") : t("Send message")}
                     </Button>
                   </Stack>
                 </Stack>
@@ -240,7 +242,7 @@ const ContactUs = () => {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>
-          Message has been sent successfully 🎉
+          {t("Message has been sent successfully 🎉")}
         </Alert>
       </Snackbar>
 

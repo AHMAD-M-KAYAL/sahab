@@ -31,7 +31,6 @@ const NavBar = () => {
         </Box>
         <Input
           onClick={() => {
-            console.log("clicked");
             navigate("/SearchPage");
           }}
           color="neutral"

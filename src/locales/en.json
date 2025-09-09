@@ -63,11 +63,14 @@
 "choose a date":"choose a date" , "Resrvation Time":"Resrvation Time" ,"choose the time":"choose the time",
 "choose your convenient time": "choose your convenient time" ,"select the date first":"select the date first",
 "time will show after selecting the date":"time will show after selecting the date",
-"select the time period":"select the time period" ,"No times available":"No times available","Enter your address":"Enter your address",
+"select the time period":"select the time period" ,"No  available":"No times available","Enter your address":"Enter your address",
 "Service fee included":"Service fee included" ,"No place bookings yet":"No place bookings yet",
 "Category":"Category","Reservation number:": "Reservation number:","Total Price:":"Total Price",
 "Invoice":"Invoice","No service bookings yet":"No service bookings yet","Booking ID":"Booking ID"
-,"phone":"phone", "email":"email"
+,"phone":"phone", "email":"email"  ,"Contact Us":"Contact Us","We’d love to hear from you":"We’d love to hear from you",
+"Send message":"Send message","Sending...":"Sending...","Message has been sent successfully 🎉":"Message has been sent successfully 🎉",
+"Services":"Services"
+
 
 
 

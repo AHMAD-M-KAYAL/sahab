@@ -44,7 +44,8 @@ export default function ServiceBooking() {
   const timeOptions = useMemo(() => {
     if (!selectedDate || !data) return [];
     const ymd = format(selectedDate, "yyyy-MM-dd");
-    const ranges: [string, string][] = data[ymd] ?? [];
+    const ranges: [string, string][] =
+      (data as unknown as Record<string, [string, string][]>)[ymd] ?? [];
     return ranges.map(([start, end]) => ({
       value: ` ${start}|${end}`,
       label: formatSlotLabel(start, end), // "03:00 PM - 04:00 PM"

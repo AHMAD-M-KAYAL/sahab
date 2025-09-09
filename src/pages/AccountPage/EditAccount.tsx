@@ -183,6 +183,7 @@ const EditAccount = () => {
         style={{
           backgroundColor: "white",
           boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
+          direction: "ltr",
         }}
       >
         <Box
