@@ -45,8 +45,6 @@ export const PlacesForOneCategory = () => {
   const canGoNext =
     typeof lastPage === "number" ? currentPage < lastPage : places.length > 0;
 
-  const CategoryType = localStorage.getItem("CategoryType");
-
   // سكليتون كارد يشبه PlacesCard2
   const CardSkeleton = () => (
     <Box
@@ -100,9 +98,7 @@ export const PlacesForOneCategory = () => {
             fontSize: "30px",
             width: "80%",
           }}
-        >
-          {t("Popular Categories")}/{CategoryType}
-        </Box>
+        ></Box>
       </nav>
 
       {/* فلاتر + معلومات الصفحة */}

@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import sahab from "../assets/logo/sahab-logo-md.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Succsess from "../message/Succsess";
-import Failed from "../message/Failed";
+import Succsess from "../components/message/Succsess";
+import Failed from "../components/message/Failed";
 import { useState } from "react";
 
 const SentNumber = () => {

@@ -28,7 +28,6 @@ export const CategoriesServices = () => {
             navigate("CategoryServices");
           }}
         >
-          {" "}
           {t("View All")}
         </Box>
       </Box>

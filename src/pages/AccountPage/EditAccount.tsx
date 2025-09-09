@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { Box, Button, TextField, Avatar, ButtonBase } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
-import Succsess from "../../message/Succsess";
-import Failed from "../../message/Failed";
+import Succsess from "../../components/message/Succsess";
+import Failed from "../../components/message/Failed";
 import { useState } from "react";
 import IconBack from "../../assets/logo/back.svg";
 import {
@@ -257,8 +257,6 @@ const EditAccount = () => {
           {...register("phone")}
           id="phone"
           label={t("phone")}
-          value={userPhone}
-          disabled
           type="text"
           sx={{ width: { xs: "200px", md: "300px", lg: "400px" } }}
         />

@@ -1,12 +1,10 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { t } from "i18next";
-import IconBack from "../assets/logo/back.svg";
-import { DetailsPlaceComponent } from "./CategoriesPlaces/PlacesForOneCategory/DetailsPlaceComponent";
-import BookingCardCategory from "../components/cards/BookingCardCategory";
+import IconBack from "../../assets/logo/back.svg";
+import { DetailsPlaceComponent } from "./PlacesForOneCategory/DetailsPlaceComponent";
+import BookingCardCategory from "../../components/cards/BookingCardCategory";
 export const PlacePage = () => {
   const navigate = useNavigate();
-  const CategoryType = localStorage.getItem("CategoryType");
 
   return (
     <>
@@ -23,7 +21,6 @@ export const PlacePage = () => {
           component={Button}
           onClick={() => {
             navigate(-1);
-            localStorage.removeItem("CategoryType");
           }}
           sx={{
             width: "10%",
@@ -42,9 +39,7 @@ export const PlacePage = () => {
             fontSize: "30px",
             width: "80%",
           }}
-        >
-          {t("Popular Categories")}/{CategoryType}
-        </Box>
+        ></Box>
       </nav>
       <Grid
         container

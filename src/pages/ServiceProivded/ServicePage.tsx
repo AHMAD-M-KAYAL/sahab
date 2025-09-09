@@ -1,12 +1,10 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { t } from "i18next";
-import IconBack from "../assets/logo/back.svg";
-import { DetailsServiceComponent } from "./ServiceProivded/ServiceForOneCategory/DetailsServiceComponent";
-import BookingCardServices from "../components/cards/BookingCardServices";
+import IconBack from "../../assets/logo/back.svg";
+import { DetailsServiceComponent } from "./ServiceForOneCategory/DetailsServiceComponent";
+import BookingCardServices from "../../components/cards/BookingCardServices";
 export const ServicePage = () => {
   const navigate = useNavigate();
-  const CategoryType = localStorage.getItem("CategoryType");
 
   return (
     <>
@@ -23,7 +21,6 @@ export const ServicePage = () => {
           component={Button}
           onClick={() => {
             navigate(-1);
-            localStorage.removeItem("CategoryType");
           }}
           sx={{
             width: "10%",
@@ -42,9 +39,7 @@ export const ServicePage = () => {
             fontSize: "30px",
             width: "80%",
           }}
-        >
-          {t("Popular Categories")}/{CategoryType}
-        </Box>
+        ></Box>
       </nav>
       <Grid
         container

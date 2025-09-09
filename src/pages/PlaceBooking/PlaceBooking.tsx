@@ -9,7 +9,7 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
-
+import IconBack from "../../assets/logo/back.svg";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -43,7 +43,6 @@ export default function PlaceBooking() {
   const { t } = useTranslation();
   const { id } = useParams();
   const { data: disabledDaysFromApi = [] } = useGetBookingDates(Number(id));
-
   const { data: placeDetails } = useGetOnePlaceDetails(Number(id));
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -51,6 +50,9 @@ export default function PlaceBooking() {
     start: null,
     end: null,
   });
+
+  // بداية يوم "اليوم"
+  const todayStart = useMemo(() => startOfDay(new Date()).getTime(), []);
 
   const disabledSet = useMemo(() => {
     const s = new Set<number>();
@@ -98,15 +100,19 @@ export default function PlaceBooking() {
     return days;
   };
 
-  const isDisabled = (date: Date) =>
-    disabledSet.has(startOfDay(date).getTime());
+  // ✅ أي يوم قبل اليوم أو ضمن قائمة الـ API يعتبر Disabled
+  const isDisabled = (date: Date) => {
+    const ts = startOfDay(date).getTime();
+    return ts < todayStart || disabledSet.has(ts);
+  };
 
+  // ✅ لو في أيام ماضية أو محجوزة بين تاريخين، نمنع اختيار هذا المدى
   const hasDisabledBetween = (a: Date, b: Date) => {
     const from = Math.min(startOfDay(a).getTime(), startOfDay(b).getTime());
     const to = Math.max(startOfDay(a).getTime(), startOfDay(b).getTime());
 
     for (let t = from + 24 * 60 * 60 * 1000; t < to; t += 24 * 60 * 60 * 1000) {
-      if (disabledSet.has(t)) return true;
+      if (t < todayStart || disabledSet.has(t)) return true;
     }
     return false;
   };
@@ -175,16 +181,14 @@ export default function PlaceBooking() {
   const totalPrice = useMemo(() => {
     if (!selectedRange.start || !selectedRange.end) return 0;
 
-    const start = startOfDay(
+    const start =
       selectedRange.start < selectedRange.end
-        ? selectedRange.start
-        : selectedRange.end
-    );
-    const end = startOfDay(
+        ? startOfDay(selectedRange.start)
+        : startOfDay(selectedRange.end);
+    const end =
       selectedRange.start < selectedRange.end
-        ? selectedRange.end
-        : selectedRange.start
-    );
+        ? startOfDay(selectedRange.end)
+        : startOfDay(selectedRange.start);
 
     let sum = 0;
     // iterate nights: start (inclusive) -> end (exclusive)
@@ -207,249 +211,280 @@ export default function PlaceBooking() {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "background.default",
-        p: { xs: 2, md: 4 },
-      }}
-    >
-      <Box sx={{ maxWidth: 1200, mx: "auto" }}>
+    <>
+      <nav
+        className="navbar"
+        style={{
+          backgroundColor: "white",
+          direction: "ltr",
+
+          boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
+        }}
+      >
         <Box
+          component={Button}
+          onClick={() => {
+            navigate(-1);
+          }}
           sx={{
-            mb: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 2,
+            width: "10%",
+            backgroundColor: "white",
+            "&:hover": {
+              transform: "translateY(1px) scale(1.201)",
+            },
           }}
         >
-          <Typography variant="h4" fontWeight={700}>
-            {t("book a place")}
-          </Typography>
-          <Button
-            onClick={() => {
-              navigate(-1);
-            }}
-            variant="contained"
-            size="large"
-          >
-            {t("back")}
-          </Button>
+          <Box component="img" src={IconBack} />
         </Box>
+        <Box
+          sx={{
+            padding: "10px",
+            fontWeight: "800",
+            fontSize: "30px",
+            width: "80%",
+          }}
+        ></Box>
+      </nav>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          bgcolor: "background.default",
+          p: { xs: 2, md: 4 },
+        }}
+      >
+        <Box sx={{ maxWidth: 1200, mx: "auto" }}>
+          <Box
+            sx={{
+              mb: 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 2,
+            }}
+          >
+            <Typography variant="h4" fontWeight={700}>
+              {t("book a place")}
+            </Typography>
+          </Box>
 
-        <Grid container>
-          <Grid size={{ xs: 12, lg: 7.5 }}>
-            <Card variant="outlined">
-              <CardHeader
-                sx={{ pb: 1 }}
-                title={
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <IconButton
-                      aria-label={t("Next Month")}
-                      onClick={() => navigateMonth("next")}
-                      size="small"
+          <Grid container>
+            <Grid size={{ xs: 12, lg: 7.5 }}>
+              <Card variant="outlined">
+                <CardHeader
+                  sx={{ pb: 1 }}
+                  title={
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      <ChevronLeftIcon fontSize="small" />
-                    </IconButton>
-                    <Typography variant="h6" fontWeight={700}>
-                      {monthNames[currentDate.getMonth()]}{" "}
-                      {currentDate.getFullYear()}
-                    </Typography>
-                    <IconButton
-                      aria-label={t("previous Month")}
-                      onClick={() => navigateMonth("prev")}
-                      size="small"
-                    >
-                      <ChevronRightIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                }
-              />
-              <CardContent>
-                {/* Day headers */}
-                <Grid container columns={7} spacing={0.5} sx={{ mb: 2 }}>
-                  {dayNames.map((day) => (
-                    <Grid key={day} size={{ xs: 1 }}>
-                      <Box
-                        sx={{
-                          p: 1,
-                          textAlign: "center",
-                          typography: "body2",
-                          fontWeight: 600,
-                          color: "text.secondary",
-                        }}
+                      <IconButton
+                        aria-label={t("Next Month")}
+                        onClick={() => navigateMonth("next")}
+                        size="small"
                       >
-                        {day}
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-
-                {/* Days grid */}
-                <Grid container columns={7} spacing={0.5}>
-                  {days.map((date, idx) => (
-                    <Grid key={idx} size={{ xs: 1 }}>
-                      <Box
-                        sx={{ position: "relative", width: "100%", pt: "100%" }}
+                        <ChevronLeftIcon fontSize="small" />
+                      </IconButton>
+                      <Typography variant="h6" fontWeight={700}>
+                        {monthNames[currentDate.getMonth()]}{" "}
+                        {currentDate.getFullYear()}
+                      </Typography>
+                      <IconButton
+                        aria-label={t("previous Month")}
+                        onClick={() => navigateMonth("prev")}
+                        size="small"
                       >
-                        {date ? (
-                          <Button
-                            onClick={() => handleDateClick(date)}
-                            fullWidth
-                            disabled={isDisabled(date)}
-                            sx={{
-                              position: "absolute",
-                              inset: 0,
-                              minWidth: 0,
-                              borderRadius: 1,
-                              fontSize: 14,
-                              fontWeight: 600,
+                        <ChevronRightIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  }
+                />
+                <CardContent>
+                  {/* Day headers */}
+                  <Grid container columns={7} spacing={0.5} sx={{ mb: 2 }}>
+                    {dayNames.map((day) => (
+                      <Grid key={day} size={{ xs: 1 }}>
+                        <Box
+                          sx={{
+                            p: 1,
+                            textAlign: "center",
+                            typography: "body2",
+                            fontWeight: 600,
+                            color: "text.secondary",
+                          }}
+                        >
+                          {day}
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
 
-                              // 👇 color logic
-                              color: isDateSelected(date)
-                                ? "primary.contrastText"
-                                : "text.primary",
+                  {/* Days grid */}
+                  <Grid container columns={7} spacing={0.5}>
+                    {days.map((date, idx) => (
+                      <Grid key={idx} size={{ xs: 1 }}>
+                        <Box
+                          sx={{
+                            position: "relative",
+                            width: "100%",
+                            pt: "100%",
+                          }}
+                        >
+                          {date ? (
+                            <Button
+                              onClick={() => handleDateClick(date)}
+                              fullWidth
+                              disabled={isDisabled(date)}
+                              sx={{
+                                position: "absolute",
+                                inset: 0,
+                                minWidth: 0,
+                                borderRadius: 1,
+                                fontSize: 14,
+                                fontWeight: 600,
 
-                              bgcolor: isDateSelected(date)
-                                ? "primary.main"
-                                : isDateInRange(date)
-                                ? "action.hover"
-                                : "transparent",
+                                color: isDateSelected(date)
+                                  ? "primary.contrastText"
+                                  : "text.primary",
 
-                              "&:hover": {
-                                bgcolor: isDisabled(date)
-                                  ? "error.light" // stay gray on hover
-                                  : isDateSelected(date)
-                                  ? "primary.dark"
-                                  : "action.hover",
-                              },
+                                bgcolor: isDateSelected(date)
+                                  ? "primary.main"
+                                  : isDateInRange(date)
+                                  ? "action.hover"
+                                  : "transparent",
 
-                              cursor: isDisabled(date)
-                                ? "not-allowed"
-                                : "pointer",
-                            }}
-                          >
-                            {date.getDate()}
-                          </Button>
-                        ) : (
-                          <Box sx={{ position: "absolute", inset: 0 }} />
-                        )}
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid size={{ lg: 0.5 }}></Grid>
-          <Grid size={{ xs: 12, lg: 4 }}>
-            <Box sx={{ display: "grid", gap: 2 }}>
-              <Card variant="outlined">
-                <CardContent sx={{ p: 3 }}>
-                  <Box sx={{ textAlign: "center", mb: 2 }}>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 0.5 }}
+                                "&:hover": {
+                                  bgcolor: isDisabled(date)
+                                    ? "action.disabledBackground"
+                                    : isDateSelected(date)
+                                    ? "primary.dark"
+                                    : "action.hover",
+                                },
+
+                                cursor: isDisabled(date)
+                                  ? "not-allowed"
+                                  : "pointer",
+                              }}
+                            >
+                              {date.getDate()}
+                            </Button>
+                          ) : (
+                            <Box sx={{ position: "absolute", inset: 0 }} />
+                          )}
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid size={{ lg: 0.5 }}></Grid>
+
+            <Grid size={{ xs: 12, lg: 4 }}>
+              <Box sx={{ display: "grid", gap: 2 }}>
+                <Card variant="outlined">
+                  <CardContent sx={{ p: 3 }}>
+                    <Box sx={{ textAlign: "center", mb: 2 }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mb: 0.5 }}
+                      >
+                        {t("starting Date")}
+                      </Typography>
+                      <Typography variant="h6" fontWeight={700}>
+                        {formatDate(selectedRange.start)}
+                      </Typography>
+                    </Box>
+                    <Divider sx={{ my: 1.5 }} />
+                    <Box sx={{ textAlign: "center" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mb: 0.5 }}
+                      >
+                        {t("ending Date")}
+                      </Typography>
+                      <Typography variant="h6" fontWeight={700}>
+                        {formatDate(selectedRange.end)}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+
+                <Card variant="outlined">
+                  <CardContent sx={{ p: 3 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        mb: 2,
+                      }}
                     >
-                      {t("starting Date")}
-                    </Typography>
-                    <Typography variant="h6" fontWeight={700}>
-                      {formatDate(selectedRange.start)}
-                    </Typography>
-                  </Box>
-                  <Divider sx={{ my: 1.5 }} />
-                  <Box sx={{ textAlign: "center" }}>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 0.5 }}
+                      <Typography variant="h6" fontWeight={700}>
+                        {t("Register price")}
+                      </Typography>
+                      <Typography variant="h5" fontWeight={800} color="primary">
+                        $ {totalPrice.toFixed(3)}
+                      </Typography>
+                    </Box>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      fullWidth
+                      disabled={!selectedRange.start || !selectedRange.end}
+                      sx={{ py: 1.5, fontSize: 16, fontWeight: 700 }}
+                      onClick={goToCheckout}
                     >
-                      {t("ending Date")}
-                    </Typography>
-                    <Typography variant="h6" fontWeight={700}>
-                      {formatDate(selectedRange.end)}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
+                      {t("continue to payment")}{" "}
+                    </Button>
+                  </CardContent>
+                </Card>
 
-              <Card variant="outlined">
-                <CardContent sx={{ p: 3 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      mb: 2,
-                    }}
-                  >
-                    <Typography variant="h6" fontWeight={700}>
-                      {t("Register price")}
+                <Card variant="outlined">
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={700}
+                      sx={{ mb: 1.5 }}
+                    >
+                      {t("payment details")}
                     </Typography>
-                    <Typography variant="h5" fontWeight={800} color="primary">
-                      $ {totalPrice.toFixed(3)}
-                    </Typography>
-                  </Box>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    disabled={!selectedRange.start || !selectedRange.end}
-                    sx={{ py: 1.5, fontSize: 16, fontWeight: 700 }}
-                    onClick={goToCheckout}
-                  >
-                    {t("continue to payment")}{" "}
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card variant="outlined">
-                <CardContent sx={{ p: 3 }}>
-                  <Typography
-                    variant="subtitle1"
-                    fontWeight={700}
-                    sx={{ mb: 1.5 }}
-                  >
-                    {t("payment details")}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      mb: 1,
-                    }}
-                  >
-                    <Typography variant="body2" color="text.secondary">
-                      {t("number of nights")}
-                    </Typography>
-                    <Typography variant="body2" fontWeight={700}>
-                      {nights}
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Typography variant="body2" color="text.secondary">
-                      {t("number of guests")}
-                    </Typography>
-                    <Typography variant="body2" fontWeight={700}>
-                      1
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        mb: 1,
+                      }}
+                    >
+                      <Typography variant="body2" color="text.secondary">
+                        {t("number of nights")}
+                      </Typography>
+                      <Typography variant="body2" fontWeight={700}>
+                        {nights}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Typography variant="body2" color="text.secondary">
+                        {t("number of guests")}
+                      </Typography>
+                      <Typography variant="body2" fontWeight={700}>
+                        1
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }

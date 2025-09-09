@@ -42,8 +42,6 @@ export const ServicesForOneCategory = () => {
     setPage(1);
   }, [price, id]);
 
-  const CategoryType = localStorage.getItem("CategoryType");
-
   // سكليتون يشبه ServicesCard
   const CardSkeleton = () => (
     <Box
@@ -93,9 +91,7 @@ export const ServicesForOneCategory = () => {
             fontSize: "30px",
             width: "80%",
           }}
-        >
-          {t("Services we Provide")}/{CategoryType}
-        </Box>
+        ></Box>
       </nav>
 
       {/* الفلاتر + عرض رقم الصفحة */}

@@ -8,11 +8,10 @@ import Register from "./LoginAndRegister/Register";
 import Home from "./pages/Home";
 import { AllFeaturedPlaces } from "./pages/FeaturedPlaces/AllFeaturedPlaces";
 import { AllCategoriesServices } from "./pages/ServiceProivded/AllCategoriesServices";
-import { AllCategoriesPlaces } from "./pages/CategoriesPlaces/AllCategoriesPlaces";
-import { PlacePage } from "./pages/PlacePage";
-import { PlacesForOneCategory } from "./pages/CategoriesPlaces/PlacesForOneCategory/PlacesForOneCategory";
+import { AllCategoriesPlaces } from "./pages/PlaceProvided/AllCategoriesPlaces";
+import { PlacesForOneCategory } from "./pages/PlaceProvided/PlacesForOneCategory/PlacesForOneCategory";
 import { ServicesForOneCategory } from "./pages/ServiceProivded/ServiceForOneCategory/ServicesForOneCategory";
-import { ServicePage } from "./pages/ServicePage";
+import { ServicePage } from "./pages/ServiceProivded/ServicePage";
 import { SearchHome } from "./pages/SearchHome";
 import PlaceBooking from "./pages/PlaceBooking/PlaceBooking";
 import PlaceBookingCheckout from "./pages/PlaceBooking/Checkout";
@@ -22,14 +21,15 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import ProtectedRoute from "./ProtectedRoute";
 import DirectionController from "./DirectionController";
 import EditAccount from "./pages/AccountPage/EditAccount";
-import SuccessPage from "./pages/SuccessPage";
+import SuccessPage from "./components/message/SuccessPage";
 import StaticContents from "./pages/AccountPage/StaticContents";
 import ContactUs from "./pages/AccountPage/ContactUs";
 import BookingDetailsPage from "./pages/Bookings/BookingDetailsPage";
 import AllBookings from "./pages/Bookings/AllBookings";
-import FailedPage from "./pages/FailedPage";
-import SuccessMessageforEditAccount from "./pages/SuccessMessageforEditAccount";
-import FailedMessageforEditAccount from "./pages/FailedMessageforEditAccount";
+import FailedPage from "./components/message/FailedPage";
+import SuccessMessageforEditAccount from "./components/message/SuccessMessageforEditAccount";
+import FailedMessageforEditAccount from "./components/message/FailedMessageforEditAccount";
+import { PlacePage } from "./pages/PlaceProvided/PlacePage";
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import { Button, Divider } from "@mui/material";
-import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
 
 export default function BookingCardCategory() {
   const { id } = useParams();

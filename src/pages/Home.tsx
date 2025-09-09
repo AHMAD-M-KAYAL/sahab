@@ -5,9 +5,9 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton"; // 👈 استدعاء السكلتون
 import { FeaturedPlacesHome } from "./FeaturedPlaces/FeaturedPlacesHome";
-import { CategoriesPlaces } from "./CategoriesPlaces/CategoriesPlaces";
-import { CategoriesServices } from "./ServiceProivded/CategoriesServices";
 import { useGetHomePhotos } from "../hook/useGetHomePhotos";
+import { CategoriesPlaces } from "./PlaceProvided/CategoriesPlaces";
+import { CategoriesServices } from "./ServiceProivded/CategoriesServices";
 
 const Home = () => {
   const { data, isLoading } = useGetHomePhotos(); // 👈 افترض أن الهوك يرجع isLoading

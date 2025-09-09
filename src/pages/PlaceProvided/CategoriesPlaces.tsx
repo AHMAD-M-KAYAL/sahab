@@ -18,9 +18,7 @@ export const CategoriesPlaces = () => {
       >
         <Box
           sx={{ padding: "10px 30px", fontSize: "1.5rem", fontWeight: "800" }}
-        >
-          {t("Popular Categories")}
-        </Box>
+        ></Box>
         <Box
           component={Button}
           onClick={() => {
