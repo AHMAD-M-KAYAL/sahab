@@ -30,6 +30,11 @@ import FailedPage from "./components/message/FailedPage";
 import SuccessMessageforEditAccount from "./components/message/SuccessMessageforEditAccount";
 import FailedMessageforEditAccount from "./components/message/FailedMessageforEditAccount";
 import { PlacePage } from "./pages/PlaceProvided/PlacePage";
+import MyPosts from "./pages/AccountPage/MyPosts";
+import NewPost from "./pages/AccountPage/NewPost";
+import DetailsPost from "./pages/AccountPage/DetailsPost";
+import Resrvations from "./pages/AccountPage/Resrvations";
+import ResrvationsDetails from "./pages/AccountPage/ResrvationsDetails";
 
 function App() {
   return (
@@ -110,6 +115,17 @@ function App() {
           <Route
             path="/Bookings/BookingDetailsPage/:id"
             element={<BookingDetailsPage />}
+          />
+          <Route path="/Account/posts" element={<MyPosts />} />
+          <Route path="/Account/posts/new" element={<NewPost />} />
+          <Route
+            path="/Account/posts/:postId/details"
+            element={<DetailsPost />}
+          />
+          <Route path="/Account/reservation" element={<Resrvations />} />
+          <Route
+            path="/Account/reservationsdet"
+            element={<ResrvationsDetails />}
           />
         </Route>
       </Routes>

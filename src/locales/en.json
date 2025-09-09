@@ -69,7 +69,16 @@
 "Invoice":"Invoice","No service bookings yet":"No service bookings yet","Booking ID":"Booking ID"
 ,"phone":"phone", "email":"email"  ,"Contact Us":"Contact Us","We’d love to hear from you":"We’d love to hear from you",
 "Send message":"Send message","Sending...":"Sending...","Message has been sent successfully 🎉":"Message has been sent successfully 🎉",
-"Services":"Services"
+"Services":"Services","Place":"Place","No Place added":"No Place added","No Service added":"No Service added",
+"Delete":"Delete","Are you sure want to delete this":"Are you sure want to delete this",
+"Deleting will not affect any previous bookings":"Deleting will not affect any previous bookings",
+"NO":"NO","Yes":"Yes","Post Status":"Post Status","Active":"Active","Inactive":"Inactive","Booking Status":"Booking Status",
+"Open for Booking":"Open for Booking","Closed for Booking":"Closed for Booking",
+"Upload Images":"Upload Images","Add Post":"Add Post",
+"Please Select":"Please Select","Done":"Done","Weekday price* (Sun to Wed)":"Weekday price* (Sun to Wed)",
+"Weekend price* (Thu to Sat)":"Weekend price* (Thu to Sat)",
+"Special days (Optional)":"Special days (Optional)"  
+
 
 
 

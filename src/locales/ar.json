@@ -73,8 +73,14 @@
 ,"email":"البريد الإلكتروني","Booking ID":"رقم الحجز", "Clear" : "مسح","Contact Us":"تواصل معنا",
 "We’d love to hear from you":"نحب ان نتواصل معكن","Send message":"ارسل رسالة",
 "Sending...":"جاري الارسال","Message has been sent successfully 🎉":"تم ارسال الرسالة بنجاح",
-"Services":"الخدمات"
-
+"Services":"الخدمات","Place":"مكان","No Place added":"لا يوجد اماكن مضافة","No Service added":"لا يوجد خدمات مضافة",
+"Delete":"حذف" , "Are you sure want to delete this":"هل انت متاكد؟",
+"Deleting will not affect any previous bookings":"الحذف لن يوثلا على اي عملية حجز سابقة",
+"NO":"لا","Yes":"نعم","Post Status":"حالة المنشور","Active":"متاح","Inactive":"غير متاح",
+"Booking Status":"حالة الحجز","Open for Booking":"متاح للحجز","Closed for Booking":"مغلق للحجز",
+"Upload Images":"اضافة صورة","Add Post":"اضافة منشور","Please Select":"أضف رجاءً","Done":"تم",
+"Weekday price* (Sun to Wed)":"أيام الاسبوع","Weekend price* (Thu to Sat)":"العطل",
+"Special days (Optional)":"الايام المميزة"
 
 
 

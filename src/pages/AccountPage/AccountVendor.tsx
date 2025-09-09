@@ -4,10 +4,11 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 // أيقونات
 import ArticleIcon from "@mui/icons-material/Article"; // Edit + My Posts
+import EventSeatIcon from "@mui/icons-material/EventSeat"; // Reservations
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export const Account = () => {
+export const AccountVendor = () => {
   const { t } = useTranslation();
   // ستايل الأزرار
   const buttonSx = {
@@ -79,6 +80,52 @@ export const Account = () => {
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
             {t("Edit Account")}
+          </Box>
+        </Box>
+        <KeyboardArrowRightIcon
+          fontSize="medium"
+          className="arrowIcon"
+          sx={{ color: "#c5c5c7ff", transition: "color 0.3s ease" }}
+        />
+      </Box>
+
+      {/* My Posts */}
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("/Account/posts");
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+          <IconBox>
+            <ArticleIcon sx={{ color: "#1976d2", fontSize: 28 }} />
+          </IconBox>
+          <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
+            {t("My Posts")}
+          </Box>
+        </Box>
+        <KeyboardArrowRightIcon
+          fontSize="medium"
+          className="arrowIcon"
+          sx={{ color: "#c5c5c7ff", transition: "color 0.3s ease" }}
+        />
+      </Box>
+
+      {/* Reservations */}
+      <Box
+        component="button"
+        sx={buttonSx}
+        onClick={() => {
+          navigate("/Account/reservation");
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+          <IconBox>
+            <EventSeatIcon sx={{ color: "#1976d2", fontSize: 28 }} />
+          </IconBox>
+          <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
+            {t("Reservations")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
