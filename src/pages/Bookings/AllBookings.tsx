@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllBookingPlaces } from "../../hook/useGetAllBookingPlaces";
 import { useGetAllBookingService } from "../../hook/useGetAllBookingService";
 import NavBar from "../../components/NavBar";
+import { useTranslation } from "react-i18next";
 
 // Helpers: ألوان وأيقونات الحالة
 const statusColor = (status: string) => {
@@ -44,6 +45,7 @@ const statusIcon = (status: string) => {
 };
 
 export default function AllBookings() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState(0);
@@ -51,17 +53,15 @@ export default function AllBookings() {
   const { data: bookingPlacesRaw } = useGetAllBookingPlaces(token);
   const { data: bookingServicesRaw } = useGetAllBookingService(token);
 
-  // دايمًا خلّيهم Array حتى لو undefined
-
   return (
     <>
       <NavBar />
 
       <Box sx={{ minHeight: "100vh", bgcolor: "#f9fafb" }}>
-        <Container sx={{}}>
+        <Container>
           <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v)}>
-            <Tab label="Places" />
-            <Tab label="Services" />
+            <Tab label={t("Places")} />
+            <Tab label={t("Services")} />
           </Tabs>
 
           {/* PLACES */}
@@ -69,7 +69,7 @@ export default function AllBookings() {
             <Box sx={{ mt: 3 }}>
               {bookingPlacesRaw?.length === 0 && (
                 <Typography sx={{ color: "text.secondary", mb: 2 }}>
-                  No place bookings yet.
+                  {t("No place bookings yet.")}
                 </Typography>
               )}
 
@@ -107,7 +107,7 @@ export default function AllBookings() {
                           >
                             <Chip
                               size="small"
-                              label={p.status}
+                              label={t(p.status)}
                               icon={statusIcon(p.status)}
                               sx={{
                                 bgcolor: sc.bg,
@@ -124,7 +124,8 @@ export default function AllBookings() {
                             mb={1}
                           >
                             <Typography variant="body2" color="text.secondary">
-                              <strong>Category:</strong> {p.category_title}
+                              <strong>{t("Category")}:</strong>{" "}
+                              {p.category_title}
                             </Typography>
                           </Stack>
 
@@ -135,18 +136,20 @@ export default function AllBookings() {
                             mb={1}
                           >
                             <Typography variant="body2" color="text.secondary">
-                              <strong>Booking Id :</strong> {p.id}
+                              <strong>{t("Booking ID")}:</strong> {p.id}
                             </Typography>
                           </Stack>
 
                           <Stack spacing={0.5}>
                             <Typography variant="body2">
-                              <strong>TotalPrice:</strong> {p.total_price} KD
+                              <strong>{t("Total Price")}:</strong>{" "}
+                              {p.total_price} KD
                             </Typography>
 
                             {p.invoice_reference && (
                               <Typography variant="body2">
-                                <strong>Invoice:</strong> {p.invoice_reference}
+                                <strong>{t("Invoice")}:</strong>{" "}
+                                {p.invoice_reference}
                               </Typography>
                             )}
                           </Stack>
@@ -164,7 +167,7 @@ export default function AllBookings() {
             <Box sx={{ mt: 3 }}>
               {bookingServicesRaw?.length === 0 && (
                 <Typography sx={{ color: "text.secondary", mb: 2 }}>
-                  No service bookings yet.
+                  {t("No service bookings yet.")}
                 </Typography>
               )}
 
@@ -202,7 +205,7 @@ export default function AllBookings() {
                           >
                             <Chip
                               size="small"
-                              label={s.status}
+                              label={t(s.status)}
                               icon={statusIcon(s.status)}
                               sx={{
                                 bgcolor: sc.bg,
@@ -211,6 +214,7 @@ export default function AllBookings() {
                               }}
                             />
                           </Stack>
+
                           <Stack
                             direction="row"
                             alignItems="center"
@@ -218,10 +222,11 @@ export default function AllBookings() {
                             mb={1}
                           >
                             <Typography variant="body2" color="text.secondary">
-                              <strong> Category:</strong>
+                              <strong>{t("Category")}:</strong>{" "}
                               {s.category_title}
                             </Typography>
                           </Stack>
+
                           <Stack
                             direction="row"
                             alignItems="center"
@@ -229,24 +234,22 @@ export default function AllBookings() {
                             mb={1}
                           >
                             <Typography variant="body2" color="text.secondary">
-                              <strong> Reservation number:</strong>
-                              {s.id}
+                              <strong>{t("Booking ID")}:</strong> {s.id}
                             </Typography>
                           </Stack>
+
                           <Stack spacing={0.5}>
                             <Typography variant="body2">
-                              <strong>TotalPrice:</strong> {s.total_price} KD
+                              <strong>{t("Total Price")}:</strong>{" "}
+                              {s.total_price} KD
                             </Typography>
 
                             {s.invoice_reference && (
                               <Typography variant="body2">
-                                <strong>Invoice:</strong> {s.invoice_reference}
+                                <strong>{t("Invoice")}:</strong>{" "}
+                                {s.invoice_reference}
                               </Typography>
                             )}
-
-                            <Typography variant="body2" color="text.secondary">
-                              <strong>Payment:</strong> {s.payment}
-                            </Typography>
                           </Stack>
                         </CardContent>
                       </CardActionArea>

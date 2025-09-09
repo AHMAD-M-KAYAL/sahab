@@ -21,8 +21,12 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import { useNavigate, useParams } from "react-router-dom";
-import {  formatTo12Hour, parseSlot } from "../../utils/format";
-import { useAddServiceBooking, type CreateServiceBookingRequest } from "../../hook/useAddServiceBooking";
+import { formatTo12Hour, parseSlot } from "../../utils/format";
+import {
+  useAddServiceBooking,
+  type CreateServiceBookingRequest,
+} from "../../hook/useAddServiceBooking";
+import { useTranslation } from "react-i18next";
 
 type PaymentId = "knet" | "mastercard" | "visa" | "applepay" | "googlepay";
 
@@ -30,20 +34,26 @@ const readLS = (key: string): string | null => {
   const v = localStorage.getItem(key);
   if (v === null) return null;
   const trimmed = v.trim();
-  return trimmed && trimmed !== "null" && trimmed !== "undefined" ? trimmed : null;
+  return trimmed && trimmed !== "null" && trimmed !== "undefined"
+    ? trimmed
+    : null;
 };
 
-
 export default function ServiceBookingCheckout() {
-  const [name, setName] = useState(localStorage.getItem('userName'),);
-  const [phone, setPhone] = useState(localStorage.getItem('userPhone'));
+  const { t } = useTranslation();
+  const [name, setName] = useState(localStorage.getItem("userName"));
+  const [phone, setPhone] = useState(localStorage.getItem("userPhone"));
   const [paymentMethod, setPaymentMethod] = useState<PaymentId>("mastercard");
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   const { mutate, isPending } = useAddServiceBooking(String(token));
 
   const navigate = useNavigate();
 
-  const paymentMethods: Array<{ id: PaymentId; name: string; icon: "card" | "phone" }> = [
+  const paymentMethods: Array<{
+    id: PaymentId;
+    name: string;
+    icon: "card" | "phone";
+  }> = [
     { id: "knet", name: "Knet", icon: "card" },
     { id: "mastercard", name: "Master Card", icon: "card" },
     { id: "visa", name: "Visa", icon: "card" },
@@ -55,45 +65,51 @@ export default function ServiceBookingCheckout() {
   const address = readLS("address") ?? "";
   const totalPriceNum = Number(readLS("totalServicePrice") ?? 0);
   const { id } = useParams();
-  const serviceId = Number(id); 
-  
+  const serviceId = Number(id);
+
   const handleBooking = async () => {
-  // basic validation (replace with your toast/snackbar)
-  if (!selectedSlotRaw) {
-    return;
-  }
-  if (!address.trim()) {
-    return;
-  }
-  if (!serviceId || Number.isNaN(serviceId)) {
-    return;
-  }
-  if (!totalPriceNum || Number.isNaN(totalPriceNum)) {
-    return;
-  }
+    // basic validation (replace with your toast/snackbar)
+    if (!selectedSlotRaw) {
+      return;
+    }
+    if (!address.trim()) {
+      return;
+    }
+    if (!serviceId || Number.isNaN(serviceId)) {
+      return;
+    }
+    if (!totalPriceNum || Number.isNaN(totalPriceNum)) {
+      return;
+    }
 
-  let slot;
-  try {
-    slot = parseSlot(selectedSlotRaw);
-  } catch {
-    return;
-  }
+    let slot;
+    try {
+      slot = parseSlot(selectedSlotRaw);
+    } catch {
+      return;
+    }
 
-  const body: CreateServiceBookingRequest = {
-    code: null,
-    date: slot.date,                // "yyyy-MM-dd"
-    starting_time: slot.startTime,  // "HH:mm:ss"
-    ending_time: slot.endTime,      // "HH:mm:ss"
-    address,
-    payment_method: paymentMethod,  // from your state
-    service_id: serviceId,
-    total_price: String(totalPriceNum),
+    const body: CreateServiceBookingRequest = {
+      code: null,
+      date: slot.date, // "yyyy-MM-dd"
+      starting_time: slot.startTime, // "HH:mm:ss"
+      ending_time: slot.endTime, // "HH:mm:ss"
+      address,
+      payment_method: paymentMethod, // from your state
+      service_id: serviceId,
+      total_price: String(totalPriceNum),
+    };
+
+    mutate(body);
   };
-
- mutate(body);
-};
   return (
-    <Box dir="rtl" sx={{ minHeight: "100vh", background: (t) => `linear-gradient(135deg, ${t.palette.action.hover}, ${t.palette.action.selected})` }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: (t) =>
+          `linear-gradient(135deg, ${t.palette.action.hover}, ${t.palette.action.selected})`,
+      }}
+    >
       {/* Header */}
       <Box
         sx={{
@@ -111,11 +127,11 @@ export default function ServiceBookingCheckout() {
           boxShadow: 1,
         }}
       >
-        <IconButton onClick={()=> navigate(-1)} size="small">
+        <IconButton onClick={() => navigate(-1)} size="small">
           <ArrowBackIosNewIcon fontSize="small" />
         </IconButton>
         <Typography variant="h6" fontWeight={700}>
-          إجراء الدفع
+          {t("payment procedure")}
         </Typography>
       </Box>
 
@@ -125,32 +141,51 @@ export default function ServiceBookingCheckout() {
           <Grid xs={12} lg={6} container>
             <Card
               variant="outlined"
-              sx={{ width: '100%', m:"10px", border: 0, boxShadow: 6, bgcolor: "rgba(255,255,255,0.8)", backdropFilter: "blur(6px)" }}
+              sx={{
+                width: "100%",
+                m: "10px",
+                border: 0,
+                boxShadow: 6,
+                bgcolor: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(6px)",
+              }}
             >
-              <CardHeader title={<Typography variant="h6" fontWeight={700}>تفاصيل الاتصال</Typography>} />
+              <CardHeader
+                title={
+                  <Typography variant="h6" fontWeight={700}>
+                    {t("contact Details")}
+                  </Typography>
+                }
+              />
               <CardContent sx={{ display: "grid", gap: 2 }}>
                 <Box>
                   <Typography variant="body2" fontWeight={600} sx={{ mb: 0.5 }}>
-                    الاسم <Box component="span" sx={{ color: "error.main", ml: 0.5 }}>*</Box>
+                    {t("name")}
+                    <Box component="span" sx={{ color: "error.main", ml: 0.5 }}>
+                      *
+                    </Box>
                   </Typography>
                   <TextField
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="أدخل اسمك"
+                    placeholder={t("Enter your name")}
                     fullWidth
                     size="medium"
                   />
                 </Box>
                 <Box>
                   <Typography variant="body2" fontWeight={600} sx={{ mb: 0.5 }}>
-                    رقم الهاتف <Box component="span" sx={{ color: "error.main", ml: 0.5 }}>*</Box>
+                    {t("phone number")}{" "}
+                    <Box component="span" sx={{ color: "error.main", ml: 0.5 }}>
+                      *
+                    </Box>
                   </Typography>
                   <TextField
                     id="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="أدخل رقم الهاتف"
+                    placeholder={t("Enter your phone number")}
                     fullWidth
                     size="medium"
                     inputProps={{ inputMode: "tel" }}
@@ -164,42 +199,98 @@ export default function ServiceBookingCheckout() {
           <Grid xs={12} lg={6} container>
             <Card
               variant="outlined"
-              sx={{ width: '100%', m:"10px", border: 0, boxShadow: 6, bgcolor: "rgba(255,255,255,0.8)", backdropFilter: "blur(6px)" }}
+              sx={{
+                width: "100%",
+                m: "10px",
+                border: 0,
+                boxShadow: 6,
+                bgcolor: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(6px)",
+              }}
             >
               <CardHeader
                 title={
-                  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <Typography variant="h6" fontWeight={700}>تفاصيل الحجز</Typography>
-                    <IconButton onClick={()=> navigate(-1)} size="small">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight={700}>
+                      {t("Booking Details")}
+                    </Typography>
+                    <IconButton onClick={() => navigate(-1)} size="small">
                       <EditOutlinedIcon fontSize="small" color="action" />
                     </IconButton>
                   </Box>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 2 }}>
-                <Typography fontWeight={600}>عنوان الخدمة</Typography>
+                <Typography fontWeight={600}>{t("Service Title")}</Typography>
 
                 <Box sx={{ display: "grid", gap: 1.5 }}>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1.5, bgcolor: "action.hover", borderRadius: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      p: 1.5,
+                      bgcolor: "action.hover",
+                      borderRadius: 2,
+                    }}
+                  >
                     <Box sx={{ p: 1, bgcolor: "primary.50", borderRadius: 2 }}>
-                      <CalendarMonthIcon color="primary" sx={{ fontSize: 18 }} />
+                      <CalendarMonthIcon
+                        color="primary"
+                        sx={{ fontSize: 18 }}
+                      />
                     </Box>
-                    <Typography variant="body2">تاريخ الحجز : {new Date(parseSlot(selectedSlotRaw!).date).toLocaleDateString()}</Typography>
+                    <Typography variant="body2">
+                      {t("booking date")} :{" "}
+                      {new Date(
+                        parseSlot(selectedSlotRaw!).date
+                      ).toLocaleDateString()}
+                    </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1.5, bgcolor: "action.hover", borderRadius: 2 }}>
-                    <Box sx={{ p: 1, bgcolor: "secondary.50", borderRadius: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      p: 1.5,
+                      bgcolor: "action.hover",
+                      borderRadius: 2,
+                    }}
+                  >
+                    <Box
+                      sx={{ p: 1, bgcolor: "secondary.50", borderRadius: 2 }}
+                    >
                       <AccessTimeIcon color="secondary" sx={{ fontSize: 18 }} />
                     </Box>
-                    <Typography variant="body2">مدة الحجز : {formatTo12Hour(parseSlot(selectedSlotRaw!).startTime)} - {formatTo12Hour(parseSlot(selectedSlotRaw!).endTime)}</Typography>
+                    <Typography variant="body2">
+                      {t("booking duration")}:{" "}
+                      {formatTo12Hour(parseSlot(selectedSlotRaw!).startTime)} -{" "}
+                      {formatTo12Hour(parseSlot(selectedSlotRaw!).endTime)}
+                    </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5, p: 1.5, bgcolor: "action.hover", borderRadius: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 1.5,
+                      p: 1.5,
+                      bgcolor: "action.hover",
+                      borderRadius: 2,
+                    }}
+                  >
                     <Box sx={{ p: 1, bgcolor: "info.50", borderRadius: 2 }}>
                       <PlaceIcon color="info" sx={{ fontSize: 18 }} />
                     </Box>
                     <Typography variant="body2">
-                      العنوان : {address}
+                      {t("address")} : {address}
                     </Typography>
                   </Box>
                 </Box>
@@ -213,9 +304,23 @@ export default function ServiceBookingCheckout() {
           <Grid xs={12} lg={8} container>
             <Card
               variant="outlined"
-              sx={{ width: '100%', m:"10px", height: "100%", border: 0, boxShadow: 6, bgcolor: "rgba(255,255,255,0.8)", backdropFilter: "blur(6px)" }}
+              sx={{
+                width: "100%",
+                m: "10px",
+                height: "100%",
+                border: 0,
+                boxShadow: 6,
+                bgcolor: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(6px)",
+              }}
             >
-              <CardHeader title={<Typography variant="h6" fontWeight={700}>طريقة الدفع</Typography>} />
+              <CardHeader
+                title={
+                  <Typography variant="h6" fontWeight={700}>
+                    {t("payment method")}
+                  </Typography>
+                }
+              />
               <CardContent>
                 <RadioGroup
                   value={paymentMethod}
@@ -237,9 +342,17 @@ export default function ServiceBookingCheckout() {
                           border: 2,
                           borderColor: selected ? "primary.main" : "divider",
                           cursor: "pointer",
-                          transition: (t) => t.transitions.create(["border-color", "background-color"]),
+                          transition: (t) =>
+                            t.transitions.create([
+                              "border-color",
+                              "background-color",
+                            ]),
                           bgcolor: selected ? "action.selected" : "transparent",
-                          "&:hover": { bgcolor: selected ? "action.selected" : "action.hover" },
+                          "&:hover": {
+                            bgcolor: selected
+                              ? "action.selected"
+                              : "action.hover",
+                          },
                         }}
                       >
                         <Radio checked={selected} value={m.id} />
@@ -274,22 +387,62 @@ export default function ServiceBookingCheckout() {
           <Grid xs={12} lg={4} container>
             <Card
               variant="outlined"
-              sx={{ width: '100%', m:"10px", height: "100%", border: 0, boxShadow: 6, bgcolor: "rgba(255,255,255,0.8)", backdropFilter: "blur(6px)" }}
+              sx={{
+                width: "100%",
+                m: "10px",
+                height: "100%",
+                border: 0,
+                boxShadow: 6,
+                bgcolor: "rgba(255,255,255,0.8)",
+                backdropFilter: "blur(6px)",
+              }}
             >
-              <CardHeader title={<Typography variant="h6" fontWeight={700}>تفاصيل الدفع</Typography>} />
+              <CardHeader
+                title={
+                  <Typography variant="h6" fontWeight={700}>
+                    {t("payment details")}
+                  </Typography>
+                }
+              />
               <CardContent sx={{ display: "grid", gap: 1.25 }}>
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <Typography>مبلغ الحجز</Typography>
-                  <Typography fontWeight={600}>{Number(totalPriceNum).toFixed(3)} KD</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography> {t("Register price")}</Typography>
+                  <Typography fontWeight={600}>
+                    {Number(totalPriceNum).toFixed(3)} KD
+                  </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <Typography>خصم</Typography>
-                  <Typography fontWeight={600}>{Number(0).toFixed(3)} KD</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography>{t("Discount")}</Typography>
+                  <Typography fontWeight={600}>
+                    {Number(0).toFixed(3)} KD
+                  </Typography>
                 </Box>
                 <Divider sx={{ my: 1.25 }} />
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <Typography variant="h6" fontWeight={800} color="primary">إجمالي</Typography>
-                  <Typography variant="h6" fontWeight={800} color="primary">{Number(totalPriceNum).toFixed(3)} KD</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography variant="h6" fontWeight={800} color="primary">
+                    {t("Total")}
+                  </Typography>
+                  <Typography variant="h6" fontWeight={800} color="primary">
+                    {Number(totalPriceNum).toFixed(3)} KD
+                  </Typography>
                 </Box>
               </CardContent>
             </Card>
@@ -310,21 +463,28 @@ export default function ServiceBookingCheckout() {
               fontWeight: 800,
               borderRadius: 3,
               color: canPay ? "common.white" : "text.disabled",
-              backgroundImage: canPay ? "linear-gradient(90deg, #2563eb, #1d4ed8)" : "none",
+              backgroundImage: canPay
+                ? "linear-gradient(90deg, #2563eb, #1d4ed8)"
+                : "none",
               bgcolor: canPay ? "transparent" : "action.disabledBackground",
               boxShadow: canPay ? 6 : "none",
               transition: (t) =>
-                t.transitions.create(["transform", "box-shadow", "background-color"], {
-                  duration: t.transitions.duration.shortest,
-                }),
+                t.transitions.create(
+                  ["transform", "box-shadow", "background-color"],
+                  {
+                    duration: t.transitions.duration.shortest,
+                  }
+                ),
               "&:hover": {
                 transform: canPay ? "translateY(-2px)" : "none",
                 boxShadow: canPay ? 10 : "none",
-                backgroundImage: canPay ? "linear-gradient(90deg, #1d4ed8, #1e40af)" : "none",
+                backgroundImage: canPay
+                  ? "linear-gradient(90deg, #1d4ed8, #1e40af)"
+                  : "none",
               },
             }}
           >
-            احجز الان
+            {t("book now")}
           </Button>
         </Box>
       </Box>

@@ -16,6 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate, useParams } from "react-router";
 import { useGetBookingDates } from "../../hook/useGetBookingDates";
 import { useGetOnePlaceDetails } from "../../hook/useGetOnePlaceDetails";
+import { useTranslation } from "react-i18next";
 
 interface DateRange {
   start: Date | null;
@@ -39,6 +40,7 @@ const parseYmdLocal = (s: string) => {
 };
 
 export default function PlaceBooking() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { data: disabledDaysFromApi = [] } = useGetBookingDates(Number(id));
 
@@ -196,17 +198,16 @@ export default function PlaceBooking() {
 
   const navigate = useNavigate();
 
-  const goToCheckout = ()=>{
-    localStorage.setItem("nights", JSON.stringify(nights))
-    localStorage.setItem("startDate", String(selectedRange.start))
-    localStorage.setItem("endDate", String(selectedRange.end))
-    localStorage.setItem("totalPrice", String(totalPrice))
-    navigate(`/places/book/${id}/checkout`)
-  }
+  const goToCheckout = () => {
+    localStorage.setItem("nights", JSON.stringify(nights));
+    localStorage.setItem("startDate", String(selectedRange.start));
+    localStorage.setItem("endDate", String(selectedRange.end));
+    localStorage.setItem("totalPrice", String(totalPrice));
+    navigate(`/places/book/${id}/checkout`);
+  };
 
   return (
     <Box
-      dir="rtl"
       sx={{
         minHeight: "100vh",
         bgcolor: "background.default",
@@ -224,7 +225,7 @@ export default function PlaceBooking() {
           }}
         >
           <Typography variant="h4" fontWeight={700}>
-            حجز المكان
+            {t("book a place")}
           </Typography>
           <Button
             onClick={() => {
@@ -233,7 +234,7 @@ export default function PlaceBooking() {
             variant="contained"
             size="large"
           >
-            رجوع
+            {t("back")}
           </Button>
         </Box>
 
@@ -251,7 +252,7 @@ export default function PlaceBooking() {
                     }}
                   >
                     <IconButton
-                      aria-label="الشهر التالي"
+                      aria-label={t("Next Month")}
                       onClick={() => navigateMonth("next")}
                       size="small"
                     >
@@ -262,7 +263,7 @@ export default function PlaceBooking() {
                       {currentDate.getFullYear()}
                     </Typography>
                     <IconButton
-                      aria-label="الشهر السابق"
+                      aria-label={t("previous Month")}
                       onClick={() => navigateMonth("prev")}
                       size="small"
                     >
@@ -358,7 +359,7 @@ export default function PlaceBooking() {
                       color="text.secondary"
                       sx={{ mb: 0.5 }}
                     >
-                      تاريخ البدء
+                      {t("starting Date")}
                     </Typography>
                     <Typography variant="h6" fontWeight={700}>
                       {formatDate(selectedRange.start)}
@@ -371,7 +372,7 @@ export default function PlaceBooking() {
                       color="text.secondary"
                       sx={{ mb: 0.5 }}
                     >
-                      تاريخ الانتهاء
+                      {t("ending Date")}
                     </Typography>
                     <Typography variant="h6" fontWeight={700}>
                       {formatDate(selectedRange.end)}
@@ -391,7 +392,7 @@ export default function PlaceBooking() {
                     }}
                   >
                     <Typography variant="h6" fontWeight={700}>
-                      مبلغ الحجز
+                      {t("Register price")}
                     </Typography>
                     <Typography variant="h5" fontWeight={800} color="primary">
                       KD {totalPrice.toFixed(3)}
@@ -405,7 +406,7 @@ export default function PlaceBooking() {
                     sx={{ py: 1.5, fontSize: 16, fontWeight: 700 }}
                     onClick={goToCheckout}
                   >
-                    المتابعة للدفع
+                    {t("continue to payment")}{" "}
                   </Button>
                 </CardContent>
               </Card>
@@ -417,7 +418,7 @@ export default function PlaceBooking() {
                     fontWeight={700}
                     sx={{ mb: 1.5 }}
                   >
-                    تفاصيل الحجز
+                    {t("payment details")}
                   </Typography>
                   <Box
                     sx={{
@@ -427,7 +428,7 @@ export default function PlaceBooking() {
                     }}
                   >
                     <Typography variant="body2" color="text.secondary">
-                      عدد الليالي:
+                      {t("number of nights")}
                     </Typography>
                     <Typography variant="body2" fontWeight={700}>
                       {nights}
@@ -437,7 +438,7 @@ export default function PlaceBooking() {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Typography variant="body2" color="text.secondary">
-                      عدد الضيوف:
+                      {t("number of guests")}
                     </Typography>
                     <Typography variant="body2" fontWeight={700}>
                       1

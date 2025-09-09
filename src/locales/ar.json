@@ -28,7 +28,6 @@
    "Sahab":"سحاب",
    "Booking":"الحجز",
    "Home":"الصفخة الرئيسية",
-   "Account":"إدارة الحساب",
    "Featured Locations":"المواقع المميزة",
    "No Places To Show":"لا يوجد اماكن للعرض",
    "All":"الكل",
@@ -37,10 +36,44 @@
    "None":"بلا فلترة", "Duration":"المدة",
   "Hour":"ساعة",
   "Notification":"الإشعارات",
-  "Edit Account":"تعديل حسابي",
-  "No Service To Show":"لا يوجد خدمات",
-  "Prev":"السابق",
-  "Next":"التالي  "
+  "Account" : "الحساب" ,
+  "Edit Account" : "تعديل الحساب" ,
+  "My Posts" : "منشوراتي" ,
+  "Reservations" :"الحجوزات" ,
+  "Clear" : "مسح" ,
+  "My Account" : "حسابي", "Setting": "الإعدادت" ,
+  "Support" : "الدعم" , "About Sahab" : "عن سحاب" ,
+  "Privacy Policy" : "سياسة الخصوصية" ,
+   
+  "Logout" : "تسجيل الخروج" ,"Contacts us" :"تواصل معنا" ,
+  "EditAccount" : "تعديل الحساب" ,
+  "payment" : "الدفع" ,
+  "contact Details" : "تفاصيل الاتصال" ,
+  "name" : "الاسم" ,"phone number" : " رقم الهاتف" ,
+  "Booking Details" : "تفاصيل الحجز" ,
+  "starting Date" : "تاريخ البدء" ,
+  "ending Date": "تاريخ الانتهاء" ,"number of nights" : "عدد الليالي" ,
+  "payment method" : "طريقة الدفع" ,"payment details" : "تفاصيل الدفع  ",
+  "Register price" : "مبلغ الحجز" ,"Discount":"الخصم" ,"Total":"الكلي" ,
+  "continue to payment":"المتابعة للدفع" ,"important information":"معلومات مهمة",
+  "book a place" : "حجز مكان" , "back" : " رجوع"  , "Next Month" : "الشهر التالي" ,
+  "previous Month":"الشهر السابق" ,"number of guests" :"عدد الضيوف" ,"payment procedure":"إجراء الدفع",
+  "Enter your name" : "ادخل اسمك " , "Enter your phone number":"ادخل رقمك",
+  "Service Title" : "عنوان الخدمة" , "booking date" : "تاريخ الحجز" , "booking duration":"مدة الحجز",
+  "address":"العنوان" , "book now" : "احجز الان" , "book your services":"احجز خدماتك",
+    "choose your favorite Date":"اخنر تاريخ المفضل","choose a date":"اختر تاريخ",
+  "Resrvation Time" : "وقت الحجز" , "choose the time" :"اختر الوقت" , "choose your convenient time": "اختر الوقت المناسب",
+  "select the date first":"اختر التاريخ اولا" ,"time will show after selecting the date":"سيظهر الوقت بعد اختيار التاريخ",
+"select the time period":"اختر الفترات الزمنية" ,"No times available":"لا يوجد اوقات متاحة",
+"Service fee included":"رسوم الخدمة مشمولة",
+"Enter your address":"ادخل عنوانك","No place bookings yet":"لا يوجد اماكن محجوزة",
+"Category":"الفئات" ,"Reservation number" :"رقم الحجز", "Total Price":"المبلغ االكلي",
+"Invoice":"فاتورة","No service bookings yet":"لا يوجد خدمات محجوزة",
+"phone":"الرقم" 
+,"email":"البريد الإلكتروني","Booking ID":"رقم الحجز"
+
+
+
+
 
 }
-

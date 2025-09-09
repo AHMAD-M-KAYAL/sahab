@@ -35,8 +35,44 @@
   "Family Only":"Family Only",
   "Girls Only":"Girls Only",  "None":"None",
   "Duration":"Duration",
-  "Hour":"Hour","Notification":"Notification"
-  ,"Edit Account":"Edit Account"
+  "Hour":"Hour","Notification":"Notification" , 
+  "Edit Account" : "Edit Account" ,
+  "My Posts" : "My Posts" ,
+  "Reservations" : "Reservations" , "Clear" :"Clear" ,
+  "My Account" : "My Account" , "Setting" : "Setting" ,
+  "Support" : "Support" ,
+  "About Sahab" : "About Sahab" , "Privacy Policy" : "Privacy Policy" ,
+  "Terms & Conditions" : "Terms & Conditions" ,
+  "Logout" : "Logout" , "Contacts us" :"Contacts us" ,
+  "EditAccount" :"EditAccount"  ,
+  "payment" :"payment" ,
+  "contactDetails":"contactDetails" ,
+  "name" :"name" ,"phone number" :"phone number",
+  "Booking Details" : "Booking Details"  ,
+  "starting Date" : "starting Date" ,
+  "ending Date":"ending Date" , "number of nights" : "number of nights" ,
+  "payment method":"payment method" ,"payment details" :"payment details" ,
+  "Register price" : "Register price" ,"Discount" : "Discount" ,"Total":"Total",
+  "continue to payment":"continue to payment" , "important information" :"important information" ,
+  "book a place" : "book a place" ,"back":"back", "Next Month" :"Next Month" ,"previous Month":"previous Month",
+  "number of guests":"number of guests" ,"payment procedure" :"payment procedure",
+"Enter your name":"Enter your name" , "Enter your phone number":"Enter your phone number",
+"Service Title":"Service Title" , "booking date":"booking date" ,
+"booking duration":"booking duration" , "address" : "address" , "book now" :"book now",
+"book your services":"book your services",  "choose your favorite Date":"choose your favorite Date",
+"choose a date":"choose a date" , "Resrvation Time":"Resrvation Time" ,"choose the time":"choose the time",
+"choose your convenient time": "choose your convenient time" ,"select the date first":"select the date first",
+"time will show after selecting the date":"time will show after selecting the date",
+"select the time period":"select the time period" ,"No times available":"No times available","Enter your address":"Enter your address",
+"Service fee included":"Service fee included" ,"No place bookings yet":"No place bookings yet",
+"Category":"Category","Reservation number:": "Reservation number:","Total Price:":"Total Price",
+"Invoice":"Invoice","No service bookings yet":"No service bookings yet","Booking ID":"Booking ID"
+,"phone":"phone", "email":"email"
+
+
+
+
+
 
 
 }

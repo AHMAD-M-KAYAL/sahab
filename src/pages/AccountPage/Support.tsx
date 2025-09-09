@@ -10,8 +10,10 @@ import GavelIcon from "@mui/icons-material/Gavel";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LogoutIcon from "@mui/icons-material/Logout";
 import apiClient from "../../services/api-client";
+import { useTranslation } from "react-i18next";
 
 export const Support = () => {
+  const { t } = useTranslation();
   // ستايل الأزرار العامة
   const buttonSx = {
     backgroundColor: "white",
@@ -71,9 +73,8 @@ export const Support = () => {
           },
         }
       );
-
       // امسح البيانات المخزن
-      localStorage.clear()
+      localStorage.clear();
 
       navigate("/home");
     } catch (error) {
@@ -100,7 +101,7 @@ export const Support = () => {
           marginBottom: "20px",
         }}
       >
-        Support
+        {t("Support")}
       </Box>
 
       {/* About Sahab */}
@@ -116,7 +117,7 @@ export const Support = () => {
             <InfoIcon sx={{ color: "#374151", fontSize: 28 }} />
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
-            About Sahab
+            {t("About Sahab")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
@@ -139,7 +140,7 @@ export const Support = () => {
             <PrivacyTipIcon sx={{ color: "#374151", fontSize: 28 }} />
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
-            Privacy Policy
+            {t("Privacy Policy")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
@@ -162,7 +163,7 @@ export const Support = () => {
             <GavelIcon sx={{ color: "#374151", fontSize: 28 }} />
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
-            Terms & Conditions
+            {t("Terms & Conditions")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
@@ -185,7 +186,7 @@ export const Support = () => {
             <ContactMailIcon sx={{ color: "#374151", fontSize: 28 }} />
           </IconBox>
           <Box sx={{ fontSize: "18px", fontWeight: 500, color: "#111827" }}>
-            Contacts us
+            {t("Contacts us")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon
@@ -222,7 +223,7 @@ export const Support = () => {
           </IconBox>
           {/* شيل onClick من هون */}
           <Box sx={{ fontSize: "18px", fontWeight: 600, color: "#b91c1c" }}>
-            Logout
+            {t("Logout")}
           </Box>
         </Box>
         <KeyboardArrowRightIcon

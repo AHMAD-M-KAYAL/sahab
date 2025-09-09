@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { baseURL } from "../../services/api-client";
+import { useTranslation } from "react-i18next";
 
 export const MyAccount = () => {
   const userName = localStorage.getItem("userName");
   const userPhone = localStorage.getItem("userPhone");
   const userImage = localStorage.getItem("image");
-
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", flexDirection: "column", padding: "20px" }}>
       <Box
@@ -17,7 +18,7 @@ export const MyAccount = () => {
           fontFamily: "sans-serif",
         }}
       >
-        My Account
+        {t("My Account")}{" "}
       </Box>
       <Box sx={{ display: "flex", marginTop: "20px" }}>
         <Avatar

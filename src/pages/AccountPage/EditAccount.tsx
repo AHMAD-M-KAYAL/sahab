@@ -130,12 +130,13 @@ const EditAccount = () => {
 
       setSuccsess(true);
       setTimeout(() => setSuccsess(false), 2000);
-      navigate("/Account");
+      navigate("/EditingSuccessful");
     },
 
     onError: () => {
       setFailed(true);
       setTimeout(() => setFailed(false), 2000);
+      navigate("/EditingFailed");
     },
   });
 
@@ -223,7 +224,7 @@ const EditAccount = () => {
             fontWeight: "600",
           }}
         >
-          EditAccount
+          {t("EditAccount")}
         </Box>
 
         {/* Avatar upload + preview */}
@@ -243,7 +244,7 @@ const EditAccount = () => {
           helperText={errors.name?.message}
           {...register("name")}
           id="name"
-          label="name"
+          label={t("name")}
           type="text"
           sx={{ width: { xs: "200px", md: "300px", lg: "400px" } }}
         />
@@ -254,7 +255,7 @@ const EditAccount = () => {
           helperText={errors.phone?.message}
           {...register("phone")}
           id="phone"
-          label="phone"
+          label={t("phone")}
           value={userPhone}
           disabled
           type="text"
@@ -267,7 +268,7 @@ const EditAccount = () => {
           helperText={errors.email?.message}
           {...register("email")}
           id="email"
-          label="email"
+          label={t("email")}
           type="text"
           sx={{ width: { xs: "200px", md: "300px", lg: "400px" } }}
         />
@@ -282,7 +283,7 @@ const EditAccount = () => {
             backgroundColor: "var(--main-color)",
           }}
         >
-          {t("Register")}
+          {t("EditAccount")}
         </Button>
 
         {succsess && <Succsess seccsessfulMessage={t("createUser")} />}

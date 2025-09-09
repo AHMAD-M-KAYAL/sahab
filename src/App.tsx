@@ -28,6 +28,8 @@ import ContactUs from "./pages/AccountPage/ContactUs";
 import BookingDetailsPage from "./pages/Bookings/BookingDetailsPage";
 import AllBookings from "./pages/Bookings/AllBookings";
 import FailedPage from "./pages/FailedPage";
+import SuccessMessageforEditAccount from "./pages/SuccessMessageforEditAccount";
+import FailedMessageforEditAccount from "./pages/FailedMessageforEditAccount";
 
 function App() {
   return (
@@ -82,6 +84,14 @@ function App() {
           <Route path="/failed" element={<FailedPage />} />
 
           <Route path="/success" element={<SuccessPage />} />
+          <Route
+            path="/EditingSuccessful"
+            element={<SuccessMessageforEditAccount />}
+          />
+          <Route
+            path="/EditingFailed"
+            element={<FailedMessageforEditAccount />}
+          />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/EditAccount" element={<EditAccount />} />
           <Route

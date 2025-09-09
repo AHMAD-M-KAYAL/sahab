@@ -55,7 +55,7 @@ const MySetting = () => {
           marginBottom: "20px",
         }}
       >
-        Setting
+        {t("Setting")}
       </Box>
 
       {/* Change Language */}

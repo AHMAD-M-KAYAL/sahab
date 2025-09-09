@@ -26,16 +26,16 @@ import { ar } from "date-fns/locale";
 import { useGetDataTimesForOneService } from "../../hook/useGetDataTimesForOneService";
 import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
 import { formatSlotLabel } from "../../utils/format";
-
- 
+import { useTranslation } from "react-i18next";
 
 export default function ServiceBooking() {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [address, setAddress] = useState("");
   const { id } = useParams();
   const { data } = useGetDataTimesForOneService(Number(id));
-  const { data:serviceDetail } = useGetOneServiceDetails(Number(id));
+  const { data: serviceDetail } = useGetOneServiceDetails(Number(id));
 
   const navigate = useNavigate();
 
@@ -46,24 +46,23 @@ export default function ServiceBooking() {
     const ymd = format(selectedDate, "yyyy-MM-dd");
     const ranges: [string, string][] = data[ymd] ?? [];
     return ranges.map(([start, end]) => ({
-      value: `${start}|${end}`,
+      value: ` ${start}|${end}`,
       label: formatSlotLabel(start, end), // "03:00 PM - 04:00 PM"
     }));
   }, [selectedDate, data]);
 
   const isFormValid = Boolean(selectedDate && selectedTime && address.trim());
 
-  const goToCheckout = ()=>{
-    localStorage.setItem('selectedDate', String(selectedDate))
-    localStorage.setItem('selectedTime', String(selectedTime))
-    localStorage.setItem('address', String(address))
-    localStorage.setItem('totalServicePrice', String(serviceDetail?.price))
-    navigate(`/services/book/${id}/checkout`)
-  }
+  const goToCheckout = () => {
+    localStorage.setItem("selectedDate", String(selectedDate));
+    localStorage.setItem("selectedTime", String(selectedTime));
+    localStorage.setItem("address", String(address));
+    localStorage.setItem("totalServicePrice", String(serviceDetail?.price));
+    navigate(`/services/book/${id}/checkout`);
+  };
 
   return (
     <Box
-      dir="rtl"
       sx={{
         minHeight: "100vh",
         background: "linear-gradient(135deg, #f8fafc, #eef2f6)",
@@ -71,6 +70,7 @@ export default function ServiceBooking() {
     >
       <Box
         sx={{
+          direction: "ltr",
           position: "sticky",
           top: 0,
           zIndex: 10,
@@ -89,7 +89,7 @@ export default function ServiceBooking() {
           <ArrowBackIosNewIcon fontSize="small" />
         </IconButton>
         <Typography variant="h6" fontWeight={700} color="text.primary">
-          احجز خدمتك
+          {t("book your services")}
         </Typography>
       </Box>
 
@@ -122,19 +122,19 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      تاريخ الحجز
+                      {t("booking date")}
                     </Typography>
                   </Box>
                 }
                 subheader={
                   <Typography variant="body2" color="text.secondary">
-                    اختر التاريخ المفضل لديك لموعد الخدمة.
+                    {t("choose your favorite Date")}
                   </Typography>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  حدد التاريخ{" "}
+                  {t("choose a date")}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
@@ -212,19 +212,19 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      وقت الحجز
+                      {t("Resrvation Time")}
                     </Typography>
                   </Box>
                 }
                 subheader={
                   <Typography variant="body2" color="text.secondary">
-                    اختر الوقت المناسب لك لتحديد الموعد.
+                    {t("choose your convenient time")}
                   </Typography>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  اختر الوقت{" "}
+                  {t("choose the time")}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
@@ -245,10 +245,10 @@ export default function ServiceBooking() {
                       sx={{ fontSize: 36, color: "text.disabled", mb: 1 }}
                     />
                     <Typography fontWeight={600} color="text.secondary">
-                      يرجى اختيار تاريخ أولاً
+                      {t("select the date first")}
                     </Typography>
                     <Typography variant="body2" color="text.disabled">
-                      ستظهر فترات الوقت بعد اختيار التاريخ
+                      {t("time will show after selecting the date")}{" "}
                     </Typography>
                   </Box>
                 ) : (
@@ -257,7 +257,7 @@ export default function ServiceBooking() {
                     fullWidth
                     value={selectedTime}
                     onChange={(e) => setSelectedTime(e.target.value)}
-                    placeholder="اختر الفترة الزمنية"
+                    placeholder={t("select the time period")}
                     InputProps={{
                       endAdornment: selectedTime ? (
                         <InputAdornment position="end">
@@ -267,7 +267,7 @@ export default function ServiceBooking() {
                     }}
                   >
                     {timeOptions.length === 0 ? (
-                      <MenuItem disabled>لا يوجد أوقات متاحة</MenuItem>
+                      <MenuItem disabled>{t("No times available")}</MenuItem>
                     ) : (
                       timeOptions.map((opt) => (
                         <MenuItem key={opt.value} value={opt.value}>
@@ -315,14 +315,14 @@ export default function ServiceBooking() {
                       />
                     </Box>
                     <Typography variant="h6" fontWeight={700}>
-                      عنوان الخدمة
+                      {t("Service Title")}
                     </Typography>
                   </Box>
                 }
               />
               <CardContent sx={{ display: "grid", gap: 1.5 }}>
                 <Typography variant="body2" fontWeight={600}>
-                  أدخل عنوانك{" "}
+                  {t("Enter your address")}{" "}
                   <Box component="span" sx={{ color: "error.main" }}>
                     *
                   </Box>
@@ -331,7 +331,7 @@ export default function ServiceBooking() {
                 <TextField
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="أدخل عنوانك الكامل"
+                  placeholder={t("Enter your address")}
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -370,7 +370,7 @@ export default function ServiceBooking() {
                         sx={{ color: "primary.main", fontSize: 18, mt: "2px" }}
                       />
                       <Typography variant="body2" color="primary.dark">
-                        طريق منتزة الخيران 278 منطقة 3، النامي، الخيران، الكويت
+                        Abodabi . khalifa Street , 2990
                       </Typography>
                     </Box>
                   </Box>
@@ -404,10 +404,13 @@ export default function ServiceBooking() {
                     sx={{ color: "rgba(255,255,255,0.7)" }}
                     fontWeight={600}
                   >
-                    المبلغ الإجمالي
+                    {t("Total")}
                   </Typography>
                   <Typography variant="h5" fontWeight={800}>
-                    {selectedTime ? serviceDetail?.price.toFixed(3) : Number(0).toFixed(3)} KD
+                    {selectedTime
+                      ? serviceDetail?.price.toFixed(3)
+                      : Number(0).toFixed(3)}{" "}
+                    KD
                   </Typography>
                 </Box>
                 <Box sx={{ textAlign: "right" }}>
@@ -415,7 +418,7 @@ export default function ServiceBooking() {
                     variant="body2"
                     sx={{ color: "rgba(255,255,255,0.7)" }}
                   >
-                    رسوم الخدمة مشمولة
+                    {t("Service fee included")}
                   </Typography>
                 </Box>
               </Box>
@@ -454,7 +457,7 @@ export default function ServiceBooking() {
               },
             }}
           >
-            {isFormValid ? "انتقل إلى الدفع" : "أكمل جميع الحقول"}
+            {isFormValid ? "Continue to payment" : "Fill all fields"}
           </Button>
         </Box>
       </Box>
