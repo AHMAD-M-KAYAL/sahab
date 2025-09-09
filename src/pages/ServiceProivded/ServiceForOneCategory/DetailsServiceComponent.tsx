@@ -17,7 +17,7 @@ export const DetailsServiceComponent = () => {
         <Box sx={{ fontWeight: "800", fontSize: "40px" }}>{data?.title}</Box>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ fontWeight: "600", fontSize: "30px" }}>
-            {data?.duration}KD
+            {data?.duration}$
           </Box>
         </Box>
         <Box sx={{ display: "flex", paddingTop: "10px" }}>

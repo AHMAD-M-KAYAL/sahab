@@ -143,7 +143,7 @@ export default function AllBookings() {
                           <Stack spacing={0.5}>
                             <Typography variant="body2">
                               <strong>{t("Total Price")}:</strong>{" "}
-                              {p.total_price} KD
+                              {p.total_price} $
                             </Typography>
 
                             {p.invoice_reference && (
@@ -241,7 +241,7 @@ export default function AllBookings() {
                           <Stack spacing={0.5}>
                             <Typography variant="body2">
                               <strong>{t("Total Price")}:</strong>{" "}
-                              {s.total_price} KD
+                              {s.total_price} $
                             </Typography>
 
                             {s.invoice_reference && (

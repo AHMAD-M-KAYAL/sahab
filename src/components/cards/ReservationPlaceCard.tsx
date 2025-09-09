@@ -28,7 +28,7 @@ export const ReservationPlaceCard = () => {
       <CardContent>
         <Typography>Status: status</Typography>
         <Typography>Category: category</Typography>
-        <Typography fontWeight={700}>Amount: amount KD</Typography>
+        <Typography fontWeight={700}>Amount: amount $</Typography>
       </CardContent>
     </Card>
   );

@@ -17,7 +17,7 @@ export const ReservationServiceCard = () => {
       <CardContent>
         <Typography>ID: id</Typography>
         <Typography>Booking: bookingId</Typography>
-        <Typography fontWeight={700}>Amount: amount KD</Typography>
+        <Typography fontWeight={700}>Amount: amount $</Typography>
       </CardContent>
     </Card>
   );

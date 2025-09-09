@@ -395,7 +395,7 @@ export default function PlaceBooking() {
                       {t("Register price")}
                     </Typography>
                     <Typography variant="h5" fontWeight={800} color="primary">
-                      KD {totalPrice.toFixed(3)}
+                      $ {totalPrice.toFixed(3)}
                     </Typography>
                   </Box>
                   <Button

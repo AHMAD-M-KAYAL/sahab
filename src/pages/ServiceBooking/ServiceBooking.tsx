@@ -411,7 +411,7 @@ export default function ServiceBooking() {
                     {selectedTime
                       ? serviceDetail?.price.toFixed(3)
                       : Number(0).toFixed(3)}{" "}
-                    KD
+                    $
                   </Typography>
                 </Box>
                 <Box sx={{ textAlign: "right" }}>

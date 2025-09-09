@@ -29,13 +29,6 @@ import { useCancelBooking } from "../../hook/useCancelBooking";
 import { useTranslation } from "react-i18next";
 // import apiClient from "../../services/api-client";
 
-type Booking = {
-  bookingAmount: string;
-};
-
-const booking: Booking = {
-  bookingAmount: "15000.00",
-};
 const statusColor = (status: string) => {
   const s = (status || "").toLowerCase();
   if (s === "completed") return { bg: "#e8f5e9", color: "#1b5e20" }; // أخضر
@@ -160,7 +153,7 @@ export default function BookingDetailsPage() {
                   </Grid>
                   <Grid size={{ xs: 12, sm: 6 }}>
                     <Typography variant="body2" color="text.secondary">
-                      category_title
+                      Category
                     </Typography>
                     <Typography fontWeight={700}>
                       {data?.category_title}
@@ -170,7 +163,7 @@ export default function BookingDetailsPage() {
                     <Typography variant="body2" color="text.secondary">
                       Amount
                     </Typography>
-                    <Typography fontWeight={800}>{data?.total} KD</Typography>
+                    <Typography fontWeight={800}>{data?.total} $</Typography>
                   </Grid>
                 </Grid>
               </CardContent>
@@ -188,7 +181,7 @@ export default function BookingDetailsPage() {
               />
               <CardContent>
                 <Typography fontWeight={700} gutterBottom>
-                  {data?.address}
+                  {data?.place_title}
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid size={{ xs: 12, sm: 6 }}>
@@ -281,9 +274,9 @@ export default function BookingDetailsPage() {
                 <Box display="grid" gap={1.2}>
                   <Row
                     label="Booking Amount"
-                    value={`${booking.bookingAmount} KD`}
+                    value={`${data?.total_price} $`}
                   />
-                  <Row label="Discount" value={`${data?.discount} KD`} />
+                  <Row label="Discount" value={`${data?.discount} $`} />
                 </Box>
 
                 <Divider sx={{ my: 2 }} />
@@ -297,7 +290,7 @@ export default function BookingDetailsPage() {
                     Total
                   </Typography>
                   <Typography variant="h6" fontWeight={900}>
-                    {data?.total} KD
+                    {data?.total} $
                   </Typography>
                 </Box>
               </CardContent>

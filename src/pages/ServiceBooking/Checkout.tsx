@@ -414,7 +414,7 @@ export default function ServiceBookingCheckout() {
                 >
                   <Typography> {t("Register price")}</Typography>
                   <Typography fontWeight={600}>
-                    {Number(totalPriceNum).toFixed(3)} KD
+                    {Number(totalPriceNum).toFixed(3)} $
                   </Typography>
                 </Box>
                 <Box
@@ -426,7 +426,7 @@ export default function ServiceBookingCheckout() {
                 >
                   <Typography>{t("Discount")}</Typography>
                   <Typography fontWeight={600}>
-                    {Number(0).toFixed(3)} KD
+                    {Number(0).toFixed(3)} $
                   </Typography>
                 </Box>
                 <Divider sx={{ my: 1.25 }} />
@@ -441,7 +441,7 @@ export default function ServiceBookingCheckout() {
                     {t("Total")}
                   </Typography>
                   <Typography variant="h6" fontWeight={800} color="primary">
-                    {Number(totalPriceNum).toFixed(3)} KD
+                    {Number(totalPriceNum).toFixed(3)} $
                   </Typography>
                 </Box>
               </CardContent>

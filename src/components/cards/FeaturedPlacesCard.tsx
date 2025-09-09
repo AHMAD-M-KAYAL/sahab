@@ -66,7 +66,7 @@ export const FeaturedPlacesCard = ({ featuredPlaces }: Props) => {
             }}
             level="body-sm"
           >
-            Starting From {featuredPlaces.weekday_price} KD
+            Starting From {featuredPlaces.weekday_price} $
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>

@@ -335,7 +335,7 @@ export default function PlaceBookingCheckout() {
                   >
                     <Typography>{t("Register price")}</Typography>
                     <Typography fontWeight={600}>
-                      KD {Number(totalPrice).toFixed(3)}
+                      $ {Number(totalPrice).toFixed(3)}
                     </Typography>
                   </Box>
                   <Box
@@ -347,7 +347,7 @@ export default function PlaceBookingCheckout() {
                   >
                     <Typography>{t("Discount")}</Typography>
                     <Typography fontWeight={600}>
-                      KD {Number(0).toFixed(3)}
+                      $ {Number(0).toFixed(3)}
                     </Typography>
                   </Box>
                   <Divider sx={{ my: 1.5 }} />
@@ -362,7 +362,7 @@ export default function PlaceBookingCheckout() {
                       {t("Total")}
                     </Typography>
                     <Typography variant="h5" fontWeight={800} color="primary">
-                      KD {Number(totalPrice).toFixed(3)}
+                      $ {Number(totalPrice).toFixed(3)}
                     </Typography>
                   </Box>
                 </Box>

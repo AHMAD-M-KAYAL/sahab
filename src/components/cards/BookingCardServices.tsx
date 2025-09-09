@@ -7,7 +7,7 @@ import { useGetOneServiceDetails } from "../../hook/useGetOneServiceDetails";
 export default function BookingCardServices() {
   const { id } = useParams();
   const { data } = useGetOneServiceDetails(Number(id));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <Card
       variant="solid"
@@ -38,7 +38,7 @@ export default function BookingCardServices() {
           alignItems: "center",
         }}
       >
-        {data?.price}KD{" "}
+        {data?.price}${" "}
       </Box>
       <Box
         sx={{
@@ -55,7 +55,7 @@ export default function BookingCardServices() {
       <Divider sx={{ my: 1, borderBottomWidth: 1, bgcolor: "primary.main" }} />
       <Button
         disabled={data?.bookable === 0}
-        onClick={()=> navigate(`/services/book/${id}`)}
+        onClick={() => navigate(`/services/book/${id}`)}
         sx={{
           color: "white",
           backgroundColor: data?.bookable === 0 ? "#b0b0b0" : "#18181b",

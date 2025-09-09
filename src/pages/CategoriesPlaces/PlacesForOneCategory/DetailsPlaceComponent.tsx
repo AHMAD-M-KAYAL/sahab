@@ -18,7 +18,7 @@ export const DetailsPlaceComponent = () => {
         <Box sx={{ fontWeight: "800", fontSize: "40px" }}>{data?.title}</Box>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ fontWeight: "600", fontSize: "30px" }}>
-            Starting From {data?.weekday_price}KD
+            Starting From {data?.weekday_price}$
           </Box>
           <Box
             sx={{

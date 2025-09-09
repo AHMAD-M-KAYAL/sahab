@@ -7,14 +7,14 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function BookingCardCategory() {
   const { id } = useParams();
   const { data } = useGetOnePlaceDetails(Number(id));
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   return (
     <Card
       variant="solid"
       color="primary"
       invertedColors
-      onClick={()=> navigate(`/places/book/${id}`)}
+      onClick={() => navigate(`/places/book/${id}`)}
       sx={{
         boxSizing: "border-box",
         margin: "auto",
@@ -40,7 +40,7 @@ export default function BookingCardCategory() {
           alignItems: "center",
         }}
       >
-        {data?.weekday_price}KD{" "}
+        {data?.weekday_price}${" "}
       </Box>
       <Box
         sx={{

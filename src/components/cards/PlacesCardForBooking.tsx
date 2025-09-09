@@ -62,7 +62,7 @@ export const PlacesCardForBooking = ({ bookingPlaceDetails }: Props) => {
             }}
             level="body-sm"
           >
-            Starting From {bookingPlaceDetails.weekday_price} KD
+            Starting From {bookingPlaceDetails.weekday_price} $
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>

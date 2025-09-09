@@ -66,7 +66,7 @@ export const PlacesCard2 = ({ Places }: Props) => {
             }}
             level="body-sm"
           >
-            Starting From {Places.weekday_price} KD
+            Starting From {Places.weekday_price} $
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "flex-start" }}>

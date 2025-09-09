@@ -62,7 +62,7 @@ export const ServicesCard = ({ Service }: Props) => {
             }}
           >
             <Typography level="body-sm">
-              Starting From {Service.price} KD
+              Starting From {Service.price} $
             </Typography>
             <Typography level="body-sm">
               {t("duration")}:{Service.duration} {t("hour")}
