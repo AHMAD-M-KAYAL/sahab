@@ -229,7 +229,7 @@ export default function BookingDetailsPage() {
                   color="text.secondary"
                 >
                   <PhoneIphoneIcon fontSize="small" />
-                  <Typography variant="body2">+965 {data?.phone}</Typography>
+                  <Typography variant="body2">+963 {data?.phone}</Typography>
                 </Box>
               </CardContent>
             </Card>

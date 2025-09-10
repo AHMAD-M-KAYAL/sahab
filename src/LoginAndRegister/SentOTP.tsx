@@ -162,7 +162,7 @@ const SentOTP = () => {
           fontWeight: "100",
         }}
       >
-        +965 {phone}
+        +963 {phone}
       </Box>
 
       <Box

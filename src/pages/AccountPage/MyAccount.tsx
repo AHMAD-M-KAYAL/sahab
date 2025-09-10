@@ -38,7 +38,7 @@ export const MyAccount = () => {
             {userName ?? "must register"}
           </Box>
           <Box sx={{ fontWeight: "100", fontSize: "20px" }}>
-            +965{userPhone ?? ""}
+            +963{userPhone ?? ""}
           </Box>
         </Box>
       </Box>
