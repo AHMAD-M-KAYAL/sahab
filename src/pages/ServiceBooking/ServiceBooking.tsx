@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useState } from "react";
 import IconBack from "../../assets/logo/back.svg";
 import {
@@ -172,7 +173,7 @@ export default function ServiceBooking() {
           "linear-gradient(120deg, #f7f9fc 0%, #eef2f6 50%, #f8fafc 100%)",
       }}
     >
-      {/* ✅ navbar كما هو */}
+      {/*  navbar كما هو */}
       <nav
         className="navbar"
         style={{
@@ -204,7 +205,7 @@ export default function ServiceBooking() {
         />
       </nav>
 
-      {/* شريط خطوات (يستخدم نفس الهوامش الجانبية الخفيفة) */}
+      {/* شريط خطوات  */}
       <Box sx={{ ...sectionSx, pt: 2 }}>
         <Stepper activeStep={activeStep} alternativeLabel>
           <Step completed={!!selectedDate}>

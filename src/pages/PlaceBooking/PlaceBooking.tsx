@@ -64,27 +64,28 @@ export default function PlaceBooking() {
   }, [disabledDaysFromApi]);
 
   const monthNames = [
-    "يناير",
-    "فبراير",
-    "مارس",
-    "أبريل",
-    "مايو",
-    "يونيو",
-    "يوليو",
-    "أغسطس",
-    "سبتمبر",
-    "أكتوبر",
-    "نوفمبر",
-    "ديسمبر",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
+
   const dayNames = [
-    "الأحد",
-    "الاثنين",
-    "الثلاثاء",
-    "الأربعاء",
-    "الخميس",
-    "الجمعة",
-    "السبت",
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
 
   const getDaysInMonth = (date: Date) => {
@@ -100,13 +101,13 @@ export default function PlaceBooking() {
     return days;
   };
 
-  // ✅ أي يوم قبل اليوم أو ضمن قائمة الـ API يعتبر Disabled
+  //  أي يوم قبل اليوم أو ضمن قائمة الـ API يعتبر Disabled
   const isDisabled = (date: Date) => {
     const ts = startOfDay(date).getTime();
     return ts < todayStart || disabledSet.has(ts);
   };
 
-  // ✅ لو في أيام ماضية أو محجوزة بين تاريخين، نمنع اختيار هذا المدى
+  //  لو في أيام ماضية أو محجوزة بين تاريخين، نمنع اختيار هذا المدى
   const hasDisabledBetween = (a: Date, b: Date) => {
     const from = Math.min(startOfDay(a).getTime(), startOfDay(b).getTime());
     const to = Math.max(startOfDay(a).getTime(), startOfDay(b).getTime());
@@ -280,20 +281,24 @@ export default function PlaceBooking() {
                         justifyContent: "space-between",
                       }}
                     >
+                      {/* السابق = سهم لليسار */}
                       <IconButton
-                        aria-label={t("Next Month")}
-                        onClick={() => navigateMonth("next")}
+                        aria-label={t("Previous Month")}
+                        onClick={() => navigateMonth("prev")}
                         size="small"
                       >
                         <ChevronLeftIcon fontSize="small" />
                       </IconButton>
+
                       <Typography variant="h6" fontWeight={700}>
                         {monthNames[currentDate.getMonth()]}{" "}
                         {currentDate.getFullYear()}
                       </Typography>
+
+                      {/* التالي = سهم لليمين */}
                       <IconButton
-                        aria-label={t("previous Month")}
-                        onClick={() => navigateMonth("prev")}
+                        aria-label={t("Next Month")}
+                        onClick={() => navigateMonth("next")}
                         size="small"
                       >
                         <ChevronRightIcon fontSize="small" />
@@ -301,6 +306,7 @@ export default function PlaceBooking() {
                     </Box>
                   }
                 />
+
                 <CardContent>
                   {/* Day headers */}
                   <Grid container columns={7} spacing={0.5} sx={{ mb: 2 }}>
@@ -470,14 +476,7 @@ export default function PlaceBooking() {
                     </Box>
                     <Box
                       sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Typography variant="body2" color="text.secondary">
-                        {t("number of guests")}
-                      </Typography>
-                      <Typography variant="body2" fontWeight={700}>
-                        1
-                      </Typography>
-                    </Box>
+                    ></Box>
                   </CardContent>
                 </Card>
               </Box>

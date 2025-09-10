@@ -10,7 +10,7 @@ import { CategoriesPlaces } from "./PlaceProvided/CategoriesPlaces";
 import { CategoriesServices } from "./ServiceProivded/CategoriesServices";
 
 const Home = () => {
-  const { data, isLoading } = useGetHomePhotos(); // 👈 افترض أن الهوك يرجع isLoading
+  const { data, isLoading } = useGetHomePhotos(); //   افترض أن الهوك يرجع isLoading
 
   return (
     <Box sx={{ backgroundColor: "#f9fafb" }}>

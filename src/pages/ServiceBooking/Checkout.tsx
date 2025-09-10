@@ -1,4 +1,5 @@
 import { useState } from "react";
+import IconBack from "../../assets/logo/back.svg";
 import {
   Box,
   Button,
@@ -13,7 +14,6 @@ import {
   Radio,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaceIcon from "@mui/icons-material/Place";
@@ -111,30 +111,40 @@ export default function ServiceBookingCheckout() {
       }}
     >
       {/* Header */}
-      <Box
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-          p: 2,
-          bgcolor: "background.paper",
-          borderBottom: 1,
-          borderColor: "divider",
-          backdropFilter: "blur(6px)",
-          boxShadow: 1,
+
+      <nav
+        className="navbar"
+        style={{
+          backgroundColor: "white",
+          direction: "ltr",
+
+          boxShadow: "0 4px 16px 0 rgba(0,0,0,0.10)",
         }}
       >
-        <IconButton onClick={() => navigate(-1)} size="small">
-          <ArrowBackIosNewIcon fontSize="small" />
-        </IconButton>
-        <Typography variant="h6" fontWeight={700}>
-          {t("payment procedure")}
-        </Typography>
-      </Box>
-
+        <Box
+          component={Button}
+          onClick={() => {
+            navigate(-1);
+          }}
+          sx={{
+            width: "10%",
+            backgroundColor: "white",
+            "&:hover": {
+              transform: "translateY(1px) scale(1.201)",
+            },
+          }}
+        >
+          <Box component="img" src={IconBack} />
+        </Box>
+        <Box
+          sx={{
+            padding: "10px",
+            fontWeight: "800",
+            fontSize: "30px",
+            width: "80%",
+          }}
+        ></Box>
+      </nav>
       <Box sx={{ maxWidth: 1200, mx: "auto", p: 3 }}>
         <Grid container sx={{ mb: 3 }}>
           {/* Contact Details */}
@@ -148,6 +158,7 @@ export default function ServiceBookingCheckout() {
                 boxShadow: 6,
                 bgcolor: "rgba(255,255,255,0.8)",
                 backdropFilter: "blur(6px)",
+                borderRadius: "7px",
               }}
             >
               <CardHeader
@@ -167,6 +178,7 @@ export default function ServiceBookingCheckout() {
                   </Typography>
                   <TextField
                     id="name"
+                    disabled
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={t("Enter your name")}
@@ -183,6 +195,7 @@ export default function ServiceBookingCheckout() {
                   </Typography>
                   <TextField
                     id="phone"
+                    disabled
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder={t("Enter your phone number")}
@@ -206,6 +219,7 @@ export default function ServiceBookingCheckout() {
                 boxShadow: 6,
                 bgcolor: "rgba(255,255,255,0.8)",
                 backdropFilter: "blur(6px)",
+                borderRadius: "7px",
               }}
             >
               <CardHeader
@@ -300,7 +314,7 @@ export default function ServiceBookingCheckout() {
         </Grid>
 
         <Grid container sx={{ mb: 3 }}>
-          {/* Payment Method (spans 2 columns on lg) */}
+          {/* Payment Method */}
           <Grid size={{ xs: 12, lg: 8 }} container>
             <Card
               variant="outlined"
@@ -312,6 +326,7 @@ export default function ServiceBookingCheckout() {
                 boxShadow: 6,
                 bgcolor: "rgba(255,255,255,0.8)",
                 backdropFilter: "blur(6px)",
+                borderRadius: "7px",
               }}
             >
               <CardHeader
@@ -395,6 +410,7 @@ export default function ServiceBookingCheckout() {
                 boxShadow: 6,
                 bgcolor: "rgba(255,255,255,0.8)",
                 backdropFilter: "blur(6px)",
+                borderRadius: "7px",
               }}
             >
               <CardHeader

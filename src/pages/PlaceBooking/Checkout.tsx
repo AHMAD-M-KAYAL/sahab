@@ -68,6 +68,7 @@ export default function PlaceBookingCheckout() {
   return (
     <>
       {" "}
+      {/* Header */}
       <nav
         className="navbar"
         style={{
@@ -103,7 +104,6 @@ export default function PlaceBookingCheckout() {
       </nav>
       <Box dir="rtl" sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
         <Box sx={{ maxWidth: 1200, mx: "auto", p: { xs: 2, md: 4 } }}>
-          {/* Header */}
           <Box
             sx={{
               mb: 4,
@@ -152,6 +152,7 @@ export default function PlaceBookingCheckout() {
                       {t("name")}
                     </Typography>
                     <TextField
+                      disabled
                       id="name"
                       value={contactDetails.name}
                       onChange={(e) =>
@@ -176,6 +177,7 @@ export default function PlaceBookingCheckout() {
                     </Typography>
                     <TextField
                       id="phone"
+                      disabled
                       value={contactDetails.phone}
                       onChange={(e) =>
                         setContactDetails((p) => ({
@@ -278,14 +280,7 @@ export default function PlaceBookingCheckout() {
                           justifyContent: "start",
                           gap: 2,
                         }}
-                      >
-                        <Typography variant="body2" color="text.secondary">
-                          عدد الضيوف:
-                        </Typography>
-                        <Typography variant="body2" fontWeight={600}>
-                          1
-                        </Typography>
-                      </Box>
+                      ></Box>
                     </Grid>
                   </Grid>
                 </CardContent>
